@@ -1,0 +1,14 @@
+
+.day-lessons-header h5 {
+    background-color: #06769e;
+    /*background-color: #8ddcf8;*/
+    color: white;
+    padding: 10px;
+    margin: 20px 0 0 0;
+}
+
+.day-lessons-header {
+    color: #222;
+    font-family: sans-serif;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
