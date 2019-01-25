@@ -15,7 +15,7 @@ import AuthenticatedRoute from './ui/components/AuthenticatedRoute';
 import PageLayout from './ui/template/PageLayout';
 
 //Styles
-import './css/theme.css';
+import './assets/css/theme.css';
 
 //Template parts
 import Header from './ui/template/Header/Header';
@@ -52,8 +52,8 @@ export default class App extends React.Component {
                             <Route exact path='/' render={() => <LoginPage {...{ user }}/>}/>
                         </Switch>
                     </div>
+                    <Footer/>
                 </div>
-                {/*<Footer/>*/}
             </BrowserRouter>
         )
     }
