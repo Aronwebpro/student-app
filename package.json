@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^3.12.4",
     "firebase": "^5.8.0",
     "firebase-admin": "^6.5.0",
     "firebaseui": "^3.5.2",
