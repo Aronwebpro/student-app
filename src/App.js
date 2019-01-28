@@ -15,18 +15,20 @@ import AuthenticatedRoute from './ui/components/AuthenticatedRoute';
 import PageLayout from './ui/template/PageLayout';
 
 //Styles
+import 'antd/dist/antd.css';
 import './assets/css/theme.css';
 
 //Template parts
 import Header from './ui/template/Header/Header';
 import Footer from './ui/template/Footer/Footer';
-//import SideBar from './ui/template/SideBar';
+import SideBar from './ui/template/SideBar/SideBar';
 
 //Components
 import Login from './ui/pages/Login/Login';
 import Home from './ui/pages/Home/Home';
+import Schedule from './ui/pages/Schedule/Schedule';
 
-//Wrapped Components
+//Pages
 const LoginPage = PageLayout({
     PageComponent: Login,
     pageId: 'login',
@@ -35,8 +37,15 @@ const LoginPage = PageLayout({
 const HomePage = PageLayout({
     PageComponent: Home,
     pageId: 'home',
-    //SideBarComponent: SideBar,
-    //layout: 'withSidebar'
+    SideBarComponent: SideBar,
+    layout: 'withSidebar'
+});
+
+const SchedulePage = PageLayout({
+    PageComponent: Schedule,
+    pageId: 'schedule',
+    SideBarComponent: SideBar,
+    layout: 'withSidebar'
 });
 
 export default class App extends React.Component {
@@ -48,7 +57,18 @@ export default class App extends React.Component {
                     <Header {...{ user }} />
                     <div className='content'>
                         <Switch>
-                            <AuthenticatedRoute {...{ user }} exact path="/home" render={() => <HomePage {...{ user }}/>}/>
+                            <AuthenticatedRoute
+                                {...{ user }}
+                                exact
+                                path="/home"
+                                render={(params) => <HomePage {...{ params, user }}/>}
+                            />
+                            <AuthenticatedRoute
+                                {...{ user }}
+                                exact
+                                path="/schedule"
+                                render={(params) => <SchedulePage {...{ params, user }}/>}
+                            />
                             <Route exact path='/' render={() => <LoginPage {...{ user }}/>}/>
                         </Switch>
                     </div>
