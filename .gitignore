@@ -24,4 +24,4 @@ yarn-error.log*
 
 .idea/
 .idea/*/**
-/src/firebase.js
+src/firebase.js

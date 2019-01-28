@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 //Firebase
-import './firebase';
-import { auth } from 'firebase';
+import { auth } from 'firebase/app';
 
 //Api
 import { getUser } from './api/lookups';
@@ -20,10 +19,9 @@ auth().onAuthStateChanged(async userObj => {
             auth().signOut();
         }
     } else {
-        ReactDOM.render(<App />, document.getElementById('root'));
+        ReactDOM.render(<App/>, document.getElementById('root'));
     }
 });
-
 
 
 // If you want your app to work offline and load faster, you can change

@@ -5,7 +5,7 @@ import { changeWeekDayFromEngToLt } from '../../../utils/index';
 import './day-lessons.css';
 
 //Components
-import Index from '../LessonCard';
+import LessonCard from '../LessonCard';
 
 export default class DayLessons extends React.PureComponent {
     render() {
@@ -18,7 +18,7 @@ export default class DayLessons extends React.PureComponent {
                 <h5>{changeWeekDayFromEngToLt(title)}</h5>
                 {data && data.length > 0 && data.map((lesson) => {
                     return (
-                        <Index {...lesson} key={lesson.lessonId}/>
+                        <LessonCard {...lesson} key={lesson.lessonId}/>
                     )
                 })}
             </div>
