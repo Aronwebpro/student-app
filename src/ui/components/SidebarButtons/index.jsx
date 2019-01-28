@@ -37,9 +37,9 @@ export default class SidebarButtons extends React.PureComponent {
                     return (
                         <div className='navigation-button-wrapper'>
                             <Link to="/" className="back-button btn">Atgal</Link>
-                            <a onClick={this.handleReplyWithUser} className="new-comment-button btn">
+                            <button onClick={this.handleReplyWithUser} className="new-comment-button btn">
                                 Naujas Komentaras
-                            </a>
+                            </button>
                         </div>
                     )
                 } else {
@@ -49,7 +49,7 @@ export default class SidebarButtons extends React.PureComponent {
                 return (
                     <div className='navigation-button-wrapper'>
                         <Link to="/" className="back-button btn">Atgal</Link>
-                        <a onClick={reset} className="new-comment-button btn">Restartuoti</a>
+                        <button onClick={reset} className="new-comment-button btn">Restartuoti</button>
                     </div>
                 );
             default :
@@ -58,6 +58,9 @@ export default class SidebarButtons extends React.PureComponent {
                 )
         }
     };
+    handleReplyWithUser = () => {
+
+    }
 
 
 };

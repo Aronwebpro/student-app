@@ -9,16 +9,13 @@ const PageLayout = ({PageComponent, SideBarComponent, pageId, layout}) => {
             return class extends React.Component {
                 render() {
                     return (
-                        <div className="container">
-                            <div id={pageId ? `${pageId}` : 'page'}>
-                                <div className="left">
+                        <div id={pageId ? `${pageId}` : 'page'} className="container">
+                                <div className="leftSide">
                                     <SideBarComponent page={pageId} {...this.props}/>
                                 </div>
-                                <div className="right">
+                                <div className="rightSide">
                                     <PageComponent {...this.props}/>
                                 </div>
-                                <div className="fl_c" />
-                            </div>
                         </div>
                     );
                 }

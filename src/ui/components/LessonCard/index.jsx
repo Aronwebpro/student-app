@@ -95,7 +95,7 @@ export default class LessonCard extends Component {
 }
 
 LessonCard.propTypes = {
-    date: PropTypes.string.isRequired,
+    date: PropTypes.number.isRequired,
     grade: PropTypes.string.isRequired,
     lessonId: PropTypes.string.isRequired,
     disciplineName: PropTypes.string.isRequired,

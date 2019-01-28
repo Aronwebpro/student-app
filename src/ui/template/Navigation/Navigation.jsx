@@ -1,21 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 //Api
-import {signOut} from "../../../api/auth";
+import { signOut } from "../../../api/auth";
 
+//Styles
+import './navigation.css';
 
 class Navigation extends React.PureComponent {
     render() {
-        const {user} = this.props;
+        const { user } = this.props;
         return (
             <div className="navigation-wrapper">
-                <nav className={!user || (user && !user.authorAvatar) ? 'nav-logged-out' : undefined} >
+                <nav className={!user || (user && !user.authorAvatar) ? 'nav-logged-out' : undefined}>
                     {user && (
                         <div>
                             <Link to="/home">Pirmas Puslapis</Link>
-                            <Link to="/profile" className="theme-color_txt log-out">Profile</Link>
-                            <a className="log-out" onClick={this.logOut} style={{cursor: 'pointer'}}>Atsijungti</a>
+                            <Link to="/profile" className="theme-color_txt log-out">Profilis</Link>
+                            <button className="log-out" onClick={this.logOut} style={{ cursor: 'pointer' }}>Atsijungti</button>
                         </div>
                     )}
                     {!user && <Link to="/register">Sign Up</Link>}
