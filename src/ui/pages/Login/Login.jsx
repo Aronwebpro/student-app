@@ -4,36 +4,43 @@ import { Redirect } from 'react-router-dom';
 //Api
 import { signIn } from '../../../api/auth';
 
-//Components
-// import { FlashMessage } from '../../../../../../student-lesson_card/src/components/mixins/FlashMessage/FlashMessage';
-// import { FlashMessageHandler } from '../../../../../../student-lesson_card/src/utils/FlashMessageHandler';
+//Antd
+import Spin from 'antd/lib/spin';
+import Message from 'antd/lib/message';
 
 //Styles
-import './css/login.css';
-
+import './login.css';
 
 export default class Login extends React.Component {
+    state = {
+        buttonActive: false,
+    };
+
     render() {
         const { user } = this.props;
-        console.log(user);
+        const { buttonActive } = this.state;
         return user ? (
             <Redirect to={'/home'}/>
         ) : (
             <div className="container">
                 <div className="login-wrapper">
-                    <h1>Prisijungti: </h1>
+                    <h1>Prisijungti</h1>
                     <div className="form-wrapper">
                         <form onSubmit={this.handleLogin}>
                             <label htmlFor="email">Elektroninis Paštas:</label>
                             <input type="text" name="email" ref={input => this.email = input}/>
                             <label htmlFor="">Slaptažodis:</label>
                             <input type="password" name="password" ref={input => this.password = input}/>
-                            <button className="btn" type="submit" name="submit">Prisijungti</button>
+                            <button className="btn" type="submit" name="submit">
+                                Prisijungti
+                                {buttonActive && (
+                                    <span className='spin-container'><Spin size="small"/></span>
+                                )}
+                            </button>
                         </form>
                     </div>
                 </div>
             </div>
-
         )
     }
 
@@ -41,19 +48,20 @@ export default class Login extends React.Component {
     handleLogin = async (e) => {
         e.preventDefault();
         const { email, password } = this;
+        this.setState({ buttonActive: true });
         try {
             //Sign In User and get user's data
             const user = await signIn(email.value, password.value);
             //Set Flash message and save to DB
             if (user) {
-                // const msg = 'Welcome back ' + user.displayName + '! You\'ve logged in successfully!';
-                // FlashMessageHandler.create(msg, 'success');
                 this.setState({ redirect: true });
+                Message.success('Prisijungta sėkmingai!');
             }
         }
         catch (error) {
             this.password.value = '';
-            this.setState({ displayFlashMessage: true, flashMessage: { msg: error.message, status: 'error' } });
+            Message.error(error.message);
+            this.setState({ buttonActive: false });
         }
     };
 }
