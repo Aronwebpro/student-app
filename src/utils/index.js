@@ -79,6 +79,38 @@ const changeWeekDayFromEngToLt = (day) => {
             return '';
     }
 };
+
+const changeMonthFromEngToLt = (month) => {
+    switch (month) {
+        case 'Jan' :
+            return 'Sausio';
+        case 'Feb' :
+            return 'Vasario';
+        case 'Mar' :
+            return 'Kovo';
+        case 'Apr' :
+            return 'Balandžio';
+        case 'May' :
+            return 'Gegužės';
+        case 'Jun' :
+            return 'Birželio';
+        case 'Jul' :
+            return 'Liepos';
+        case 'Aug' :
+            return 'Rugpjūčio';
+        case 'Sep' :
+            return 'Rugsėjo';
+        case 'Oct' :
+            return 'Spalio';
+        case 'Nov' :
+            return 'Lapkričio';
+        case 'Dec' :
+            return 'Gruodžio';
+        default :
+            return '';
+    }
+};
+
 export {
     formatToDateString,
     formatToTimeString,
@@ -86,4 +118,5 @@ export {
     saveUsersToStorage,
     formatToDateAndTimeString,
     changeWeekDayFromEngToLt,
+    changeMonthFromEngToLt,
 }

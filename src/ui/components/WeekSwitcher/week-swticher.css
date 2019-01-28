@@ -1,0 +1,10 @@
+.week-switcher-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.button-left-container:active,
+.button-right-container:active {
+    opacity: 0.7;
+}

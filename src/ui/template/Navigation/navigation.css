@@ -1,0 +1,16 @@
+.log-out {
+    color: white;
+    text-decoration: none;
+    font-size: 1.25em;
+    margin: 0 15px;
+    padding-bottom: 3px;
+    transition: color 0.1s linear;
+    border: none;
+    background: none;
+}
+
+.log-out:hover,
+.log-out:active,
+.log-out:focus {
+    color: rgba(97, 218, 251, 0.54);
+}

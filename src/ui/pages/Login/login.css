@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono|Rubik");
+
+#login {
+    width: 100%;
+    max-width: 350px;
+}
+.login-wrapper {
+    max-width: 400px;
+    width: 100%;
+    display: block;
+    margin: auto;
+    font-size: 1.2em;
+    font-family: "Rubik", sans-serif;
+
+}
+
+.login-wrapper .dont-have-acc {
+    text-align: center;
+    color: #6b6a6a;
+    margin-top: 10px;
+}
+
+.login-wrapper h1 {
+    text-align: center;
+}
+
+.login-wrapper button:active {
+   transform: scale(1.1);
+}
+.login-wrapper .dont-have-acc a {
+    color: #1d1d1d;
+}
+
+.login-wrapper .form-wrapper {
+    //border: 1px solid #222;
+    margin-top: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+    background: #ffffff;
+}
+
+.spin-container {
+    margin-left: 10px;
+    position: absolute;
+}

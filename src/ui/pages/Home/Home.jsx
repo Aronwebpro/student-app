@@ -1,55 +1,75 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import moment from 'moment';
 
 //Api
 import { getLessons } from '../../../api/lookups';
 
 //Components
 import Spinner from '../../components/Spinner';
-import Index from '../../components/DayLessons';
-
+import WeekSwitcher from '../../components/WeekSwitcher';
+import DayLessons from '../../components/DayLessons';
 
 export default class Home extends React.Component {
     state = {
-        lessons: [],
-        categories: [],
+        lessons: {},
         redirect: false,
-        flashMessage: {},
-        displayFlashMessage: false,
         hideLoadBtn: true,
-        amount: 10,
         empty: false,
-        postsLoading: false,
+        week: {
+            firstDayString: '',
+            lastDayString: '',
+            firstDayOfWeek: '',
+            weekNumber: '',
+            weekObj: {},
+        },
     };
 
     render() {
-        const { lessons, empty, postsLoading } = this.state;
-        if (this.state.redirect) return <Redirect to="/"/>
+        const { lessons, postsLoading, week } = this.state;
+        if (this.state.redirect) return <Redirect to="/"/>;
+        const empty = Object.keys(lessons).length === 0;
         return (
-            <div className="container">
+            <div className="forum-container">
                 <div className="forum">
                     <div className="forum-header">
                         <div className="forum-title">
                             <h2>Savaites Pamokos</h2>
                         </div>
+                        <div className="week-switcher">
+                            <WeekSwitcher
+                                week={week}
+                                handleRightClick={this.handleClickWeekRight}
+                                handleLeftClick={this.handleClickWeekLeft}
+                            />
+                        </div>
                     </div>
-                    <div className="fl_c"/>
                     <div className="forum-content">
                         <div className="forum-content-inner">
-                            {!postsLoading && lessons.length > 0 ? lessons.map(dayLessons => (
-                                <Index {...dayLessons} />
-                            )) : (
-                                <div>
-                                    {empty ? (
-                                        <div style={{ textAlign: 'center', fontSize: '2em' }}>
-                                            No Posts
-                                        </div>
-                                    ) : (
+                            {
+                                !postsLoading ? (
+                                    <div>
+                                        {!empty ? Object.keys(lessons).map(day => {
+                                            if (lessons[day].length > 0) {
+                                                return (
+                                                    <DayLessons title={day} data={lessons[day]} key={day}/>
+                                                )
+                                            } else {
+                                                return null;
+                                            }
+                                        }) : (
+                                            <div style={{ textAlign: 'center', fontSize: '2em' }}>
+                                                Šią Savaitę Pamokų Įvestų Nėra
+                                            </div>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <div>
                                         <Spinner/>
-                                    )}
-                                </div>
-                            )}
+                                    </div>
+                                )
+                            }
                         </div>
                     </div>
                 </div>
@@ -63,22 +83,17 @@ export default class Home extends React.Component {
 
     async componentDidMount() {
         //Retrieve Topics from DB
-        this.getScreenData();
+        //this.getScreenData();
 
         if (window) {
             window.scrollTo(0, 0);
         }
+        const week = this.currentWeek();
+        this.setState({ week })
     }
 
-    componentDidUpdate(prevProps) {
-        if (
-            (this.props.params &&
-                prevProps.params &&
-                this.props.params.match.url &&
-                prevProps.params.match.url &&
-                this.props.params.match.url !== prevProps.params.match.url) ||
-            this.props.params !== prevProps.params
-        ) {
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.week.firstDayOfWeek !== this.state.week.firstDayOfWeek) {
             window.scrollTo(0, 0);
             this.getScreenData();
         }
@@ -89,14 +104,33 @@ export default class Home extends React.Component {
     }
 
     //Retrieve Topics and categories from DB
-    getScreenData = async (limit) => {
+    getScreenData = async () => {
         if (!this.isUnmount) {
             this.setState({ postsLoading: true });
         }
-        const lessons = await getLessons();
-
+        const firstDayOfWeek = this.state.week.firstDayOfWeek || moment().startOf('isoWeek').format('YYYY-MM-DD');
+        const lessons = await getLessons(firstDayOfWeek);
         this.setState({ lessons, postsLoading: false });
     };
+
+    //Generate current week Object with Moment JS
+    currentWeek = (date) => {
+        const startOfWeek = moment(date).startOf('isoWeek');
+        const endOfWeek = moment(date).endOf('isoWeek');
+        return {
+            firstDayString: startOfWeek.format('YYYY-MM-DD'),
+            lastDayString: endOfWeek.format('YYYY-MM-DD'),
+            weekNumber: startOfWeek.format('YYYY-Wo'),
+            firstDayOfWeek: startOfWeek.format('YYYY-MM-DD'),
+            weekObj: moment(date ? date : startOfWeek),
+        };
+    };
+
+    //Update Week Object after week switch
+    handleClickWeekRight = () => this.setState({ week: this.currentWeek(this.state.week.weekObj.add(1, 'week')) });
+
+    //Update Week Object after week switch
+    handleClickWeekLeft = () => this.setState({ week: this.currentWeek(this.state.week.weekObj.subtract(1, 'week')) });
 
 }
 
