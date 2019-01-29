@@ -247,13 +247,32 @@ input#img16 {
 }
 
 .btn {
-    padding: 10px 20px;
+    padding: 7px 20px;
     border: 1px solid rgb(97, 218, 251);
     background-color: rgb(97, 218, 251);
     text-align: center;
     color: #fff;
     cursor: pointer;
     transition: all 0.6s;
+}
+
+.btn,
+.btn:hover,
+.btn:active,
+.btn:focus,
+.btn:visited {
+    text-decoration: none;
+    outline: none;
+}
+
+.btn:active {
+    transform: scale(1.05);
+    transition: none;
+}
+
+.btn-animation-on:hover {
+    background-color: rgba(251, 251, 251, 0.6);
+    color: rgb(97, 218, 251);
 }
 
 .navigation-buttons .btn:hover {

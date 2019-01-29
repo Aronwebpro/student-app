@@ -1,10 +1,26 @@
 import db from '../firebase.js';
 import { auth } from 'firebase/app';
+import moment from 'moment';
 
 const getUser = async (userId) => {
     const userRef = db.collection('users');
     const userDoc = await userRef.doc(userId).get();
     return { uid: userId, ...userDoc.data() }
+};
+
+const getCurrentUser = async () => {
+    const uid = auth().currentUser.uid;
+    return await getUser(uid);
+};
+
+const getDayHeartRate = async () => {
+    const date = moment().format('YYYY-MM-DD');
+    const heartRateRef =  db.collection('heartRates').doc(date);
+    const heartRatesDoc = await heartRateRef.get();
+    if (!heartRatesDoc.exists) {
+        return {};
+    }
+    return { heartRateId: heartRatesDoc.id, ...heartRatesDoc.data() };
 };
 
 /**
@@ -44,4 +60,6 @@ export {
     getLessons,
     getSingleLesson,
     getUser,
+    getCurrentUser,
+    getDayHeartRate,
 }

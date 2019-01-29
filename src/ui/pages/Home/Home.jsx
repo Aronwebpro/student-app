@@ -10,6 +10,7 @@ import { getLessons } from '../../../api/lookups';
 import Spinner from '../../components/Spinner';
 import WeekSwitcher from '../../components/WeekSwitcher';
 import DayLessons from '../../components/DayLessons';
+import NewLessonModal from '../../components/NewLessonModal';
 
 export default class Home extends React.Component {
     state = {
@@ -24,14 +25,19 @@ export default class Home extends React.Component {
             weekNumber: '',
             weekObj: {},
         },
+        newLessonModalVisible: false,
     };
 
     render() {
-        const { lessons, postsLoading, week } = this.state;
+        const { lessons, postsLoading, week, newLessonModalVisible } = this.state;
         if (this.state.redirect) return <Redirect to="/"/>;
         const empty = Object.keys(lessons).length === 0;
         return (
             <div className="forum-container">
+                <NewLessonModal
+                    visible={newLessonModalVisible}
+                    hideModal={this.hideNewLessonModal}
+                />
                 <div className="forum">
                     <div className="forum-header">
                         <div className="forum-title">
@@ -70,6 +76,7 @@ export default class Home extends React.Component {
                                     </div>
                                 )
                             }
+                            <button className="btn" onClick={this.openNewLessonModal}>Open Modal</button>
                         </div>
                     </div>
                 </div>
@@ -132,6 +139,8 @@ export default class Home extends React.Component {
     //Update Week Object after week switch
     handleClickWeekLeft = () => this.setState({ week: this.currentWeek(this.state.week.weekObj.subtract(1, 'week')) });
 
+    hideNewLessonModal = () => this.setState({ newLessonModalVisible: false });
+    openNewLessonModal = () => this.setState({ newLessonModalVisible: true });
 }
 
 Home.propTypes = {
