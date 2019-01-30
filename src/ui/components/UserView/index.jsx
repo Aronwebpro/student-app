@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 //Components
 import Spinner from '../Spinner/index';
 
+//Styles
+import './user-view.css';
 
 export default class UserView extends React.PureComponent {
     render() {
@@ -15,23 +17,21 @@ export default class UserView extends React.PureComponent {
             )
         }
         return (
-            <div>
-                <div className="topic-meta theme-color_txt">
-                    <p>
-                        Ivertino
-                    </p>
+            <div className='user-view-container'>
+                <div className="user-view-header">
+                    <h2>Ivertino</h2>
                 </div>
                 <div className="author-avatar">
-                    <img src={userAvatar} alt="Author Avatar"/>
+                    <img src={userAvatar} alt="Coach"/>
                 </div>
-                <div className="topic-meta theme-color_txt">
-                    {coach && (
-                        <p>Mokytojas</p>
-                    )}
-                    <p>
-                        <span className="author">{userName} </span>
-                    </p>
-                </div>
+                {coach && (
+                    <div>
+                        <h2>Mokytojas</h2>
+                        <h3>
+                            <span className="theme-color_txt author">{userName}</span>
+                        </h3>
+                    </div>
+                )}
             </div>
         )
     }

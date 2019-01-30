@@ -65,7 +65,7 @@ const changeWeekDayFromEngToLt = (day) => {
             return 'Pirmadienis';
         case 'Tue' :
             return 'Antradienis';
-        case 'Wen' :
+        case 'Wed' :
             return 'Trečiadienis';
         case 'Thu' :
             return 'Ketvirtadienis';

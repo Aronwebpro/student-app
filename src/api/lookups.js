@@ -25,7 +25,7 @@ const getDayHeartRate = async () => {
 
 /**
  * Fetch Lessons for one current week from Firebase
- * @param date
+ * @param firstDayOfWeek
  * @returns Object -> { WeekDay -> []}
  */
 const getLessons = async (firstDayOfWeek) => {
@@ -44,9 +44,13 @@ const getLessons = async (firstDayOfWeek) => {
     return weekLessons;
 };
 
-const getSingleLesson = async (id) => {
-    console.log(id);
-    const lessonsRef = db.collection('lessons').doc(id);
+/**
+ * Fetch Lesson by Lesson Id
+ * @param lessonId
+ * @returns {Promise<*>}
+ */
+const getSingleLesson = async (lessonId) => {
+    const lessonsRef = db.collection('lessons').doc(lessonId);
     const lessonDoc = await lessonsRef.get();
     if (!lessonDoc.exists) {
         return undefined;

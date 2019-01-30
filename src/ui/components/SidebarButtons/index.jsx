@@ -26,30 +26,53 @@ export default class SidebarButtons extends React.PureComponent {
                 if (user && user.role === 'coach') {
                     return (
                         <div className='navigation-button-wrapper'>
-                            <Link to="/newPost" className="new-topic-button btn">Ivesti Nauja Pamoką</Link>
+                            <button
+                                className="new-topic-button btn"
+                                onClick={this.handleCreateNewLesson}
+                            >
+                                Ivesti Nauja Pamoką
+                            </button>
                         </div>
                     );
                 } else {
                     return
                 }
-            case 'post' :
+            case 'lesson' :
                 if (user) {
                     return (
                         <div className='navigation-button-wrapper'>
-                            <Link to="/" className="back-button btn">Atgal</Link>
-                            <button onClick={this.handleReplyWithUser} className="new-comment-button btn">
+                            <Link
+                                to="/"
+                                className="back-button btn"
+                            >
+                                Atgal
+                            </Link>
+                            <button
+                                onClick={this.handleReplyWithUser}
+                                className="new-comment-button btn"
+                            >
                                 Naujas Komentaras
                             </button>
                         </div>
                     )
                 } else {
-                    return <div />
+                    return <div/>
                 }
             case 'new' :
                 return (
                     <div className='navigation-button-wrapper'>
-                        <Link to="/" className="back-button btn">Atgal</Link>
-                        <button onClick={reset} className="new-comment-button btn">Restartuoti</button>
+                        <Link
+                            to="/"
+                            className="back-button btn"
+                        >
+                            Atgal
+                        </Link>
+                        <button
+                            onClick={reset}
+                            className="new-comment-button btn"
+                        >
+                            Restartuoti
+                        </button>
                     </div>
                 );
             default :
@@ -58,7 +81,12 @@ export default class SidebarButtons extends React.PureComponent {
                 )
         }
     };
+
     handleReplyWithUser = () => {
+
+    };
+
+    handleCreateNewLesson = () => {
 
     }
 
