@@ -1,0 +1,83 @@
+.create-lesson-spin-body {
+    min-height: 402px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.create-lesson-container {
+    margin-top: 20px;
+}
+
+.create-lesson-body {
+    margin-top: 10px;
+    padding: 0 30px;
+}
+
+.modal-cancel-btn {
+    border: 1px solid #222;
+    transition: none;
+    background-color: #222;
+    color: #ffffff;
+}
+
+.modal-cancel-btn:hover {
+    background-color: rgba(251, 251, 251, 0.6);
+    color: #222;
+}
+
+.modal-confirm-button {
+    background-color: rgb(97, 218, 251);
+    color: #ffffff;
+    transition: none;
+}
+
+.modal-confirm-button:hover {
+    background-color: rgba(251, 251, 251, 0.6);
+    color: rgb(97, 218, 251);
+
+}
+
+.student-modal-footer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.student-modal-footer-btn-container {
+    margin: 0 5px;
+}
+
+.discipline-title-container {
+    padding: 5px 0;
+}
+
+.heart-rate-input-container {
+    display: flex;
+    padding: 5px 0px;
+
+}
+
+.heart-rate-input-container input {
+    margin-left: 10px;
+    width: 45px;
+    height: 28px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 1.5em;
+    text-align: center;
+
+}
+
+.grade-select {
+    display: flex;
+    padding: 5px 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.grade-select select {
+    margin-left: 5px;
+    height: 31px;
+}
