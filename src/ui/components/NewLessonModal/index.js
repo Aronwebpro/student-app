@@ -25,7 +25,9 @@ const Footer = (props) => {
                 <button className="btn modal-cancel-btn" onClick={hideModal} style={{ marginTop: '20px' }}>Atšaukti</button>
             </div>
             <div className='student-modal-footer-btn-container'>
-                <button className="btn btn-animation-on modal-confirm-button" onClick={createLesson} style={{ marginTop: '20px' }}>Įvesti</button>
+                <button className="btn btn-animation-on modal-confirm-button" onClick={createLesson}
+                        style={{ marginTop: '20px' }}>Įvesti
+                </button>
             </div>
         </div>
     )
@@ -35,7 +37,7 @@ export default class NewLessonModal extends React.Component {
     state = {
         user: {},
         discipline: '',
-        loading: false,
+        loading: true,
         heartRate: '',
     };
 
@@ -50,7 +52,9 @@ export default class NewLessonModal extends React.Component {
                 footer={<Footer {...{ hideModal }} createLesson={this.createLesson}/>}
             >
                 {loading ? (
-                    <Spin size={'large'}/>
+                    <div  className="create-lesson-spin-body">
+                        <Spin size={'large'}/>
+                    </div>
                 ) : (
                     <div className="create-lesson-container">
                         <div className="post-title forum-header">
@@ -100,11 +104,12 @@ export default class NewLessonModal extends React.Component {
     }
 
     async componentDidMount() {
-        this.setState({ loading: true });
         const user = await getCurrentUser();
         const { heartRate } = await getDayHeartRate();
         if (user && !this.isUnmount) {
-            this.setState({ user, heartRate, discipline: user.discipline, loading: false })
+            this.setState({ user, heartRate, discipline: user.discipline, loading: false });
+        } else {
+            this.setState({ loading: false });
         }
 
     }
@@ -115,6 +120,7 @@ export default class NewLessonModal extends React.Component {
 
     handleHeartRate = (heartRate) => this.setState({ heartRate: heartRate.value });
 
+    //Create Lesson Handler
     createLesson = async () => {
         const { user, discipline, heartRate } = this.state;
         const { uid, userName, userAvatar } = user || {};
@@ -139,7 +145,7 @@ export default class NewLessonModal extends React.Component {
             studentName: '',
         };
 
-        const { error, result } = await API.createLesson({ lesson });
+        const { error } = await API.createLesson({ lesson });
 
         if (error) {
             Message.error('Failed To create New Lessons');

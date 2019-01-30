@@ -34,10 +34,12 @@ export default class Home extends React.Component {
         const empty = Object.keys(lessons).length === 0;
         return (
             <div className="forum-container">
-                <NewLessonModal
-                    visible={newLessonModalVisible}
-                    hideModal={this.hideNewLessonModal}
-                />
+                {newLessonModalVisible && (
+                    <NewLessonModal
+                        visible={newLessonModalVisible}
+                        hideModal={this.hideNewLessonModal}
+                    />
+                )}
                 <div className="forum">
                     <div className="forum-header">
                         <div className="forum-title">
@@ -89,9 +91,6 @@ export default class Home extends React.Component {
     }
 
     async componentDidMount() {
-        //Retrieve Topics from DB
-        //this.getScreenData();
-
         if (window) {
             window.scrollTo(0, 0);
         }
@@ -99,10 +98,10 @@ export default class Home extends React.Component {
         this.setState({ week })
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    async componentDidUpdate(prevProps, prevState) {
         if (prevState.week.firstDayOfWeek !== this.state.week.firstDayOfWeek) {
             window.scrollTo(0, 0);
-            this.getScreenData();
+            await this.getScreenData();
         }
     }
 
@@ -139,6 +138,7 @@ export default class Home extends React.Component {
     //Update Week Object after week switch
     handleClickWeekLeft = () => this.setState({ week: this.currentWeek(this.state.week.weekObj.subtract(1, 'week')) });
 
+    //New Lesson Modal Handlers
     hideNewLessonModal = () => this.setState({ newLessonModalVisible: false });
     openNewLessonModal = () => this.setState({ newLessonModalVisible: true });
 }
