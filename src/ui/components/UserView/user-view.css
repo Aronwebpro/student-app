@@ -1,0 +1,20 @@
+.user-view-container {
+    display: block;
+}
+
+.user-view-container h2 {
+    font-size: 18px;
+}
+
+.user-view-container h3 {
+    font-size: 18px;
+}
+
+.topic .user-view-container h2 {
+    font-size: 14px;
+}
+
+.topic .user-view-container h3 {
+    font-size: 12px;
+}
+

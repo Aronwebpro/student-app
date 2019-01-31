@@ -14,6 +14,7 @@
 
 .navigation-buttons .new-topic-button {
     display: block;
+    width: 100%;
 }
 
 .navigation-buttons .back-button {
@@ -30,7 +31,7 @@
 
 .navigation-buttons .new-comment-button {
     margin-left: 3px;
-    padding: 10px 0;
+    padding: 7px 0;
     width: 64%;
 }
 

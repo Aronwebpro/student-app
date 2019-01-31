@@ -27,6 +27,7 @@ import SideBar from './ui/template/SideBar/SideBar';
 import Login from './ui/pages/Login/Login';
 import Home from './ui/pages/Home/Home';
 import Schedule from './ui/pages/Schedule/Schedule';
+import Lesson from './ui/pages/Lesson/Lesson';
 
 //Pages
 const LoginPage = PageLayout({
@@ -48,6 +49,13 @@ const SchedulePage = PageLayout({
     layout: 'withSidebar'
 });
 
+const LessonPage = PageLayout({
+    PageComponent: Lesson,
+    pageId: 'lesson',
+    SideBarComponent: SideBar,
+    layout: 'withSidebar'
+});
+
 export default class App extends React.Component {
     render() {
         const { user } = this.props;
@@ -60,14 +68,20 @@ export default class App extends React.Component {
                             <AuthenticatedRoute
                                 {...{ user }}
                                 exact
-                                path="/home"
+                                path='/home'
                                 render={(params) => <HomePage {...{ params, user }}/>}
                             />
                             <AuthenticatedRoute
                                 {...{ user }}
                                 exact
-                                path="/schedule"
+                                path='/schedule'
                                 render={(params) => <SchedulePage {...{ params, user }}/>}
+                            />
+                            <AuthenticatedRoute
+                                {...{ user }}
+                                exact
+                                path='/lesson/:lessonId'
+                                render={(params) => <LessonPage {...{ params, user }}/>}
                             />
                             <Route exact path='/' render={() => <LoginPage {...{ user }}/>}/>
                         </Switch>
