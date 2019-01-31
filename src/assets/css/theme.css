@@ -8,6 +8,8 @@ body {
     margin: 0;
     font-family: 'Raleway', sans-serif;
     min-width: 1200px;
+    font-size: 14px;
+    background-color: inherit;
 }
 
 html {
@@ -42,11 +44,13 @@ a, a:hover, a:active, a:visited, a:focus {
     display: flex;
     flex-direction: row;
     padding-top: 95px;
+    padding-bottom: 50px;
     justify-content: center;
 }
 
 .container {
     display: flex;
+    position: relative;
     flex: 1;
     flex-direction: row;
     align-items: stretch;
@@ -227,7 +231,11 @@ input#img16 {
 }
 
 .post-title h2 {
-    font-size: 1.25em;
+    font-size: 1.5em;
+}
+
+.lesson-detail-container .post-title h2 {
+    font-size: 1.5em;
 }
 
 .post .post-info {

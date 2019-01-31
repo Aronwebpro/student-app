@@ -47,6 +47,14 @@
 
 .student-modal-footer-btn-container {
     margin: 0 5px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.student-modal-footer-spinner-wrapper {
+    margin-top: 20px;
+    width: 20px;
 }
 
 .discipline-title-container {

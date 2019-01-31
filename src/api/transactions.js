@@ -29,8 +29,17 @@ const createLesson = async ({ lesson }) => {
     return { lessonId: lessonDocRef.id }
 };
 
+//TODO:
+const createComment = async ({ lessonId, comment, userId }) => {
+    const commentDocRef = await db.collection('lessons').doc(lessonId).collection('comments').add(comment);
+    const commentDoc = await commentDocRef.get();
+    return commentDoc.data();
+};
+
+
 const API = {
     createLesson: TransactionWrapper.bind(this, createLesson),
+    createComment: TransactionWrapper.bind(this, createComment),
 };
 
 export default API;

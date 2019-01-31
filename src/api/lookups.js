@@ -2,17 +2,30 @@ import db from '../firebase.js';
 import { auth } from 'firebase/app';
 import moment from 'moment';
 
+/**
+ * Fetch User Object from Firebase by userId
+ * @param userId
+ * @returns {Promise} -> Object
+ */
 const getUser = async (userId) => {
     const userRef = db.collection('users');
     const userDoc = await userRef.doc(userId).get();
     return { uid: userId, ...userDoc.data() }
 };
 
+/**
+ * Get Logged In User Object
+ * @returns {Promise} -> Object
+ */
 const getCurrentUser = async () => {
     const uid = auth().currentUser.uid;
     return await getUser(uid);
 };
 
+/**
+ * Fetch Day Heart Rate from Firebase
+ * @returns {Promise} -> Object
+ */
 const getDayHeartRate = async () => {
     const date = moment().format('YYYY-MM-DD');
     const heartRateRef =  db.collection('heartRates').doc(date);
@@ -60,10 +73,20 @@ const getSingleLesson = async (lessonId) => {
 };
 
 
+const getCommentsForLesson = async (lessonId) => {
+    const commentsDocRef = db.collection('lessons').doc(lessonId).collection('comments');
+    const commentsDoc = await commentsDocRef.orderBy('date', 'desc').get();
+    return await commentsDoc.docs.map(commentDoc => {
+        return { commentId: commentsDoc.id, ...commentDoc.data() }
+    });
+};
+
+
 export {
     getLessons,
     getSingleLesson,
     getUser,
     getCurrentUser,
     getDayHeartRate,
+    getCommentsForLesson,
 }

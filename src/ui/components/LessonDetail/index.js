@@ -35,7 +35,7 @@ export default class LessonDetail extends React.PureComponent {
             coach: true,
         };
         return (
-            <div>
+            <div className='lesson-detail-container'>
                 <div className="post-title forum-header">
                     <h2>
                         Disciplina: <span className="theme-color_txt">{disciplineName}</span>

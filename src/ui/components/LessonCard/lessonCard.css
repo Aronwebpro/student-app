@@ -205,9 +205,10 @@
 .grade-wrapper {
     display: inline-block;
     margin: auto;
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
     border: 1px solid #f7d259;
     background-color: #8ddcf8;
     color: #fff;
@@ -218,7 +219,7 @@
 }
 
 .topic-category .grade-wrapper h2 {
-    margin-top: 10px;
+    margin-top: 4px;
 }
 /*#star-shape {*/
     /*margin: 25px 0;*/
