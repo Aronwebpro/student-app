@@ -13,7 +13,7 @@ const TransactionWrapper = async (func, { ...args }) => {
         const result = await func({ ...args });
         return { result };
     } catch (e) {
-        //console.log(e.message);
+        console.log(e.message);
         return { error: { msg: e.message } };
     }
 };
@@ -36,10 +36,16 @@ const createComment = async ({ lessonId, comment, userId }) => {
     return commentDoc.data();
 };
 
+const insertHeartRate = async ({ heartRateId, date, heartRate }) => {
+    const heartRateDocRef = await db.collection('heartRates').doc(heartRateId).set({ date, heartRate });
+    return 's';
+};
+
 
 const API = {
     createLesson: TransactionWrapper.bind(this, createLesson),
     createComment: TransactionWrapper.bind(this, createComment),
+    insertHeartRate: TransactionWrapper.bind(this, insertHeartRate),
 };
 
 export default API;

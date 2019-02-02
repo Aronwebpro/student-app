@@ -11,6 +11,7 @@ import Spinner from '../../components/Spinner';
 import WeekSwitcher from '../../components/WeekSwitcher';
 import DayLessons from '../../components/DayLessons';
 import NewLessonModal from '../../components/NewLessonModal';
+import HeartRateModal from "../../components/HeartRateModal";
 
 export default class Home extends React.Component {
     state = {
@@ -38,6 +39,14 @@ export default class Home extends React.Component {
                     <NewLessonModal
                         visible={sideBarButtonState.newLessonModalVisible}
                         hideModal={sideBarButtonActions.handleNewLessonModal}
+                        refreshData={this.getScreenData}
+                    />
+                )}
+                {sideBarButtonState.heartRateModalVisible && (
+                    <HeartRateModal
+                        visible={sideBarButtonState.heartRateModalVisible}
+                        hideModal={sideBarButtonActions.handleHeartRateModal}
+                        refreshData={this.getScreenData}
                     />
                 )}
                 <div className="forum">

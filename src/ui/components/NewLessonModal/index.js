@@ -130,7 +130,7 @@ export default class NewLessonModal extends React.Component {
 
         //Lesson object to save to DB
         const lesson = {
-            coachId: uid,
+            teacherId: uid,
             coachName: userName,
             coachAvatar: userAvatar,
             coachNote: this.note.value,
@@ -151,6 +151,8 @@ export default class NewLessonModal extends React.Component {
             Message.error('Failed To create New Lessons');
         } else {
             Message.success('Pamoka Įvesta Sėkmingai');
+            this.props.hideModal();
+            this.props.refreshData();
 
         }
     };

@@ -68,6 +68,7 @@ export default class App extends React.Component {
     state = {
         newLessonModalVisible: false,
         newCommentModalVisible: false,
+        heartRateModalVisible: false,
     };
 
     handleNewLessonModal = () => {
@@ -80,12 +81,19 @@ export default class App extends React.Component {
         this.setState({ newCommentModalVisible: !currentState });
     };
 
+    handleHeartRateModal = () => {
+        const currentState = this.state.heartRateModalVisible;
+        this.setState({ heartRateModalVisible: !currentState });
+    };
+
     render() {
         const { user } = this.props;
         const sideBarButtonActions = {
             handleNewLessonModal: this.handleNewLessonModal,
             handleNewCommentModal: this.handleNewCommentModal,
+            handleHeartRateModal: this.handleHeartRateModal,
         };
+
         const sideBarButtonState = this.state;
         return (
             <BrowserRouter>
