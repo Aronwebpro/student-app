@@ -39,6 +39,12 @@ export default class Login extends React.Component {
                             </button>
                         </form>
                     </div>
+                    <div className="form-wrapper facebook-login">
+                        <h3>Arba prisijungite su</h3>
+                        <div onClick={this.facebookLogin} className='facebook-logo'>
+                            <img src="https://www.carlalbert.edu/wp-content/uploads/2018/03/facebook_logos_PNG19751.png" alt=""/>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
@@ -64,4 +70,8 @@ export default class Login extends React.Component {
             this.setState({ buttonActive: false });
         }
     };
+
+    facebookLogin = async () => {
+        Message.error('Ši funkcija bus įdiegta šiektiek vėliau');
+    }
 }

@@ -34,17 +34,16 @@ export default class Lesson extends React.Component {
         const {
             lesson,
             comments,
-            commentModalVisible,
             lessonId,
             clickedComment,
             replyStyle,
             replyStyleInit,
             quoteText,
             quoteAuthorName,
-            loading,
-            showCreateCommentView,
             user,
         } = this.state;
+        const { sideBarButtonState, sideBarButtonActions } = this.props;
+
         return (
             <div className="container">
                 <div className="lesson-container">
@@ -69,8 +68,8 @@ export default class Lesson extends React.Component {
                     ref={input => this.respondDiv = input}
                 />
                 <NewCommentModal
-                    visible={commentModalVisible}
-                    hideModal={this.hideCommentModal}
+                    visible={sideBarButtonState.newCommentModalVisible}
+                    hideModal={sideBarButtonActions.handleNewCommentModal}
                     getPageData={this.getPageData}
                     {...{ user, quoteText, quoteAuthorName, lessonId }}
                 />
@@ -112,8 +111,6 @@ export default class Lesson extends React.Component {
         }
     };
 
-    hideCommentModal = () => this.setState({ commentModalVisible: false });
-
     clearReply = () => {
         this.setState({ replyText: '' });
     };
@@ -136,8 +133,9 @@ export default class Lesson extends React.Component {
 
     addQuoteToComment = ({ clickedComment, text, authorName }) => {
         if (!this.isUnmounted) {
+            const {sideBarButtonActions} = this.props;
+            sideBarButtonActions.handleNewCommentModal();
             this.setState({
-                commentModalVisible: true,
                 quoteText: text,
                 quoteAuthorName: authorName,
                 reply: false,

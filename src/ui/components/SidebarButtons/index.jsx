@@ -83,11 +83,13 @@ export default class SidebarButtons extends React.PureComponent {
     };
 
     handleReplyWithUser = () => {
-
+        const { sideBarButtonActions } = this.props;
+        sideBarButtonActions.handleNewCommentModal();
     };
 
     handleCreateNewLesson = () => {
-
+        const { sideBarButtonActions } = this.props;
+        sideBarButtonActions.handleNewLessonModal();
     }
 
 

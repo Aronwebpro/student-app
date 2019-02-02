@@ -25,19 +25,19 @@ export default class Home extends React.Component {
             weekNumber: '',
             weekObj: {},
         },
-        newLessonModalVisible: false,
     };
 
     render() {
-        const { lessons, postsLoading, week, newLessonModalVisible } = this.state;
+        const { lessons, postsLoading, week } = this.state;
+        const { sideBarButtonState, sideBarButtonActions } = this.props;
         if (this.state.redirect) return <Redirect to="/"/>;
         const empty = Object.keys(lessons).length === 0;
         return (
             <div className="forum-container">
-                {newLessonModalVisible && (
+                {sideBarButtonState.newLessonModalVisible && (
                     <NewLessonModal
-                        visible={newLessonModalVisible}
-                        hideModal={this.hideNewLessonModal}
+                        visible={sideBarButtonState.newLessonModalVisible}
+                        hideModal={sideBarButtonActions.handleNewLessonModal}
                     />
                 )}
                 <div className="forum">
@@ -78,7 +78,6 @@ export default class Home extends React.Component {
                                     </div>
                                 )
                             }
-                            <button className="btn" onClick={this.openNewLessonModal}>Open Modal</button>
                         </div>
                     </div>
                 </div>
@@ -138,9 +137,6 @@ export default class Home extends React.Component {
     //Update Week Object after week switch
     handleClickWeekLeft = () => this.setState({ week: this.currentWeek(this.state.week.weekObj.subtract(1, 'week')) });
 
-    //New Lesson Modal Handlers
-    hideNewLessonModal = () => this.setState({ newLessonModalVisible: false });
-    openNewLessonModal = () => this.setState({ newLessonModalVisible: true });
 }
 
 Home.propTypes = {

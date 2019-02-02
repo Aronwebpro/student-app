@@ -54,7 +54,7 @@ export default class CommentCard extends React.PureComponent {
                             <p>{text}</p>
                         </div>
                         <div className="quote-comment theme-color_txt">
-                            <p onClick={this.handleReplyClick}>Atsakyti</p>
+                            <p onClick={this.handleReplyClick}>Cituoti Komentara</p>
                         </div>
                     </div>
                     <div className="author-info">

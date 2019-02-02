@@ -30,7 +30,6 @@ const Footer = (props) => {
     )
 };
 
-
 export default class NewCommentModal extends React.Component {
     state = {
         text: '',
@@ -60,7 +59,7 @@ export default class NewCommentModal extends React.Component {
                     )}
                     <div className="new-comment-body">
                         {quoteText && (
-                            <div><span className="theme-color_txt">Atsakinėji į...</span><br/>
+                            <div><span className="theme-color_txt">Cituoji...</span><br/>
                                 <div className="quote">
                                     <p className="quote-authorName">{quoteAuthorName} rašė: </p>
                                     <p>"{quoteText}"</p></div>
