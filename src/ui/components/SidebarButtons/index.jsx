@@ -23,7 +23,7 @@ export default class SidebarButtons extends React.PureComponent {
 
         switch (page) {
             case 'home' :
-                if (user && user.role === 'coach') {
+                if (user && user.role === 'teacher') {
                     return (
                         <div className='navigation-button-wrapper'>
                             <button
@@ -34,7 +34,18 @@ export default class SidebarButtons extends React.PureComponent {
                             </button>
                         </div>
                     );
-                } else {
+                } else if (user && user.role === 'student') {
+                    return (
+                        <div className='navigation-button-wrapper'>
+                            <button
+                                className="new-topic-button btn"
+                                onClick={this.handleHeartRate}
+                            >
+                                Ivesti Širdies Ritma
+                            </button>
+                        </div>
+                    )
+                }else {
                     return
                 }
             case 'lesson' :
@@ -83,11 +94,18 @@ export default class SidebarButtons extends React.PureComponent {
     };
 
     handleReplyWithUser = () => {
-
+        const { sideBarButtonActions } = this.props;
+        sideBarButtonActions.handleNewCommentModal();
     };
 
     handleCreateNewLesson = () => {
+        const { sideBarButtonActions } = this.props;
+        sideBarButtonActions.handleNewLessonModal();
+    };
 
+    handleHeartRate = () => {
+        const { sideBarButtonActions } = this.props;
+        sideBarButtonActions.handleHeartRateModal();
     }
 
 

@@ -99,7 +99,7 @@ LessonCard.propTypes = {
     grade: PropTypes.string.isRequired,
     lessonId: PropTypes.string.isRequired,
     disciplineName: PropTypes.string.isRequired,
-    heartRate: PropTypes.string.isRequired,
+    heartRate: PropTypes.number.isRequired,
     coachNote: PropTypes.string.isRequired,
     coachAvatar: PropTypes.string.isRequired,
     coachName: PropTypes.string.isRequired,

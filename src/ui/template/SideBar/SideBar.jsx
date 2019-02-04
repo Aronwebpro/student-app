@@ -27,6 +27,10 @@ const menu = [
     {
         title: 'Tvarkaraštis',
         url: '/schedule',
+    },
+    {
+        title: 'Širdies Ritmas',
+        url: '/heartRate',
     }
 ];
 export default class SideBar extends React.Component {
@@ -41,6 +45,7 @@ export default class SideBar extends React.Component {
             clearReply,
             user,
             params,
+            sideBarButtonActions,
         } = this.props;
         let active = 'all';
         if (params) {
@@ -49,7 +54,7 @@ export default class SideBar extends React.Component {
 
         return (
             <div className='side-bar-container' ref={(input) => this.categoryBar = input}>
-                <SidebarButtons {...{ page, user, respond, clearReply }}/>
+                <SidebarButtons {...{ page, user, respond, clearReply, sideBarButtonActions }}/>
                 <DayDateView/>
                 <div className="side-bar-item-header">
                     <h3>Menu</h3>

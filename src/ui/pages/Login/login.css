@@ -2,11 +2,17 @@
 
 #login {
     width: 100%;
-    max-width: 350px;
+    /*max-width: 350px;*/
 }
+
+.login-container {
+    margin: auto;
+}
+
 .login-wrapper {
-    max-width: 400px;
-    width: 100%;
+    /*max-width: 400px;*/
+    /*width: 100%;*/
+    width: 500px;
     display: block;
     margin: auto;
     font-size: 1.2em;
@@ -20,26 +26,88 @@
     margin-top: 10px;
 }
 
-.login-wrapper h1 {
+.login-wrapper h1,
+.login-wrapper h2,
+.login-wrapper h3 {
     text-align: center;
+    margin-top: 10px;
 }
 
 .login-wrapper button:active {
-   transform: scale(1.1);
+    transform: scale(1.1);
 }
+
 .login-wrapper .dont-have-acc a {
     color: #1d1d1d;
 }
 
 .login-wrapper .form-wrapper {
-    //border: 1px solid #222;
+    /*border: 1px solid #222;*/
     margin-top: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+    padding: 20px 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
     background: #ffffff;
 }
 
 .spin-container {
     margin-left: 10px;
     position: absolute;
+}
+
+.facebook-login {
+    margin-top: 50px;
+    text-align: center;
+}
+
+/*.facebook-login h2 {*/
+/*text-align: center;*/
+/*}*/
+
+.facebook-logo img {
+    max-width: 100px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.facebook-logo img:active {
+    transform: scale(1.1);
+    opacity: 0.9;
+}
+
+.test-login {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.test-login .login-box {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    border: 1px solid #61dafb;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
+}
+
+.test-login .login-box:hover {
+    background-color: transparent;
+
+}
+.test-login .login-box:hover h4 {
+    color: #61dafb;
+}
+
+.test-login .login-box h4 {
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.tes-login-links {
+    flex: 1;
+    display: flex;
 }
