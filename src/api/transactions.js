@@ -29,6 +29,30 @@ const createLesson = async ({ lesson }) => {
     return { lessonId: lessonDocRef.id }
 };
 
+/**
+ * Insert New HeartRate for the Day
+ * @param heartRateId
+ * @param date
+ * @param heartRate
+ * @returns {Promise<{result: string}>}
+ */
+const insertHeartRate = async ({ heartRateId, date, heartRate }) => {
+    const heartRateDocRef = await db.collection('heartRates').doc(heartRateId).set({ date, heartRate });
+    return { result: 'success' };
+};
+
+/**
+ * On Social Login if New User is created, new user object is created to Pending User Collection
+ * Pending Users doesn't have access to Auth Routes
+ * @param uid
+ * @param user
+ * @returns {Promise<{result: string}>}
+ */
+const createPendingUser = async ({ uid, user }) => {
+    const userRef = await db.collection('pendingUsers').doc(uid).set({ ...user });
+    return { result: 'success' };
+};
+
 //TODO:
 const createComment = async ({ lessonId, comment, userId }) => {
     const commentDocRef = await db.collection('lessons').doc(lessonId).collection('comments').add(comment);
@@ -36,16 +60,13 @@ const createComment = async ({ lessonId, comment, userId }) => {
     return commentDoc.data();
 };
 
-const insertHeartRate = async ({ heartRateId, date, heartRate }) => {
-    const heartRateDocRef = await db.collection('heartRates').doc(heartRateId).set({ date, heartRate });
-    return 's';
-};
 
-
+//API Object
 const API = {
     createLesson: TransactionWrapper.bind(this, createLesson),
     createComment: TransactionWrapper.bind(this, createComment),
     insertHeartRate: TransactionWrapper.bind(this, insertHeartRate),
+    createPendingUser: TransactionWrapper.bind(this, createPendingUser),
 };
 
 export default API;

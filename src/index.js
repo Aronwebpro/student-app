@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import { auth } from 'firebase/app';
 
 //Api
-import { getUser } from './api/lookups';
+import { getUser, getPendingUser } from './api/lookups';
 
 //Components
 import App from './App';
@@ -35,7 +35,12 @@ auth().onAuthStateChanged(async userObj => {
         if (user) {
             ReactDOM.render(<App {...{ user }} />, document.getElementById('root'));
         } else {
-            auth().signOut();
+            const pendingUser = await getPendingUser(userObj.uid);
+            if (pendingUser) {
+                ReactDOM.render(<App {...{ pendingUser }} />, document.getElementById('root'));
+            } else {
+                auth().signOut();
+            }
         }
     } else {
         ReactDOM.render(<App/>, document.getElementById('root'));

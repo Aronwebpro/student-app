@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 //Api
-import { signIn } from '../../../api/auth';
+import { signIn, signInWithFacebook } from '../../../api/auth';
 
 //Antd
 import Spin from 'antd/lib/spin';
@@ -19,6 +19,7 @@ export default class Login extends React.Component {
     render() {
         const { user } = this.props;
         const { buttonActive } = this.state;
+
         return user ? (
             <Redirect to={'/home'}/>
         ) : (
@@ -66,7 +67,7 @@ export default class Login extends React.Component {
         )
     }
 
-    //Login User
+    //Login User With Email
     handleLogin = async (e) => {
         e.preventDefault();
         const { email, password } = this;
@@ -87,11 +88,14 @@ export default class Login extends React.Component {
         }
     };
 
+    //Login With Facebook Handler
     facebookLogin = async () => {
-        Message.error('Ši funkcija bus įdiegta šiektiek vėliau');
+        //Message.error('Ši funkcija bus įdiegta šiektiek vėliau');
+        await signInWithFacebook();
+
     };
 
-    //TODO: Temp Login Method
+    //TODO: Temp Login Method for TESTING
     login = async ({ email, password }) => {
         try {
             //Sign In User and get user's data
@@ -107,15 +111,13 @@ export default class Login extends React.Component {
             Message.error('Sistemos Klaida');
         }
     };
-
+    //TODO: Test Handlers
     loginAsParent = async () => {
         await this.login({ email: 'tevai@email.com', password: '123456' });
     };
-
     loginAsStudent = async () => {
         await this.login({ email: 'mokinys@email.com', password: '123456' })
     };
-
     loginAsTeacher = async () => {
         await this.login({ email: 'treneris@email.com', password: '123456' })
     }
