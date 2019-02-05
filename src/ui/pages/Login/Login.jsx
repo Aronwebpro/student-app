@@ -8,22 +8,28 @@ import { signIn, signInWithFacebook } from '../../../api/auth';
 import Spin from 'antd/lib/spin';
 import Message from 'antd/lib/message';
 
+//Components
+import PageSpinner from '../../components/PageSpinner';
+
 //Styles
 import './login.css';
 
 export default class Login extends React.Component {
     state = {
         buttonActive: false,
+        loadingPageActive: false,
     };
 
     render() {
         const { user } = this.props;
-        const { buttonActive } = this.state;
+        const { buttonActive, loadingPageActive } = this.state;
 
         return user ? (
             <Redirect to={'/home'}/>
         ) : (
             <div className="container  login-container">
+                <PageSpinner visible={loadingPageActive}/>
+
                 <div className="login-wrapper">
                     <div className="form-wrapper facebook-login">
                         <h3>Prisijungite su Facebook</h3>
@@ -91,8 +97,12 @@ export default class Login extends React.Component {
     //Login With Facebook Handler
     facebookLogin = async () => {
         //Message.error('Ši funkcija bus įdiegta šiektiek vėliau');
-        await signInWithFacebook();
-
+        this.setState({ loadingPageActive: true });
+        const { error } = await signInWithFacebook();
+        if (error) {
+            Message.error('Prisijungti Nepavyko.');
+            this.setState({ loadingPageActive: false });
+        }
     };
 
     //TODO: Temp Login Method for TESTING
@@ -113,12 +123,15 @@ export default class Login extends React.Component {
     };
     //TODO: Test Handlers
     loginAsParent = async () => {
+        this.setState({ loadingPageActive: true });
         await this.login({ email: 'tevai@email.com', password: '123456' });
     };
     loginAsStudent = async () => {
+        this.setState({ loadingPageActive: true });
         await this.login({ email: 'mokinys@email.com', password: '123456' })
     };
     loginAsTeacher = async () => {
+        this.setState({ loadingPageActive: true });
         await this.login({ email: 'treneris@email.com', password: '123456' })
     }
 }

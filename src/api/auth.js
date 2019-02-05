@@ -15,7 +15,7 @@ const signIn = (email, password) => {
  * Sign In/Up with Facebook
  * If new User new User Object is created in pending User Collection and Router Redirecting to Sign Up Page
  * If returning User Router redirects to Home Page
- * @returns {Promise<void>}
+ * @returns {Promise}
  */
 const signInWithFacebook = async () => {
     auth().useDeviceLanguage();
@@ -33,11 +33,13 @@ const signInWithFacebook = async () => {
             if (userInfo.isNewUser) {
                 await API.createPendingUser({ uid, user });
             }
+            return {};
         } else {
             throw new Error('Auth Failed');
         }
     } catch (e) {
         console.log(e);
+        return { error: 'Login Failed' }
     }
 };
 
