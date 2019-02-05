@@ -28,11 +28,16 @@ a, a:hover, a:active, a:visited, a:focus {
     text-decoration: none;
     color: inherit;
 }
-
+/*Helper Classes*/
 .bold {
     font-weight: bold;
 }
 
+.center {
+    text-align: center;
+}
+
+/*Layout*/
 .page {
     display: flex;
     flex-direction: column;
