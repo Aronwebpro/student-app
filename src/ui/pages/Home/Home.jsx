@@ -124,7 +124,10 @@ export default class Home extends React.Component {
         }
         const firstDayOfWeek = this.state.week.firstDayOfWeek || moment().startOf('isoWeek').format('YYYY-MM-DD');
         const lessons = await getLessons(firstDayOfWeek);
-        this.setState({ lessons, postsLoading: false });
+        if (!this.isUnmount) {
+            this.setState({ lessons, postsLoading: false });
+        }
+
     };
 
     //Generate current week Object with Moment JS

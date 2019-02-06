@@ -17,6 +17,16 @@ const getUser = async (userId) => {
     }
 };
 
+const getPendingUser = async (userId) => {
+    const userRef = db.collection('pendingUsers');
+    const userDoc = await userRef.doc(userId).get();
+    if (!userDoc.exists) {
+        return null;
+    } else {
+        return { uid: userId, ...userDoc.data() }
+    }
+};
+
 /**
  * Get Logged In User Object
  * @returns {Promise} -> Object
@@ -100,4 +110,5 @@ export {
     getCurrentUser,
     getDayHeartRate,
     getCommentsForLesson,
+    getPendingUser,
 }

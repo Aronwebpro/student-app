@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 //import * as serviceWorker from './serviceWorker';
 import {
-    BrowserRouter,
+    BrowserRouter, Redirect,
     Route,
     Switch,
 } from 'react-router-dom';
@@ -29,6 +29,7 @@ import Home from './ui/pages/Home/Home';
 import Schedule from './ui/pages/Schedule/Schedule';
 import Lesson from './ui/pages/Lesson/Lesson';
 import HeartRate from './ui/pages/HeartRate/HeartRate';
+import SignUp from './ui/pages/SignUp/SignUp';
 
 //Pages
 const LoginPage = PageLayout({
@@ -64,6 +65,22 @@ const HeartRatePage = PageLayout({
     layout: 'withSidebar'
 });
 
+const SignUpPage = PageLayout({
+    PageComponent: SignUp,
+    pageId: 'sign-up-page',
+    layout: 'default'
+});
+
+const LoginRouter = ({ user, pendingUser }) => {
+    if (user) {
+        return <Redirect to={'/home'}/>;
+    } else if (pendingUser) {
+        return <Redirect to={'/sign-up'}/>;
+    } else {
+        return <LoginPage {...{ user }}/>;
+    }
+};
+
 export default class App extends React.Component {
     state = {
         newLessonModalVisible: false,
@@ -87,7 +104,7 @@ export default class App extends React.Component {
     };
 
     render() {
-        const { user } = this.props;
+        const { user, pendingUser } = this.props;
         const sideBarButtonActions = {
             handleNewLessonModal: this.handleNewLessonModal,
             handleNewCommentModal: this.handleNewCommentModal,
@@ -125,7 +142,8 @@ export default class App extends React.Component {
                                 path='/heartRate'
                                 render={(params) => <HeartRatePage {...{ params, user, sideBarButtonActions, sideBarButtonState }}/>}
                             />
-                            <Route exact path='/' render={() => <LoginPage {...{ user }}/>}/>
+                            <Route exact path='/sign-up' render={() => <SignUpPage {...{ pendingUser }} />}/>
+                            <Route exact path='/' render={() => <LoginRouter {...{ user, pendingUser }} />}/>
                         </Switch>
                     </div>
                     <Footer/>
@@ -137,4 +155,5 @@ export default class App extends React.Component {
 
 App.propTypes = {
     user: PropTypes.object,
+    pendingUser: PropTypes.object,
 };

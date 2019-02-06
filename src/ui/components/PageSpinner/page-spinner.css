@@ -1,0 +1,14 @@
+.page-spinner-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: 0;
+    overflow: hidden;
+    z-index: 100;
+    background-color: rgba(255,255,255, 0.7);
+}
