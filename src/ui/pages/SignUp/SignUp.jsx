@@ -2,12 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
+//Components
+import PageSpinner from '../../components/PageSpinner';
+
+//AntD
+import Message from 'antd/lib/message';
+
+//Api
+import API from '../../../api/transactions';
+import { signOut } from '../../../api/auth';
+
+
 //Styles
 import './sign-up.css';
 
 export default class SignUp extends React.Component {
     state = {
         selectedType: '',
+        loading: false,
+        isUserSubmitted: false,
     };
 
     render() {
@@ -15,7 +28,9 @@ export default class SignUp extends React.Component {
             pendingUser
         } = this.props;
         const {
-            selectedType
+            selectedType,
+            loading,
+            isUserSubmitted,
         } = this.state;
         const {
             userName,
@@ -25,12 +40,30 @@ export default class SignUp extends React.Component {
 
         return pendingUser ? (
             <div>
-                {userStatus ? (
-                    <div>
-                        {/*TODO:*/}
+                {userStatus || isUserSubmitted ? (
+                    <div className='sign-up-body'>
+                        <div className='card-container header-container'>
+                            <h3>Jūsų Vartotojo Anketa Priimta</h3>
+                        </div>
+                        <div className='card-container section'>
+                            <div className='sign-up-user-info-wrapper'>
+                                <h4>Laukite kol sistemos administratorius patvirtins jūsų anketą ir galėsite prisijungti.</h4>
+                            </div>
+                        </div>
+                        <div className='card-container section'>
+                            <div className='sign-up-user-info-wrapper'>
+                                <h4>Dabar galite uždaryti šį langą arba grįžti į prisijungimo puslapį</h4>
+                            </div>
+                        </div>
+                        <div className='section'>
+                            <div className='log-out-button-container'>
+                                <button onClick={this.handleLogOut} className='btn'>Atgal</button>
+                            </div>
+                        </div>
                     </div>
                 ) : (
                     <div className='sign-up-body'>
+                        <PageSpinner visible={loading}/>
                         <div className='card-container header-container'>
                             <h3>Dar keli žingsniai prisiregistruojant</h3>
                         </div>
@@ -99,8 +132,20 @@ export default class SignUp extends React.Component {
 
     handleTypeClick = (selectedType) => this.setState({ selectedType });
 
-    handleSubmit = () => {
-        //TODO:
+    handleSubmit = async () => {
+        const { selectedType } = this.state;
+        if (!selectedType) {
+            Message.error('Pasirinkite vartotojo Tipą');
+            return;
+        }
+        const { pendingUser } = this.props;
+        this.setState({ loading: true });
+        await API.submitPendingUser({ uid: pendingUser.uid, type: selectedType });
+        this.setState({ loading: false, isUserSubmitted: true });
+    };
+
+    handleLogOut = async () => {
+        await signOut();
     }
 }
 
@@ -109,5 +154,5 @@ SignUp.propTypes = {
         userAvatar: PropTypes.string.isRequired,
         userName: PropTypes.string.isRequired,
         userStatus: PropTypes.string,
-    }).isRequired,
+    }),
 };

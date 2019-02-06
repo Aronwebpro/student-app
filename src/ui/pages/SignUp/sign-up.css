@@ -107,3 +107,10 @@
     width: 80%;
     padding: 10px;
 }
+
+.log-out-button-container .btn {
+    background-color: #06769e;
+    border: 1px solid transparent;
+    width: 100%;
+    padding: 10px;
+}

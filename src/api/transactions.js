@@ -37,7 +37,7 @@ const createLesson = async ({ lesson }) => {
  * @returns {Promise<{result: string}>}
  */
 const insertHeartRate = async ({ heartRateId, date, heartRate }) => {
-    const heartRateDocRef = await db.collection('heartRates').doc(heartRateId).set({ date, heartRate });
+    await db.collection('heartRates').doc(heartRateId).set({ date, heartRate });
     return { result: 'success' };
 };
 
@@ -49,11 +49,31 @@ const insertHeartRate = async ({ heartRateId, date, heartRate }) => {
  * @returns {Promise<{result: string}>}
  */
 const createPendingUser = async ({ uid, user }) => {
-    const userRef = await db.collection('pendingUsers').doc(uid).set({ ...user });
+    await db.collection('pendingUsers').doc(uid).set({ ...user });
     return { result: 'success' };
 };
 
-//TODO:
+/**
+ * When New User is Create with Social button, User is redirect to Sign Up Page to update User Type
+ * @param uid
+ * @param type
+ * @returns {Promise}
+ */
+const submitPendingUser = async ({ uid, type }) => {
+    const userDocumentRef = db.collection('pendingUsers').doc(uid);
+    await userDocumentRef.update({
+        role: type,
+        userStatus: 'submitted',
+    });
+};
+
+/**
+ * Create New Comment
+ * @param lessonId
+ * @param comment
+ * @param userId
+ * @returns {Promise<firebase.firestore.DocumentData | undefined>}
+ */
 const createComment = async ({ lessonId, comment, userId }) => {
     const commentDocRef = await db.collection('lessons').doc(lessonId).collection('comments').add(comment);
     const commentDoc = await commentDocRef.get();
@@ -67,6 +87,8 @@ const API = {
     createComment: TransactionWrapper.bind(this, createComment),
     insertHeartRate: TransactionWrapper.bind(this, insertHeartRate),
     createPendingUser: TransactionWrapper.bind(this, createPendingUser),
+    submitPendingUser: TransactionWrapper.bind(this, submitPendingUser),
+
 };
 
 export default API;
