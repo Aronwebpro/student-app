@@ -31,7 +31,7 @@ export default class DayDateView extends React.PureComponent {
         const month = changeMonthFromEngToLt(moment().format('MMM'));
         return (
             <div className='day-date-view-container'>
-                <div className='day-date-view-title-container'>
+                <div className='section-header day-date-view-title-container'>
                     <h2>
                         Šiandien
                     </h2>

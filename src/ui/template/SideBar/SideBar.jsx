@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 //Components
 import SidebarButtons from '../../components/SidebarButtons';
 import DayDateView from '../../components/DayDateView';
+import HeartRateView from '../../components/HeartRateView';
 
 //Api
 
@@ -45,17 +46,34 @@ export default class SideBar extends React.Component {
             clearReply,
             user,
             params,
+            sideBarButtonState,
             sideBarButtonActions,
         } = this.props;
+
         let active = 'all';
         if (params) {
             active = params.location.pathname;
         }
+        const { heartRate } = sideBarButtonState;
 
         return (
             <div className='side-bar-container' ref={(input) => this.categoryBar = input}>
-                <SidebarButtons {...{ page, user, respond, clearReply, sideBarButtonActions }}/>
+                <SidebarButtons
+                    {...{
+                        page,
+                        user,
+                        respond,
+                        clearReply,
+                        sideBarButtonActions,
+                        sideBarButtonState,
+                    }}
+                />
                 <DayDateView/>
+                <HeartRateView
+                    {...{
+                        heartRate
+                    }}
+                />
                 <div className="side-bar-item-header">
                     <h3>Menu</h3>
                     <div className='menu-container'>
@@ -78,7 +96,6 @@ export default class SideBar extends React.Component {
 
     async componentDidMount() {
         window.addEventListener('scroll', this.moveBar);
-
     }
 
     componentWillUnmount() {
