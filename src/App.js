@@ -10,6 +10,7 @@ import {
 
 //Api
 import AuthenticatedRoute from './ui/components/AuthenticatedRoute';
+import { getDayHeartRate } from './api/lookups';
 
 //Layout
 import PageLayout from './ui/template/PageLayout';
@@ -86,21 +87,7 @@ export default class App extends React.Component {
         newLessonModalVisible: false,
         newCommentModalVisible: false,
         heartRateModalVisible: false,
-    };
-
-    handleNewLessonModal = () => {
-        const currentState = this.state.newLessonModalVisible;
-        this.setState({ newLessonModalVisible: !currentState });
-    };
-
-    handleNewCommentModal = () => {
-        const currentState = this.state.newCommentModalVisible;
-        this.setState({ newCommentModalVisible: !currentState });
-    };
-
-    handleHeartRateModal = () => {
-        const currentState = this.state.heartRateModalVisible;
-        this.setState({ heartRateModalVisible: !currentState });
+        heartRate: null,
     };
 
     render() {
@@ -112,6 +99,7 @@ export default class App extends React.Component {
         };
 
         const sideBarButtonState = this.state;
+        
         return (
             <BrowserRouter>
                 <div className='page'>
@@ -128,7 +116,12 @@ export default class App extends React.Component {
                                 {...{ user }}
                                 exact
                                 path='/schedule'
-                                render={(params) => <SchedulePage {...{ params, user, sideBarButtonActions, sideBarButtonState }}/>}
+                                render={(params) => <SchedulePage {...{
+                                    params,
+                                    user,
+                                    sideBarButtonActions,
+                                    sideBarButtonState
+                                }}/>}
                             />
                             <AuthenticatedRoute
                                 {...{ user }}
@@ -140,7 +133,12 @@ export default class App extends React.Component {
                                 {...{ user }}
                                 exact
                                 path='/heartRate'
-                                render={(params) => <HeartRatePage {...{ params, user, sideBarButtonActions, sideBarButtonState }}/>}
+                                render={(params) => <HeartRatePage {...{
+                                    params,
+                                    user,
+                                    sideBarButtonActions,
+                                    sideBarButtonState
+                                }}/>}
                             />
                             <Route exact path='/sign-up' render={() => <SignUpPage {...{ pendingUser }} />}/>
                             <Route exact path='/' render={() => <LoginRouter {...{ user, pendingUser }} />}/>
@@ -151,6 +149,27 @@ export default class App extends React.Component {
             </BrowserRouter>
         )
     }
+
+    async componentDidMount() {
+        const { heartRate } = await getDayHeartRate();
+        this.setState({ heartRate });
+    }
+
+    handleNewLessonModal = () => {
+        const currentState = this.state.newLessonModalVisible;
+        this.setState({ newLessonModalVisible: !currentState });
+    };
+
+    handleNewCommentModal = () => {
+        const currentState = this.state.newCommentModalVisible;
+        this.setState({ newCommentModalVisible: !currentState });
+    };
+
+    handleHeartRateModal = () => {
+        const currentState = this.state.heartRateModalVisible;
+        this.setState({ heartRateModalVisible: !currentState });
+    };
+
 }
 
 App.propTypes = {

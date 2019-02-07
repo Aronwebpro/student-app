@@ -19,7 +19,10 @@ export default class SidebarButtons extends React.PureComponent {
             reset,
             user,
             page,
+            sideBarButtonState,
         } = this.props;
+
+        const { heartRate } = sideBarButtonState;
 
         switch (page) {
             case 'home' :
@@ -34,7 +37,7 @@ export default class SidebarButtons extends React.PureComponent {
                             </button>
                         </div>
                     );
-                } else if (user && user.role === 'student') {
+                } else if (user && user.role === 'student' && heartRate !== null && !heartRate) {
                     return (
                         <div className='navigation-button-wrapper'>
                             <button
@@ -45,7 +48,7 @@ export default class SidebarButtons extends React.PureComponent {
                             </button>
                         </div>
                     )
-                }else {
+                } else {
                     return
                 }
             case 'lesson' :
