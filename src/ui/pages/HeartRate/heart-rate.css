@@ -1,3 +1,5 @@
+@import "https://unpkg.com/react-vis/dist/style.css";
+
 .heart-rate-page-container {
     padding: 0 10px;
     flex: 1;
@@ -8,4 +10,9 @@
     background-color: #06769e;
     color: #ffffff;
     padding: 5px;
+}
+
+.chart-container {
+    background: transparent;
+    margin-top: 20px;
 }

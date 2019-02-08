@@ -1,15 +1,25 @@
 import React from 'react';
-
+import moment from 'moment';
+import {
+    XYPlot,
+    XAxis,
+    YAxis,
+    VerticalGridLines,
+    HorizontalGridLines,
+    LineMarkSeries,
+} from 'react-vis';
 //Api
 import { getHeartRatesForMonth } from '../../../api/lookups';
 
 //Utils
 import { changeMonthFromEngToLt } from '../../../utils';
+
+//Components
+import WeekSwitcher from '../../components/WeekSwitcher';
+import Spinner from "../../components/Spinner";
+
 //Styles
 import './heart-rate.css';
-import WeekSwitcher from '../../components/WeekSwitcher';
-import moment from 'moment';
-
 
 export default class HeartRate extends React.Component {
     state = {
@@ -25,11 +35,12 @@ export default class HeartRate extends React.Component {
 
     render() {
         const { week, lineData } = this.state;
+        const monthString = changeMonthFromEngToLt(moment().format('MMM'));
         return (
             <div className='heart-rate-page-container'>
                 <div className="forum-header">
                     <div className="forum-title">
-                        <h2>Mėnesio Širdies Ritmas</h2>
+                        <h2>{`${monthString} Mėnesio Širdies Ritmas`}</h2>
                     </div>
                     <div className="week-switcher">
                         <WeekSwitcher
@@ -41,14 +52,25 @@ export default class HeartRate extends React.Component {
                 </div>
                 <div className='section'>
                     <div className='sign-up-user-info-container'>
-                        <div className='sign-up-user-info-wrapper'>
-                            <h4>Vartotojo vardas</h4>
+                        <div className='chart-container'>
+                            {lineData ? (
+                                <div className='sign-up-user-info-wrapper'>
+                                    <XYPlot height={500} width={500} xDomain={[0, 31]} yDomain={[50, 80]}>
+                                        <XAxis tickInterval={1}/>
+                                        <YAxis tickInterval={5}/>
+                                        <VerticalGridLines/>
+                                        <HorizontalGridLines/>
+                                        <LineMarkSeries
+                                            data={lineData}
+                                            color={'rgb(106, 185, 213)'}
+                                            //style={{ strokeLineJoin: "round", strokeWidth: 5, mark: { stroke: 'white' } }}
+                                        />
+                                    </XYPlot>
+                                </div>
+                            ) : (
+                                <Spinner/>
+                            )}
                         </div>
-                        {lineData && (
-                            <div className='sign-up-user-info-wrapper'>
-                                {/*TODO: Add Chart*/}
-                            </div>
-                        )}
                     </div>
                 </div>
             </div>
@@ -71,11 +93,11 @@ export default class HeartRate extends React.Component {
 
     handleClickWeekRight = () => {
 
-    }
+    };
 
     handleClickWeekLeft = () => {
 
-    }
+    };
 
     //Generate current week Object with Moment JS
     currentWeek = (date) => {

@@ -64,7 +64,7 @@ const getHeartRatesForMonth = async (month = '') => {
         //TODO: Unknow Shape of Data
         return {
             x: parseInt(moment(date).format('DD'), 10),
-            y: heartRate,
+            y: parseInt(heartRate, 10),
         }
     });
 };
