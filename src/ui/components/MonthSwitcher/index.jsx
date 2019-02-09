@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 //Utils
-import { changeMonthFromEngToLtV2 } from '../../../utils';
+import { changeMonthFromEngToLt } from '../../../utils';
 
 //Antd
 import Icon from 'antd/lib/icon';
@@ -25,10 +25,10 @@ export default class MonthSwitcher extends React.Component {
             handleLeftClick,
             handleRightClick,
         } = this.props;
-        const nextMonth  = changeMonthFromEngToLtV2(moment(month).add(1, 'month').format('MMM'));
-        const prevMonth = changeMonthFromEngToLtV2(moment(month).subtract(1, 'month').format('MMM'));
+        const nextMonth  = changeMonthFromEngToLt(moment(month).add(1, 'month').format('MM'), {V2: true});
+        const prevMonth = changeMonthFromEngToLt(moment(month).subtract(1, 'month').format('MM'), {V2: true});
 
-        const monthString = `${prevMonth} - ${nextMonth}`;
+        const monthString = `${prevMonth} mėn. - ${nextMonth} mėn.`;
         return (
             <div className='month-switcher-container'>
                 <div onClick={handleLeftClick} className='button-left-container'>

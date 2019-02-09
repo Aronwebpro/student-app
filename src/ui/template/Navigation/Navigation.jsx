@@ -15,7 +15,7 @@ class Navigation extends React.PureComponent {
                 <nav className={!user || (user && !user.authorAvatar) ? 'nav-logged-out' : undefined}>
                     {user && (
                         <div>
-                            <Link to="/home">Pirmas Puslapis</Link>
+                            <Link to="/home">Pagrindinis</Link>
                             <Link to="/profile" className="theme-color_txt log-out">Profilis</Link>
                             <button className="log-out" onClick={this.logOut} style={{ cursor: 'pointer' }}>Atsijungti</button>
                         </div>

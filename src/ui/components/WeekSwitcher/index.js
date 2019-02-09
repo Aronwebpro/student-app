@@ -25,9 +25,9 @@ export default class WeekSwitcher extends React.PureComponent {
             handleLeftClick,
             handleRightClick
         } = this.props;
-        const startDayMonth = changeMonthFromEngToLt(moment(week.firstDayString).format('MMM'));
+        const startDayMonth = changeMonthFromEngToLt(moment(week.firstDayString).format('MM'), {});
         const startDay = moment(week.firstDayString).format('DD');
-        const endDayMonth = changeMonthFromEngToLt(moment(week.lastDayString).format('MMM'));
+        const endDayMonth = changeMonthFromEngToLt(moment(week.lastDayString).format('MM'), {});
         const endDay = moment(week.lastDayString).format('DD');
 
         const weekString = `${startDayMonth} ${startDay} - ${endDayMonth} ${endDay}`;

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import Message from 'antd/lib/message';
+
 //Style
 import './sidebarButtons.css';
 
@@ -89,6 +91,17 @@ export default class SidebarButtons extends React.PureComponent {
                         </button>
                     </div>
                 );
+            case 'schedule' :
+                return (
+                    <div className='navigation-button-wrapper'>
+                        <button
+                            className="new-topic-button btn"
+                            onClick={this.handleNewEvent}
+                        >
+                            New Event
+                        </button>
+                    </div>
+                );
             default :
                 return (
                     <div/>
@@ -109,6 +122,10 @@ export default class SidebarButtons extends React.PureComponent {
     handleHeartRate = () => {
         const { sideBarButtonActions } = this.props;
         sideBarButtonActions.handleHeartRateModal();
+    };
+
+    handleNewEvent = () => {
+        Message.error('Ši funkcija bus Įdiegta vėliau');
     }
 
 

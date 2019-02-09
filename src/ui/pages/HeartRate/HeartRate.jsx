@@ -29,7 +29,7 @@ export default class HeartRate extends React.Component {
 
     render() {
         const { month, lineData } = this.state;
-        const monthString = changeMonthFromEngToLt(moment(month).format('MMM'));
+        const monthString = changeMonthFromEngToLt(moment(month).format('MMM'), {});
         return (
             <div className='heart-rate-page-container'>
                 <div className="forum-header">
@@ -48,7 +48,7 @@ export default class HeartRate extends React.Component {
                     <div className='sign-up-user-info-container'>
                         <div className='chart-container'>
                             {lineData ? (
-                                <div className='sign-up-user-info-wrapper'>
+                                <div className='heart-rate-page-chart-wrapper'>
                                     {lineData.length > 0 ? (
                                         <XYPlot height={500} width={800} xDomain={[0, 31]} yDomain={[50, 80]}>
                                             <XAxis tickInterval={1}/>
@@ -62,7 +62,7 @@ export default class HeartRate extends React.Component {
                                             />
                                         </XYPlot>
                                     ) : (
-                                        <div>
+                                        <div className='heart-rate-page-'>
                                             <h2>Šį mėnesį širdies ritmo įvesta nėra.</h2>
                                         </div>
                                     )}

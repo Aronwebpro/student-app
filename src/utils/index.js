@@ -38,7 +38,7 @@ const getUsersFromStorage = () => {
     if (local) {
         try {
             return JSON.parse(local);
-        }catch(e) {
+        } catch (e) {
             console.log(e);
             return {};
         }
@@ -52,11 +52,11 @@ const getUsersFromStorage = () => {
  * @param data
  */
 const saveUsersToStorage = (data) => {
-      try {
-          sessionStorage.setItem('postsUsers', JSON.stringify(data));
-      }catch (e) {
-          console.log(e);
-      }
+    try {
+        sessionStorage.setItem('postsUsers', JSON.stringify(data));
+    } catch (e) {
+        console.log(e);
+    }
 };
 
 const changeWeekDayFromEngToLt = (day) => {
@@ -80,67 +80,37 @@ const changeWeekDayFromEngToLt = (day) => {
     }
 };
 
-const changeMonthFromEngToLt = (month) => {
+const changeMonthFromEngToLt = (month, { v2 }) => {
     switch (month) {
-        case 'Jan' :
-            return 'Sausio';
-        case 'Feb' :
-            return 'Vasario';
-        case 'Mar' :
-            return 'Kovo';
-        case 'Apr' :
-            return 'Balandžio';
-        case 'May' :
-            return 'Gegužės';
-        case 'Jun' :
-            return 'Birželio';
-        case 'Jul' :
-            return 'Liepos';
-        case 'Aug' :
-            return 'Rugpjūčio';
-        case 'Sep' :
-            return 'Rugsėjo';
-        case 'Oct' :
-            return 'Spalio';
-        case 'Nov' :
-            return 'Lapkričio';
-        case 'Dec' :
-            return 'Gruodžio';
+        case '01' :
+            return v2 ? 'Sausis' : 'Sausio';
+        case '02' :
+            return v2 ? 'Vasaris' : 'Vasario';
+        case '03' :
+            return v2 ? 'Kovas' : 'Kovo';
+        case '04' :
+            return v2 ? 'Balandis' : 'Balandžio';
+        case '05' :
+            return v2 ? 'Gegužė' : 'Gegužės';
+        case '06' :
+            return v2 ? 'Birželis' : 'Birželio';
+        case '07' :
+            return v2 ? 'Liepa' : 'Liepos';
+        case '08' :
+            return v2 ? 'Rugpjūtis' : 'Rugpjūčio';
+        case '09' :
+            return v2 ? 'Rugsėjis' : 'Rugsėjo';
+        case '10' :
+            return v2 ? 'Spalis' : 'Spalio';
+        case '11' :
+            return v2 ? 'Lapkritis' : 'Lapkričio';
+        case '12' :
+            return v2 ? 'Gruodis' : 'Gruodžio';
         default :
             return '';
     }
 };
 
-const changeMonthFromEngToLtV2 = (month) => {
-    switch (month) {
-        case 'Jan' :
-            return 'Sausis';
-        case 'Feb' :
-            return 'Vasaris';
-        case 'Mar' :
-            return 'Kovas';
-        case 'Apr' :
-            return 'Balandis';
-        case 'May' :
-            return 'Gegužė';
-        case 'Jun' :
-            return 'Birželis';
-        case 'Jul' :
-            return 'Liepa';
-        case 'Aug' :
-            return 'Rugpjūtis';
-        case 'Sep' :
-            return 'Rugsėjis';
-        case 'Oct' :
-            return 'Spalis';
-        case 'Nov' :
-            return 'Lapkritis';
-        case 'Dec' :
-            return 'Gruodis';
-        default :
-            return '';
-    }
-};
 
 export {
     formatToDateString,
@@ -150,5 +120,4 @@ export {
     formatToDateAndTimeString,
     changeWeekDayFromEngToLt,
     changeMonthFromEngToLt,
-    changeMonthFromEngToLtV2,
 }
