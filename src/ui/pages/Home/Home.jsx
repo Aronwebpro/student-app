@@ -46,7 +46,7 @@ export default class Home extends React.Component {
                     <HeartRateModal
                         visible={sideBarButtonState.heartRateModalVisible}
                         hideModal={sideBarButtonActions.handleHeartRateModal}
-                        refreshData={this.getScreenData}
+                        refreshData={sideBarButtonActions.generateHeartRateData}
                     />
                 )}
                 <div className="forum">

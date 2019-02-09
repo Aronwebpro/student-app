@@ -26,13 +26,13 @@ const menu = [
         url: '/home',
     },
     {
+        title: 'Širdies Ritmas',
+        url: '/heartRate',
+    },
+    {
         title: 'Tvarkaraštis',
         url: '/schedule',
     },
-    {
-        title: 'Širdies Ritmas',
-        url: '/heartRate',
-    }
 ];
 export default class SideBar extends React.Component {
     state = {

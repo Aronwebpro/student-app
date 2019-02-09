@@ -65,7 +65,7 @@ export default class SidebarButtons extends React.PureComponent {
                                 onClick={this.handleReplyWithUser}
                                 className="new-comment-button btn"
                             >
-                                Naujas Komentaras
+                                Komentuoti
                             </button>
                         </div>
                     )

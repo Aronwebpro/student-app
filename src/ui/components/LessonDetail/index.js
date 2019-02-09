@@ -69,8 +69,8 @@ export default class LessonDetail extends React.PureComponent {
                                     </h2>
                                 </div>
                             </div>
-                            <h3>
-                                Komentaras:
+                            <h3 className='bold'>
+                               Mokytojo Komentaras:
                             </h3>
                             <div className="post-text">
                                 <p>{coachNote}</p>

@@ -96,6 +96,7 @@ export default class App extends React.Component {
             handleNewLessonModal: this.handleNewLessonModal,
             handleNewCommentModal: this.handleNewCommentModal,
             handleHeartRateModal: this.handleHeartRateModal,
+            generateHeartRateData: this.generateScreenData,
         };
 
         const sideBarButtonState = this.state;
@@ -151,9 +152,13 @@ export default class App extends React.Component {
     }
 
     async componentDidMount() {
+        await this.generateScreenData();
+    }
+
+    generateScreenData = async () => {
         const { heartRate } = await getDayHeartRate();
         this.setState({ heartRate });
-    }
+    };
 
     handleNewLessonModal = () => {
         const currentState = this.state.newLessonModalVisible;

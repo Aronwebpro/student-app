@@ -15,7 +15,7 @@ import { getHeartRatesForMonth } from '../../../api/lookups';
 import { changeMonthFromEngToLt } from '../../../utils';
 
 //Components
-import WeekSwitcher from '../../components/WeekSwitcher';
+import MonthSwitcher from '../../components/MonthSwitcher';
 import Spinner from "../../components/Spinner";
 
 //Styles
@@ -23,28 +23,22 @@ import './heart-rate.css';
 
 export default class HeartRate extends React.Component {
     state = {
-        week: {
-            firstDayString: '',
-            lastDayString: '',
-            firstDayOfWeek: '',
-            weekNumber: '',
-            weekObj: {},
-        },
+        month: moment().format('YYYY-MM'),
         lineData: null,
     };
 
     render() {
-        const { week, lineData } = this.state;
-        const monthString = changeMonthFromEngToLt(moment().format('MMM'));
+        const { month, lineData } = this.state;
+        const monthString = changeMonthFromEngToLt(moment(month).format('MMM'));
         return (
             <div className='heart-rate-page-container'>
                 <div className="forum-header">
                     <div className="forum-title">
-                        <h2>{`${monthString} Mėnesio Širdies Ritmas`}</h2>
+                        <h2><span style={{fontSize: '1.5em'}}>{`${monthString} `}</span>Mėnesio Širdies Ritmas</h2>
                     </div>
                     <div className="week-switcher">
-                        <WeekSwitcher
-                            week={week}
+                        <MonthSwitcher
+                            month={month}
                             handleRightClick={this.handleClickWeekRight}
                             handleLeftClick={this.handleClickWeekLeft}
                         />
@@ -55,17 +49,23 @@ export default class HeartRate extends React.Component {
                         <div className='chart-container'>
                             {lineData ? (
                                 <div className='sign-up-user-info-wrapper'>
-                                    <XYPlot height={500} width={500} xDomain={[0, 31]} yDomain={[50, 80]}>
-                                        <XAxis tickInterval={1}/>
-                                        <YAxis tickInterval={5}/>
-                                        <VerticalGridLines/>
-                                        <HorizontalGridLines/>
-                                        <LineMarkSeries
-                                            data={lineData}
-                                            color={'rgb(106, 185, 213)'}
-                                            //style={{ strokeLineJoin: "round", strokeWidth: 5, mark: { stroke: 'white' } }}
-                                        />
-                                    </XYPlot>
+                                    {lineData.length > 0 ? (
+                                        <XYPlot height={500} width={800} xDomain={[0, 31]} yDomain={[50, 80]}>
+                                            <XAxis tickInterval={1}/>
+                                            <YAxis tickInterval={5}/>
+                                            <VerticalGridLines/>
+                                            <HorizontalGridLines/>
+                                            <LineMarkSeries
+                                                data={lineData}
+                                                color={'rgb(106, 185, 213)'}
+                                                //style={{ strokeLineJoin: "round", strokeWidth: 5, mark: { stroke: 'white' } }}
+                                            />
+                                        </XYPlot>
+                                    ) : (
+                                        <div>
+                                            <h2>Šį mėnesį širdies ritmo įvesta nėra.</h2>
+                                        </div>
+                                    )}
                                 </div>
                             ) : (
                                 <Spinner/>
@@ -78,37 +78,26 @@ export default class HeartRate extends React.Component {
     }
 
     componentDidMount() {
-        const week = this.currentWeek();
-        this.setState({ week });
-
         this.getScreenData();
     }
 
-    getScreenData = async () => {
-        const month = moment().format('YYYY-MM');
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.month !== this.state.month) {
+            this.getScreenData();
+        }
+    }
 
+    getScreenData = async () => {
+        this.setState({ lineData: null });
+        const { month } = this.state;
         const lineData = await getHeartRatesForMonth(month);
         this.setState({ lineData });
     };
 
-    handleClickWeekRight = () => {
+    //Update Month Object after month switch
+    handleClickWeekRight = () => this.setState({ month: moment(this.state.month).add(1, 'M').format('YYYY-MM') });
 
-    };
+    //Update Month Object after month switch
+    handleClickWeekLeft = () => this.setState({ month: moment(this.state.month).subtract(1, 'M').format('YYYY-MM') });
 
-    handleClickWeekLeft = () => {
-
-    };
-
-    //Generate current week Object with Moment JS
-    currentWeek = (date) => {
-        const startOfWeek = moment(date).startOf('isoWeek');
-        const endOfWeek = moment(date).endOf('isoWeek');
-        return {
-            firstDayString: startOfWeek.format('YYYY-MM-DD'),
-            lastDayString: endOfWeek.format('YYYY-MM-DD'),
-            weekNumber: startOfWeek.format('YYYY-Wo'),
-            firstDayOfWeek: startOfWeek.format('YYYY-MM-DD'),
-            weekObj: moment(date ? date : startOfWeek),
-        };
-    };
 }

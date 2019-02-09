@@ -111,6 +111,37 @@ const changeMonthFromEngToLt = (month) => {
     }
 };
 
+const changeMonthFromEngToLtV2 = (month) => {
+    switch (month) {
+        case 'Jan' :
+            return 'Sausis';
+        case 'Feb' :
+            return 'Vasaris';
+        case 'Mar' :
+            return 'Kovas';
+        case 'Apr' :
+            return 'Balandis';
+        case 'May' :
+            return 'Gegužė';
+        case 'Jun' :
+            return 'Birželis';
+        case 'Jul' :
+            return 'Liepa';
+        case 'Aug' :
+            return 'Rugpjūtis';
+        case 'Sep' :
+            return 'Rugsėjis';
+        case 'Oct' :
+            return 'Spalis';
+        case 'Nov' :
+            return 'Lapkritis';
+        case 'Dec' :
+            return 'Gruodis';
+        default :
+            return '';
+    }
+};
+
 export {
     formatToDateString,
     formatToTimeString,
@@ -119,4 +150,5 @@ export {
     formatToDateAndTimeString,
     changeWeekDayFromEngToLt,
     changeMonthFromEngToLt,
+    changeMonthFromEngToLtV2,
 }
