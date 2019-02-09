@@ -11,6 +11,7 @@ import Spinner from '../../components/Spinner';
 import WeekSwitcher from '../../components/WeekSwitcher';
 import DayLessons from '../../components/DayLessons';
 import NewLessonModal from '../../components/NewLessonModal';
+import HeartRateModal from "../../components/HeartRateModal";
 
 export default class Home extends React.Component {
     state = {
@@ -25,19 +26,27 @@ export default class Home extends React.Component {
             weekNumber: '',
             weekObj: {},
         },
-        newLessonModalVisible: false,
     };
 
     render() {
-        const { lessons, postsLoading, week, newLessonModalVisible } = this.state;
+        const { lessons, postsLoading, week } = this.state;
+        const { sideBarButtonState, sideBarButtonActions } = this.props;
         if (this.state.redirect) return <Redirect to="/"/>;
         const empty = Object.keys(lessons).length === 0;
         return (
             <div className="forum-container">
-                {newLessonModalVisible && (
+                {sideBarButtonState.newLessonModalVisible && (
                     <NewLessonModal
-                        visible={newLessonModalVisible}
-                        hideModal={this.hideNewLessonModal}
+                        visible={sideBarButtonState.newLessonModalVisible}
+                        hideModal={sideBarButtonActions.handleNewLessonModal}
+                        refreshData={this.getScreenData}
+                    />
+                )}
+                {sideBarButtonState.heartRateModalVisible && (
+                    <HeartRateModal
+                        visible={sideBarButtonState.heartRateModalVisible}
+                        hideModal={sideBarButtonActions.handleHeartRateModal}
+                        refreshData={sideBarButtonActions.generateHeartRateData}
                     />
                 )}
                 <div className="forum">
@@ -78,7 +87,6 @@ export default class Home extends React.Component {
                                     </div>
                                 )
                             }
-                            <button className="btn" onClick={this.openNewLessonModal}>Open Modal</button>
                         </div>
                     </div>
                 </div>
@@ -116,7 +124,10 @@ export default class Home extends React.Component {
         }
         const firstDayOfWeek = this.state.week.firstDayOfWeek || moment().startOf('isoWeek').format('YYYY-MM-DD');
         const lessons = await getLessons(firstDayOfWeek);
-        this.setState({ lessons, postsLoading: false });
+        if (!this.isUnmount) {
+            this.setState({ lessons, postsLoading: false });
+        }
+
     };
 
     //Generate current week Object with Moment JS
@@ -138,9 +149,6 @@ export default class Home extends React.Component {
     //Update Week Object after week switch
     handleClickWeekLeft = () => this.setState({ week: this.currentWeek(this.state.week.weekObj.subtract(1, 'week')) });
 
-    //New Lesson Modal Handlers
-    hideNewLessonModal = () => this.setState({ newLessonModalVisible: false });
-    openNewLessonModal = () => this.setState({ newLessonModalVisible: true });
 }
 
 Home.propTypes = {

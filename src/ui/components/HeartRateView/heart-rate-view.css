@@ -1,0 +1,13 @@
+.heart-rate-view-container {
+    margin-top: 15px;
+    padding-bottom: 20px;
+}
+
+.heart-rate-view-container p {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.heart-rate-view-spinner-container {
+    padding-top: 10px;
+}

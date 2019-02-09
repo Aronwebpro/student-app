@@ -109,8 +109,8 @@
     /*text-align:center;*/
 }
 
-.row-right .author-avatar img {
-    width: 40%;
+.author-avatar img {
+    width: 70px;
     margin: auto;
     border-radius: 50%;
 }

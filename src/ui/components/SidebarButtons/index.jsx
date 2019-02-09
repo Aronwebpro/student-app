@@ -19,11 +19,14 @@ export default class SidebarButtons extends React.PureComponent {
             reset,
             user,
             page,
+            sideBarButtonState,
         } = this.props;
+
+        const { heartRate } = sideBarButtonState;
 
         switch (page) {
             case 'home' :
-                if (user && user.role === 'coach') {
+                if (user && user.role === 'teacher') {
                     return (
                         <div className='navigation-button-wrapper'>
                             <button
@@ -34,6 +37,17 @@ export default class SidebarButtons extends React.PureComponent {
                             </button>
                         </div>
                     );
+                } else if (user && user.role === 'student' && heartRate !== null && !heartRate) {
+                    return (
+                        <div className='navigation-button-wrapper'>
+                            <button
+                                className="new-topic-button btn"
+                                onClick={this.handleHeartRate}
+                            >
+                                Ivesti Širdies Ritma
+                            </button>
+                        </div>
+                    )
                 } else {
                     return
                 }
@@ -51,7 +65,7 @@ export default class SidebarButtons extends React.PureComponent {
                                 onClick={this.handleReplyWithUser}
                                 className="new-comment-button btn"
                             >
-                                Naujas Komentaras
+                                Komentuoti
                             </button>
                         </div>
                     )
@@ -83,11 +97,18 @@ export default class SidebarButtons extends React.PureComponent {
     };
 
     handleReplyWithUser = () => {
-
+        const { sideBarButtonActions } = this.props;
+        sideBarButtonActions.handleNewCommentModal();
     };
 
     handleCreateNewLesson = () => {
+        const { sideBarButtonActions } = this.props;
+        sideBarButtonActions.handleNewLessonModal();
+    };
 
+    handleHeartRate = () => {
+        const { sideBarButtonActions } = this.props;
+        sideBarButtonActions.handleHeartRateModal();
     }
 
 

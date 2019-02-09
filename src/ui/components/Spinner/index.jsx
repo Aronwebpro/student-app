@@ -18,14 +18,14 @@ export default class Spinner extends React.PureComponent {
     }
 
     handleSpinnerSize = () => {
-        const {size} = this.props;
+        const { size } = this.props;
         switch (size) {
             case 'normal' :
-                return {height: 'auto', width: '50px'};
+                return { height: 'auto', width: '50px' };
             case 'small' :
-                return {height: 'auto', width: '35px'};
+                return { height: 'auto', width: '35px' };
             default :
-                return {height: 'auto', width: '50px'};
+                return { height: 'auto', width: '50px' };
         }
 
     }
