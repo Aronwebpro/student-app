@@ -14,7 +14,8 @@ const styles = {
     },
     monthDayText: {
         fontSize: 25,
-        textAlign: 'center'
+        textAlign: 'center',
+        marginTop: '10px',
     },
     dayNumberText: {
         fontSize: 65,

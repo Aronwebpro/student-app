@@ -33,11 +33,12 @@ const createLesson = async ({ lesson }) => {
  * Insert New HeartRate for the Day
  * @param heartRateId
  * @param date
+ * @param month
  * @param heartRate
  * @returns {Promise<{result: string}>}
  */
-const insertHeartRate = async ({ heartRateId, date, heartRate }) => {
-    await db.collection('heartRates').doc(heartRateId).set({ date, heartRate });
+const insertHeartRate = async ({ heartRateId, date, heartRate, month }) => {
+    await db.collection('heartRates').doc(heartRateId).set({ date, heartRate, month });
     return { result: 'success' };
 };
 

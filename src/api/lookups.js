@@ -17,6 +17,11 @@ const getUser = async (userId) => {
     }
 };
 
+/**
+ * Get Pending User by ID
+ * @param userId
+ * @returns {Promise<*>}
+ */
 const getPendingUser = async (userId) => {
     const userRef = db.collection('pendingUsers');
     const userDoc = await userRef.doc(userId).get();
@@ -48,6 +53,20 @@ const getDayHeartRate = async () => {
         return {};
     }
     return { heartRateId: heartRatesDoc.id, ...heartRatesDoc.data() };
+};
+
+const getHeartRatesForMonth = async (month = '') => {
+    const heartRatesRef = db.collection('heartRates');
+    const heartRatesDocs = await heartRatesRef.where('month', '==', month).get();
+
+    return heartRatesDocs.docs.map((doc) => {
+        const { date, heartRate } = doc.data();
+        //TODO: Unknow Shape of Data
+        return {
+            x: parseInt(moment(date).format('DD'), 10),
+            y: parseInt(heartRate, 10),
+        }
+    });
 };
 
 /**coachId
@@ -111,4 +130,5 @@ export {
     getDayHeartRate,
     getCommentsForLesson,
     getPendingUser,
+    getHeartRatesForMonth,
 }

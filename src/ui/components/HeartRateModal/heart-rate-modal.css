@@ -1,0 +1,11 @@
+.heart-rate-modal-container {
+    margin-top: 20px;
+}
+
+.heart-rate-modal-spin-body {
+    min-height: 99px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

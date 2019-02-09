@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 //Utils
-import { changeMonthFromEngToLt } from '../../../utils';
+import { changeMonthFromEngToLtV2 } from '../../../utils';
 
 //Antd
 import Icon from 'antd/lib/icon';
 
 //Styles
-import './week-swticher.css';
+import './month-switcher.css';
 
 const styles = {
     button: {
@@ -18,26 +18,24 @@ const styles = {
     }
 };
 
-export default class WeekSwitcher extends React.PureComponent {
+export default class MonthSwitcher extends React.Component {
     render() {
         const {
-            week,
+            month,
             handleLeftClick,
-            handleRightClick
+            handleRightClick,
         } = this.props;
-        const startDayMonth = changeMonthFromEngToLt(moment(week.firstDayString).format('MMM'));
-        const startDay = moment(week.firstDayString).format('DD');
-        const endDayMonth = changeMonthFromEngToLt(moment(week.lastDayString).format('MMM'));
-        const endDay = moment(week.lastDayString).format('DD');
+        const nextMonth  = changeMonthFromEngToLtV2(moment(month).add(1, 'month').format('MMM'));
+        const prevMonth = changeMonthFromEngToLtV2(moment(month).subtract(1, 'month').format('MMM'));
 
-        const weekString = `${startDayMonth} ${startDay} - ${endDayMonth} ${endDay}`;
+        const monthString = `${prevMonth} - ${nextMonth}`;
         return (
-            <div className='week-switcher-container'>
+            <div className='month-switcher-container'>
                 <div onClick={handleLeftClick} className='button-left-container'>
                     <Icon style={styles.button} type="caret-left"/>
                 </div>
                 <div>
-                    {weekString}
+                    {monthString}
                 </div>
                 <div onClick={handleRightClick} className='button-right-container'>
                     <Icon style={styles.button} type="caret-right"/>
@@ -47,7 +45,7 @@ export default class WeekSwitcher extends React.PureComponent {
     }
 }
 
-WeekSwitcher.propTypes = {
+MonthSwitcher.propTypes = {
     week: PropTypes.shape({
         firstDayString: PropTypes.string.isRequired,
         lastDayString: PropTypes.string.isRequired,

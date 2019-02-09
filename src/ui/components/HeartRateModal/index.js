@@ -14,6 +14,8 @@ import Modal from 'antd/lib/modal';
 import Spin from 'antd/lib/spin';
 import Message from 'antd/lib/message';
 
+//Styles
+import './heart-rate-modal.css';
 
 const Footer = (props) => {
     const { createLesson, hideModal } = props;
@@ -47,14 +49,14 @@ export default class HeartRateModal extends React.Component {
                 visible={visible}
                 onCancel={hideModal}
                 width={'600px'}
-                footer={<Footer {...{ hideModal }} createLesson={this.createLesson}/>}
+                footer={<Footer {...{ hideModal }} createLesson={this.submitHeartRate}/>}
             >
                 {loading ? (
-                    <div className="create-lesson-spin-body">
+                    <div className="heart-rate-modal-spin-body">
                         <Spin size={'large'}/>
                     </div>
                 ) : (
-                    <div className="create-lesson-container">
+                    <div className="heart-rate-modal-container">
                         <div className="post-title forum-header">
                             <h2>Įvesti Dienos Širdies Ritmą</h2>
                         </div>
@@ -97,13 +99,15 @@ export default class HeartRateModal extends React.Component {
 
 
     //Create Lesson Handler
-    createLesson = async () => {
+    submitHeartRate = async () => {
 
         const date = Date.now();
-        const heartRateId = moment().format('YYYY-MM-DD');
+        const momentObj = moment();
+        const heartRateId = momentObj.format('YYYY-MM-DD');
+        const month = momentObj.format('YYYY-MM');
         const heartRate = this.heartRate.value;
 
-        const { error } = await API.insertHeartRate({ heartRate, heartRateId, date });
+        const { error } = await API.insertHeartRate({ heartRate, heartRateId, date, month });
 
         if (error) {
             Message.error('Failed To Insert Heart Rate');
