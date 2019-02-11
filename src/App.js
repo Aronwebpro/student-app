@@ -32,6 +32,10 @@ import Lesson from './ui/pages/Lesson/Lesson';
 import HeartRate from './ui/pages/HeartRate/HeartRate';
 import SignUp from './ui/pages/SignUp/SignUp';
 
+//Redux
+import { Provider as ReduxProvider } from 'react-redux';
+import store from './store';
+
 //Pages
 const LoginPage = PageLayout({
     PageComponent: Login,
@@ -100,53 +104,65 @@ export default class App extends React.Component {
         };
 
         const sideBarButtonState = this.state;
-        
+
         return (
             <BrowserRouter>
-                <div className='page'>
-                    <Header {...{ user }} />
-                    <div className='content'>
-                        <Switch>
-                            <AuthenticatedRoute
-                                {...{ user }}
-                                exact
-                                path='/home'
-                                render={(params) => <HomePage {...{ params, user, sideBarButtonActions, sideBarButtonState }}/>}
-                            />
-                            <AuthenticatedRoute
-                                {...{ user }}
-                                exact
-                                path='/schedule'
-                                render={(params) => <SchedulePage {...{
-                                    params,
-                                    user,
-                                    sideBarButtonActions,
-                                    sideBarButtonState
-                                }}/>}
-                            />
-                            <AuthenticatedRoute
-                                {...{ user }}
-                                exact
-                                path='/lesson/:lessonId'
-                                render={(params) => <LessonPage {...{ params, user, sideBarButtonActions, sideBarButtonState }}/>}
-                            />
-                            <AuthenticatedRoute
-                                {...{ user }}
-                                exact
-                                path='/heartRate'
-                                render={(params) => <HeartRatePage {...{
-                                    params,
-                                    user,
-                                    sideBarButtonActions,
-                                    sideBarButtonState
-                                }}/>}
-                            />
-                            <Route exact path='/sign-up' render={() => <SignUpPage {...{ pendingUser }} />}/>
-                            <Route exact path='/' render={() => <LoginRouter {...{ user, pendingUser }} />}/>
-                        </Switch>
+                <ReduxProvider store={store}>
+                    <div className='page'>
+                        <Header {...{ user }} />
+                        <div className='content'>
+                            <Switch>
+                                <AuthenticatedRoute
+                                    {...{ user }}
+                                    exact
+                                    path='/home'
+                                    render={(params) => <HomePage {...{
+                                        params,
+                                        user,
+                                        sideBarButtonActions,
+                                        sideBarButtonState
+                                    }}/>}
+                                />
+                                <AuthenticatedRoute
+                                    {...{ user }}
+                                    exact
+                                    path='/schedule'
+                                    render={(params) => <SchedulePage {...{
+                                        params,
+                                        user,
+                                        sideBarButtonActions,
+                                        sideBarButtonState
+                                    }}/>}
+                                />
+                                <AuthenticatedRoute
+                                    {...{ user }}
+                                    exact
+                                    path='/lesson/:lessonId'
+                                    render={(params) => <LessonPage {...{
+                                        params,
+                                        user,
+                                        sideBarButtonActions,
+                                        sideBarButtonState
+                                    }}/>}
+                                />
+                                <AuthenticatedRoute
+                                    {...{ user }}
+                                    exact
+                                    path='/heartRate'
+                                    render={(params) => <HeartRatePage {...{
+                                        params,
+                                        user,
+                                        sideBarButtonActions,
+                                        sideBarButtonState
+                                    }}/>}
+                                />
+                                <Route exact path='/sign-up' render={() => <SignUpPage {...{ pendingUser }} />}/>
+                                <Route exact path='/' render={() => <LoginRouter {...{ user, pendingUser }} />}/>
+                            </Switch>
+                        </div>
+                        <Footer/>
                     </div>
-                    <Footer/>
-                </div>
+                </ReduxProvider>
             </BrowserRouter>
         )
     }
