@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import changeNewLessonModalState from '../../../redux/actions/changeNewLessonModalState';
+import changeHeartRateModalState from '../../../redux/actions/changeHeartRateModalState';
 
 //Style
 import './sidebarButtons.css';
 
-export default class SidebarButtons extends React.PureComponent {
+class SidebarButtons extends React.PureComponent {
     render() {
         return (
             <div className="navigation-buttons">
@@ -102,17 +105,15 @@ export default class SidebarButtons extends React.PureComponent {
     };
 
     handleCreateNewLesson = () => {
-        const { sideBarButtonActions } = this.props;
-        sideBarButtonActions.handleNewLessonModal();
+        const { dispatch } = this.props;
+        dispatch(changeNewLessonModalState(true));
     };
 
     handleHeartRate = () => {
-        const { sideBarButtonActions } = this.props;
-        sideBarButtonActions.handleHeartRateModal();
+        const { dispatch } = this.props;
+        dispatch(changeHeartRateModalState(true));
     }
-
-
-};
+}
 
 PropTypes.SidebarButtons = {
     user: PropTypes.object,
@@ -121,3 +122,12 @@ PropTypes.SidebarButtons = {
     clearReply: PropTypes.func,
     reset: PropTypes.func,
 };
+
+const mapStateToProps = (state) => {
+    return {
+        newLessonModalVisible: state.newLessonModal.visible,
+        heartRateModalVisible: state.heartRateModal.visible,
+    }
+};
+
+export default connect(mapStateToProps)(SidebarButtons);
