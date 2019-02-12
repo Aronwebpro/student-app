@@ -17,6 +17,7 @@ import WeekSwitcher from '../../components/WeekSwitcher';
 import DayLessons from '../../components/DayLessons';
 import NewLessonModal from '../../components/NewLessonModal';
 import HeartRateModal from '../../components/HeartRateModal';
+import changeNewCommentModalState from '../../../redux/actions/changeNewCommentModalState';
 
 class Home extends React.Component {
     state = {
@@ -35,7 +36,12 @@ class Home extends React.Component {
 
     render() {
         const { lessons, postsLoading, week } = this.state;
-        const { newLessonModalVisible, heartRateModalVisible } = this.props;
+        const {
+            newLessonModalVisible,
+            heartRateModalVisible,
+            closeNewLessonModal,
+            closeHeartRateModal,
+        } = this.props;
         if (this.state.redirect) return <Redirect to="/"/>;
         const empty = Object.keys(lessons).length === 0;
         return (
@@ -43,14 +49,14 @@ class Home extends React.Component {
                 {newLessonModalVisible && (
                     <NewLessonModal
                         visible={newLessonModalVisible}
-                        hideModal={this.closeModal.bind(this, 'newLesson')}
+                        hideModal={closeNewLessonModal}
                         refreshData={this.getScreenData}
                     />
                 )}
                 {heartRateModalVisible && (
                     <HeartRateModal
                         visible={heartRateModalVisible}
-                        hideModal={this.closeModal.bind(this, 'heartRate')}
+                        hideModal={closeHeartRateModal}
                         refreshData={() => {}}
                     />
                 )}
@@ -153,20 +159,7 @@ class Home extends React.Component {
 
     //Update Week Object after week switch
     handleClickWeekLeft = () => this.setState({ week: this.currentWeek(this.state.week.weekObj.subtract(1, 'week')) });
-
-    closeModal = (modal) => {
-        const { dispatch } = this.props;
-        switch (modal) {
-            case 'newLesson' :
-                return dispatch(changeNewLessonModalState(false));
-            case 'heartRate' :
-                return dispatch(changeHeartRateModalState(false));
-            default :
-                return
-        }
-
-    }
-
+    
 }
 
 Home.propTypes = {
@@ -178,6 +171,7 @@ Home.propTypes = {
     params: PropTypes.object
 };
 
+//Redux Map to Props Handlers
 const mapStateToProps = (state) => {
     return {
         newLessonModalVisible: state.newLessonModal.visible,
@@ -185,4 +179,15 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        closeNewLessonModal() {
+            dispatch(changeNewLessonModalState(false));
+        },
+        closeHeartRateModal() {
+            dispatch(changeHeartRateModalState(false));
+        },
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
