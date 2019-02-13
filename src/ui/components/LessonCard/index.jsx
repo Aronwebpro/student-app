@@ -27,7 +27,7 @@ export default class LessonCard extends Component {
 
         return (
             <div className="topic">
-                <Link to={`/lesson/${lessonId}`}>
+                <Link to={`/lesson/${lessonId}`} className="card-link">
                     <div className="row-left">
                         <div className="topic-category">
                             <div className="grade-wrapper" id='star-shape'>

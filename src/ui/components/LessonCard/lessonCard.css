@@ -1,8 +1,16 @@
 .topic {
-    background-color: #fff;
+    display: flex;
     height: 140px;
     margin-top: 20px;
+    background-color: #fff;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.topic a.card-link {
+    flex: 1;
+    display: flex;
+
 }
 
 #home .topic:hover {
@@ -25,19 +33,43 @@
     margin-top: 5px;
 }
 
-/******************/
+/********* Card Layout *********/
 .row-left {
+    display: flex;
+    flex-direction: column;
     width: 10%;
-    float: left;
+    min-width: 80px;
     border-right: 1px solid #ededed;
 }
+
+.row-middle {
+    flex: 1;
+    display: flex;
+    border-right: 1px solid #ededde;
+}
+
+.row-right {
+    display: flex;
+    width: 20%;
+    min-width: 100px;
+    height: 100%;
+    float: left;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 0;
+}
+
+
 .row-left .topic-category {
     margin-top: 30px;
     text-align: center;
 }
+
 .row-left .topic-category h2 {
     font-size: 2em;
 }
+
 .row-left .topic-category img {
     position: relative;
     padding: 5px;
@@ -55,11 +87,6 @@
 
 }
 
-.row-middle {
-    width: 70%;
-    float: left;
-    border-right: 1px solid #ededde;
-}
 
 .row-middle .topic-title-wrapper {
     border-bottom: 1px solid #ededed;
@@ -94,16 +121,6 @@
     background: linear-gradient(transparent 60px, white);
 }
 
-.row-right {
-    width: 20%;
-    height: 100%;
-    float: left;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 10px 0;
-}
 
 .row-right .author-avatar {
     /*text-align:center;*/
@@ -202,6 +219,7 @@
     background-color: #545454;
     color: #fff;
 }
+
 .grade-wrapper {
     display: inline-block;
     margin: auto;
@@ -221,42 +239,43 @@
 .topic-category .grade-wrapper h2 {
     margin-top: 4px;
 }
+
 /*#star-shape {*/
-    /*margin: 25px 0;*/
-    /*position: relative;*/
-    /*display: block;*/
-    /*color: red;*/
-    /*width: 0px;*/
-    /*height: 0px;*/
-    /*border-right: 50px solid transparent;*/
-    /*border-bottom: 35px solid red;*/
-    /*border-left: 50px solid transparent;*/
-    /*transform: rotate(35deg);*/
+/*margin: 25px 0;*/
+/*position: relative;*/
+/*display: block;*/
+/*color: red;*/
+/*width: 0px;*/
+/*height: 0px;*/
+/*border-right: 50px solid transparent;*/
+/*border-bottom: 35px solid red;*/
+/*border-left: 50px solid transparent;*/
+/*transform: rotate(35deg);*/
 /*}*/
 /*#star-shape:before {*/
-    /*border-bottom: 40px solid red;*/
-    /*border-left: 15px solid transparent;*/
-    /*border-right: 15px solid transparent;*/
-    /*position: absolute;*/
-    /*height: 0;*/
-    /*width: 0;*/
-    /*top: -22.5px;*/
-    /*left: -32.5px;*/
-    /*display: block;*/
-    /*content: '';*/
-    /*transform: rotate(-35deg);*/
+/*border-bottom: 40px solid red;*/
+/*border-left: 15px solid transparent;*/
+/*border-right: 15px solid transparent;*/
+/*position: absolute;*/
+/*height: 0;*/
+/*width: 0;*/
+/*top: -22.5px;*/
+/*left: -32.5px;*/
+/*display: block;*/
+/*content: '';*/
+/*transform: rotate(-35deg);*/
 /*}*/
 /*#star-shape:after {*/
-    /*position: absolute;*/
-    /*display: block;*/
-    /*color: red;*/
-    /*top: 3px;*/
-    /*left: -52.5px;*/
-    /*width: 0px;*/
-    /*height: 0px;*/
-    /*border-right: 50px solid transparent;*/
-    /*border-bottom: 30px solid red;*/
-    /*border-left: 50px solid transparent;*/
-    /*transform: rotate(-70deg);*/
-    /*content: '';*/
+/*position: absolute;*/
+/*display: block;*/
+/*color: red;*/
+/*top: 3px;*/
+/*left: -52.5px;*/
+/*width: 0px;*/
+/*height: 0px;*/
+/*border-right: 50px solid transparent;*/
+/*border-bottom: 30px solid red;*/
+/*border-left: 50px solid transparent;*/
+/*transform: rotate(-70deg);*/
+/*content: '';*/
 /*}*/
