@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+//Redux Action Creators
+import changeNewLessonModalState from '../../../redux/actions/changeNewLessonModalState';
+import changeNewCommentModalState from '../../../redux/actions/changeNewCommentModalState';
+import changeHeartRateModalState from '../../../redux/actions/changeHeartRateModalState';
 
 //Style
 import './sidebarButtons.css';
 
-export default class SidebarButtons extends React.PureComponent {
+class SidebarButtons extends React.PureComponent {
     render() {
         return (
             <div className="navigation-buttons">
@@ -20,6 +26,9 @@ export default class SidebarButtons extends React.PureComponent {
             user,
             page,
             sideBarButtonState,
+            openNewLessonModal,
+            openHeartRateModal,
+            openNewCommentModal
         } = this.props;
 
         const { heartRate } = sideBarButtonState;
@@ -31,7 +40,7 @@ export default class SidebarButtons extends React.PureComponent {
                         <div className='navigation-button-wrapper'>
                             <button
                                 className="new-topic-button btn"
-                                onClick={this.handleCreateNewLesson}
+                                onClick={openNewLessonModal}
                             >
                                 Ivesti Nauja Pamoką
                             </button>
@@ -42,7 +51,7 @@ export default class SidebarButtons extends React.PureComponent {
                         <div className='navigation-button-wrapper'>
                             <button
                                 className="new-topic-button btn"
-                                onClick={this.handleHeartRate}
+                                onClick={openHeartRateModal}
                             >
                                 Ivesti Širdies Ritma
                             </button>
@@ -62,7 +71,7 @@ export default class SidebarButtons extends React.PureComponent {
                                 Atgal
                             </Link>
                             <button
-                                onClick={this.handleReplyWithUser}
+                                onClick={openNewCommentModal}
                                 className="new-comment-button btn"
                             >
                                 Komentuoti
@@ -95,24 +104,7 @@ export default class SidebarButtons extends React.PureComponent {
                 )
         }
     };
-
-    handleReplyWithUser = () => {
-        const { sideBarButtonActions } = this.props;
-        sideBarButtonActions.handleNewCommentModal();
-    };
-
-    handleCreateNewLesson = () => {
-        const { sideBarButtonActions } = this.props;
-        sideBarButtonActions.handleNewLessonModal();
-    };
-
-    handleHeartRate = () => {
-        const { sideBarButtonActions } = this.props;
-        sideBarButtonActions.handleHeartRateModal();
-    }
-
-
-};
+}
 
 PropTypes.SidebarButtons = {
     user: PropTypes.object,
@@ -120,4 +112,31 @@ PropTypes.SidebarButtons = {
     respond: PropTypes.func,
     clearReply: PropTypes.func,
     reset: PropTypes.func,
+    createNewLesson: PropTypes.func.isRequired,
+    submitHeartRate: PropTypes.func.isRequired,
 };
+
+//Redux Map to Props Handlers
+const mapStateToProps = (state) => {
+    return {
+        newLessonModalVisible: state.newLessonModal.visible,
+        heartRateModalVisible: state.heartRateModal.visible,
+        newCommentModalVisible: state.newCommentModal.visible,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        openNewLessonModal() {
+            dispatch(changeNewLessonModalState(true));
+        },
+        openHeartRateModal() {
+            dispatch(changeHeartRateModalState(true));
+        },
+        openNewCommentModal() {
+            dispatch(changeNewCommentModalState(true));
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarButtons);

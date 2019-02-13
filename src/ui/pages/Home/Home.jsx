@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import moment from 'moment';
+
+//Redux Actions
+import changeNewLessonModalState from '../../../redux/actions/changeNewLessonModalState';
+import changeHeartRateModalState from '../../../redux/actions/changeHeartRateModalState';
 
 //Api
 import { getLessons } from '../../../api/lookups';
@@ -11,9 +16,10 @@ import Spinner from '../../components/Spinner';
 import WeekSwitcher from '../../components/WeekSwitcher';
 import DayLessons from '../../components/DayLessons';
 import NewLessonModal from '../../components/NewLessonModal';
-import HeartRateModal from "../../components/HeartRateModal";
+import HeartRateModal from '../../components/HeartRateModal';
+import changeNewCommentModalState from '../../../redux/actions/changeNewCommentModalState';
 
-export default class Home extends React.Component {
+class Home extends React.Component {
     state = {
         lessons: {},
         redirect: false,
@@ -30,23 +36,28 @@ export default class Home extends React.Component {
 
     render() {
         const { lessons, postsLoading, week } = this.state;
-        const { sideBarButtonState, sideBarButtonActions } = this.props;
+        const {
+            newLessonModalVisible,
+            heartRateModalVisible,
+            closeNewLessonModal,
+            closeHeartRateModal,
+        } = this.props;
         if (this.state.redirect) return <Redirect to="/"/>;
         const empty = Object.keys(lessons).length === 0;
         return (
             <div className="forum-container">
-                {sideBarButtonState.newLessonModalVisible && (
+                {newLessonModalVisible && (
                     <NewLessonModal
-                        visible={sideBarButtonState.newLessonModalVisible}
-                        hideModal={sideBarButtonActions.handleNewLessonModal}
+                        visible={newLessonModalVisible}
+                        hideModal={closeNewLessonModal}
                         refreshData={this.getScreenData}
                     />
                 )}
-                {sideBarButtonState.heartRateModalVisible && (
+                {heartRateModalVisible && (
                     <HeartRateModal
-                        visible={sideBarButtonState.heartRateModalVisible}
-                        hideModal={sideBarButtonActions.handleHeartRateModal}
-                        refreshData={sideBarButtonActions.generateHeartRateData}
+                        visible={heartRateModalVisible}
+                        hideModal={closeHeartRateModal}
+                        refreshData={() => {}}
                     />
                 )}
                 <div className="forum">
@@ -148,7 +159,7 @@ export default class Home extends React.Component {
 
     //Update Week Object after week switch
     handleClickWeekLeft = () => this.setState({ week: this.currentWeek(this.state.week.weekObj.subtract(1, 'week')) });
-
+    
 }
 
 Home.propTypes = {
@@ -159,3 +170,24 @@ Home.propTypes = {
     }.isRequired),
     params: PropTypes.object
 };
+
+//Redux Map to Props Handlers
+const mapStateToProps = (state) => {
+    return {
+        newLessonModalVisible: state.newLessonModal.visible,
+        heartRateModalVisible: state.heartRateModal.visible,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        closeNewLessonModal() {
+            dispatch(changeNewLessonModalState(false));
+        },
+        closeHeartRateModal() {
+            dispatch(changeHeartRateModalState(false));
+        },
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

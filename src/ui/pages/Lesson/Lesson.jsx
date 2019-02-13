@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 //Api
 import { getSingleLesson, getCommentsForLesson } from '../../../api/lookups';
-
-//AntD
-import Message from 'antd/lib/message';
 
 //Components
 import LessonDetail from '../../components/LessonDetail';
 import CommentCard from '../../components/CommentCard';
 import NewCommentModal from '../../components/NewCommentModal';
 
+//Redux Actions
+import changeNewCommentModalState from '../../../redux/actions/changeNewCommentModalState';
 
-export default class Lesson extends React.Component {
+
+class Lesson extends React.Component {
     state = {
         lesson: {},
         comments: [],
@@ -42,7 +43,11 @@ export default class Lesson extends React.Component {
             quoteAuthorName,
             user,
         } = this.state;
-        const { sideBarButtonState, sideBarButtonActions } = this.props;
+
+        const {
+            closeNewCommentModal,
+            newCommentModalVisible,
+        } = this.props;
 
         return (
             <div className="container">
@@ -68,8 +73,8 @@ export default class Lesson extends React.Component {
                     ref={input => this.respondDiv = input}
                 />
                 <NewCommentModal
-                    visible={sideBarButtonState.newCommentModalVisible}
-                    hideModal={sideBarButtonActions.handleNewCommentModal}
+                    visible={newCommentModalVisible}
+                    hideModal={closeNewCommentModal}
                     getPageData={this.getPageData}
                     {...{ user, quoteText, quoteAuthorName, lessonId }}
                 />
@@ -96,7 +101,7 @@ export default class Lesson extends React.Component {
 
     getPageData = async () => {
         const lessonId = this.getLessonId();
-        const [lesson, comments ] = await Promise.all([
+        const [lesson, comments] = await Promise.all([
             getSingleLesson(lessonId),
             getCommentsForLesson(lessonId),
         ]);
@@ -111,18 +116,7 @@ export default class Lesson extends React.Component {
         }
     };
 
-    clearReply = () => {
-        this.setState({ replyText: '' });
-    };
-
-    handleReplyClick = (user) => {
-        this.setState({
-            user,
-            showCreateCommentView: true,
-        });
-        setTimeout(() => this.respondDiv.scrollIntoView({ behavior: 'smooth' }), 200);
-    };
-
+    //Handle Add Qute Click
     handleQuoteClick = (clickedComment) => {
         this.setState({
             replyStyle: { width: '100%', height: '100%' },
@@ -133,25 +127,23 @@ export default class Lesson extends React.Component {
 
     addQuoteToComment = ({ clickedComment, text, authorName }) => {
         if (!this.isUnmounted) {
-            const {sideBarButtonActions} = this.props;
-            sideBarButtonActions.handleNewCommentModal();
+            const { openNewCommentModal } = this.props;
+            openNewCommentModal();
             this.setState({
                 quoteText: text,
                 quoteAuthorName: authorName,
                 reply: false,
                 replyStyleInit: { display: 'none' }
             });
-            // setTimeout(() => this.respondDiv.scrollIntoView({ behavior: 'smooth' }), 200);
         }
     };
-
-
+    //Remove Reply Style from Comment
     comClick = (e) => {
         if (e.target.classList.value === 'container' || e.target.classList.value === 'content') {
             this.setState({ reply: false, replyStyleInit: { display: 'none' } });
         }
     };
-
+    //Remove Reply Style from Comment on ESC button Click
     escClick = (e, obj) => {
         if (e.keyCode === 27) {
             this.setState({ reply: false, replyStyleInit: { display: 'none' } });
@@ -162,5 +154,28 @@ export default class Lesson extends React.Component {
 PropTypes.Post = {
     user: PropTypes.object.isRequired,
     params: PropTypes.object.isRequired,
+    openNewCommentModal: PropTypes.func.isRequired,
+    closeNewCommentModal: PropTypes.func.isRequired,
+    newCommentModalVisible: PropTypes.bool.isRequired,
 };
 
+//Redux Map to Props Handlers
+const mapStateToProps = (state) => {
+    return {
+        newCommentModalVisible: state.newCommentModal.visible,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        closeNewCommentModal() {
+            dispatch(changeNewCommentModalState(false));
+        },
+        openNewCommentModal() {
+            dispatch(changeNewCommentModalState(true));
+        },
+
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Lesson);
