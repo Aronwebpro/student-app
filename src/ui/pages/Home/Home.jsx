@@ -19,6 +19,9 @@ import NewLessonModal from '../../components/NewLessonModal';
 import HeartRateModal from '../../components/HeartRateModal';
 import changeNewCommentModalState from '../../../redux/actions/changeNewCommentModalState';
 
+//Styles
+import './home.css';
+
 class Home extends React.Component {
     state = {
         lessons: {},

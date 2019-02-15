@@ -1,7 +1,35 @@
-.user-view-container {
-    display: block;
+div.user-view-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+}
+.author-avatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.author-avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
+.user-view-title {
+    flex: 1;
+    flex-direction: column;
+}
+
+
+
+
+.user-view-header {
+   justify-content: center;
+    margin: 5px auto;
+}
 .user-view-container h2 {
     font-size: 18px;
 }
