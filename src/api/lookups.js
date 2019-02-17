@@ -88,10 +88,11 @@ const getLessons = async (firstDayOfWeek) => {
 
     lessonsDoc.docs.forEach(lessonDoc => {
         const lesson = { lessonId: lessonDoc.id, ...lessonDoc.data() };
-        if (!weekLessons[lesson.weekDay]) {
-            weekLessons[lesson.weekDay] = [];
+        const weekDay = moment(lesson.date).format('d');
+        if (!weekLessons[weekDay]) {
+            weekLessons[weekDay] = [];
         }
-        weekLessons[lesson.weekDay].push(lesson);
+        weekLessons[weekDay].push(lesson);
     });
 
     return weekLessons;
