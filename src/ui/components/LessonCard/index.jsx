@@ -26,46 +26,33 @@ export default class LessonCard extends Component {
         } = this.props;
 
         return (
-            <div className="topic">
-                <Link to={`/lesson/${lessonId}`}>
+            <div className="card">
+                <Link to={`/lesson/${lessonId}`} className="card-link">
                     <div className="row-left">
-                        <div className="topic-category">
-                            <div className="grade-wrapper" id='star-shape'>
-                                <h2> {grade} </h2>
-                            </div>
-
-                            <p>Pamokos Pažymys</p>
+                        <div className="grade-wrapper">
+                            <h2> {grade} </h2>
                         </div>
+                        <p>Pamokos Pažymys</p>
                     </div>
                     <div className="row-middle">
-                        <div className="topic-title-wrapper topic-title">
-                            <div className="fl_l title-left">
+                        <div className="row-middle-top">
+                            <div className="row-middle-top-left">
                                 <h3>{disciplineName}</h3>
                                 <p>
-                                    <span className="theme-color_txt">Data:</span>
+                                    <span className="theme-color_txt">Data: </span>
                                     <span className="created-time">{`${formatToDateString(date)}`}</span>
                                 </p>
                             </div>
-                            <div className="fl_l title-right">
-                                <table style={{ borderLeft: '1px solid #ededde' }}>
-                                    <tbody>
-                                    <tr>
-                                        <th className="theme-color_txt">Dienos Širdies Ritmas:</th>
-                                        <th style={{ fontWeight: '600', fontSize: '1.1em' }}>{heartRate}</th>
-                                        {/*<th rowSpan="2" style={{ borderLeft: '1px solid #ededde' }}>*/}
-                                        {/*/!*<UserView {...lastUser} {...{ lastReply }} type={'last'}/>*!/*/}
-                                        {/*</th>*/}
-                                    </tr>
-                                    </tbody>
-                                </table>
+                            <div className="row-middle-top-right">
+                                <p className="theme-color_txt">Dienos Širdies Ritmas:</p>
+                                <p>{heartRate}</p>
                             </div>
-                            <div className="fl_c"></div>
                         </div>
-                        <div className="topic-description">
+                        <div className="row-middle-bottom">
                             <p>{coachNote}</p>
                         </div>
-                        <div className="topic-readmore theme-color_txt">
-                            <p>Plačiau</p>
+                        <div className="card-read-more-button theme-color_txt">
+                            <button>Plačiau</button>
                         </div>
                     </div>
                     <div className="row-right">
@@ -74,11 +61,8 @@ export default class LessonCard extends Component {
                             userAvatar={coachAvatar}
                             coach={true}
                         />
-
                     </div>
-
                 </Link>
-                <div className="fl_c"/>
             </div>
         );
     }

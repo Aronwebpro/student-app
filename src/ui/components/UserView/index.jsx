@@ -26,18 +26,15 @@ export default class UserView extends React.PureComponent {
                 <div className="author-avatar">
                     <img src={userAvatar} alt="Coach"/>
                 </div>
-                {coach ? (
-                    <div>
+                <div className='user-view-title'>
+                    {coach && (
                         <h2>Mokytojas</h2>
-                        <h3>
-                            <span className="theme-color_txt author">{userName}</span>
-                        </h3>
-                    </div>
-                ) : (
+                    )}
                     <h3>
                         <span className="theme-color_txt author">{userName}</span>
                     </h3>
-                )}
+                </div>
+
             </div>
         )
     }

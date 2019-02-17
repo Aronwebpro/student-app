@@ -4,18 +4,17 @@
     box-sizing: border-box;
 }
 
-body {
-    margin: 0;
-    font-family: 'Raleway', sans-serif;
-    min-width: 1200px;
-    font-size: 14px;
-    background-color: inherit;
-}
-
 html {
     margin: 0;
     padding: 0;
     background-color: #ededed;
+}
+
+body {
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    background-color: inherit;
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -28,6 +27,7 @@ a, a:hover, a:active, a:visited, a:focus {
     text-decoration: none;
     color: inherit;
 }
+
 /*Helper Classes*/
 .bold {
     font-weight: bold;
@@ -475,6 +475,7 @@ quote-authorName {
     color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 .week-switcher {
     flex: 1;
     flex-direction: column;
