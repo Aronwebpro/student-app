@@ -7,6 +7,10 @@ import { auth } from 'firebase/app';
 //Api
 import { getUser, getPendingUser } from './api/lookups';
 
+//Redux
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 //Components
 import App from './App';
 
@@ -28,16 +32,25 @@ import face13 from './assets/img/13face.png';
 import face14 from './assets/img/14face.png';
 import face15 from './assets/img/15face.png';
 import face16 from './assets/img/16face.png';
+import { BrowserRouter } from 'react-router-dom';
 
 auth().onAuthStateChanged(async userObj => {
     if (userObj) {
         const user = await getUser(userObj.uid);
         if (user) {
-            ReactDOM.render(<App {...{ user }} />, document.getElementById('root'));
+            ReactDOM.render(
+                <Provider store={store}>
+                    <App {...{ user }} />
+                </Provider>,
+                document.getElementById('root'));
         } else {
             const pendingUser = await getPendingUser(userObj.uid);
             if (pendingUser) {
-                ReactDOM.render(<App {...{ pendingUser }} />, document.getElementById('root'));
+                ReactDOM.render(
+                    <Provider store={store}>
+                        <App {...{ pendingUser }} />
+                    </Provider>
+                    , document.getElementById('root'));
             } else {
                 auth().signOut();
             }

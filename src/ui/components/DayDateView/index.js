@@ -28,6 +28,7 @@ export default class DayDateView extends React.PureComponent {
     render() {
         const day = moment().format('DD');
         const weekDay = changeWeekDayFromEngToLt(moment().format('ddd'));
+        console.log(weekDay);
         const month = changeMonthFromEngToLt(moment().format('MMM'), {});
         return (
             <div className='day-date-view-container'>

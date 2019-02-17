@@ -100,7 +100,7 @@ export default class App extends React.Component {
         };
 
         const sideBarButtonState = this.state;
-        
+
         return (
             <BrowserRouter>
                 <div className='page'>
@@ -111,7 +111,12 @@ export default class App extends React.Component {
                                 {...{ user }}
                                 exact
                                 path='/home'
-                                render={(params) => <HomePage {...{ params, user, sideBarButtonActions, sideBarButtonState }}/>}
+                                render={(params) => <HomePage {...{
+                                    params,
+                                    user,
+                                    sideBarButtonActions,
+                                    sideBarButtonState
+                                }}/>}
                             />
                             <AuthenticatedRoute
                                 {...{ user }}
@@ -128,7 +133,12 @@ export default class App extends React.Component {
                                 {...{ user }}
                                 exact
                                 path='/lesson/:lessonId'
-                                render={(params) => <LessonPage {...{ params, user, sideBarButtonActions, sideBarButtonState }}/>}
+                                render={(params) => <LessonPage {...{
+                                    params,
+                                    user,
+                                    sideBarButtonActions,
+                                    sideBarButtonState
+                                }}/>}
                             />
                             <AuthenticatedRoute
                                 {...{ user }}
