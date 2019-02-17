@@ -61,19 +61,19 @@ const saveUsersToStorage = (data) => {
 
 const changeWeekDayFromEngToLt = (day) => {
     switch (day) {
-        case 'Mon' :
+        case '1' :
             return 'Pirmadienis';
-        case 'Tue' :
+        case '2' :
             return 'Antradienis';
-        case 'Wed' :
+        case '3' :
             return 'Trečiadienis';
-        case 'Thu' :
+        case '4' :
             return 'Ketvirtadienis';
-        case 'Fri' :
+        case '5' :
             return 'Penktadienis';
-        case 'Sat' :
+        case '6' :
             return 'Šeštadienis';
-        case 'Sun' :
+        case '0' :
             return 'Sekmadienis';
         default :
             return '';
