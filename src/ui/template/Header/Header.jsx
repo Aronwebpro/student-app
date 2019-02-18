@@ -3,13 +3,23 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 //Components
 import Navigation from '../Navigation/Navigation';
+
+//AntD
+import Icon from 'antd/lib/icon';
+
 //Styles
 import './header.css';
 
+import MobileTopNavigation from '../MobileTopNavigation/MobileTopNavigation';
 
 export default class Header extends PureComponent {
+    state = {
+        headerMenuVisible: false,
+    };
+
     render() {
         const { user } = this.props;
+        const { headerMenuVisible } = this.state;
         return (
             <header id="header" ref={input => this.header = input}>
                 <div className='app-header'>
@@ -22,6 +32,9 @@ export default class Header extends PureComponent {
                 </div>
                 <div className='navigation-container'>
                     <Navigation user={user} />
+                </div>
+                <div className='mobile-navigation-button-container'>
+                    <MobileTopNavigation visible={headerMenuVisible}/>
                 </div>
             </header>
         );
@@ -45,6 +58,11 @@ export default class Header extends PureComponent {
         } else {
             header.classList.remove('shrink');
         }
+    }
+
+    menuToggle = () => {
+        const { headerMenuVisible } = this.state;
+        this.setState({ headerMenuVisible: !headerMenuVisible });
     }
 
 

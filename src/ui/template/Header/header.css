@@ -70,3 +70,18 @@
     display: flex;
 }
 
+.mobile-navigation-button-container {
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+@media screen and (min-width: 769px) {
+    .mobile-navigation-button-container {
+        display: none;
+    }
+}
+

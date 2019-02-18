@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 //Api
 import { signOut } from "../../../api/auth";
 
+//Template Parts
+
 //Styles
 import './navigation.css';
 
@@ -20,8 +22,6 @@ class Navigation extends React.PureComponent {
                             <button className="log-out" onClick={this.logOut} style={{ cursor: 'pointer' }}>Atsijungti</button>
                         </div>
                     )}
-                    {!user && <Link to="/register">Sign Up</Link>}
-
                 </nav>
                 {user && user.authorAvatar && (
                     <div className="header-avatar"><Link to="/profile"><img src={user.authorAvatar} alt=""/></Link>
