@@ -546,6 +546,8 @@ quote-authorName {
 @media only screen and (max-width: 600px) {
     .forum-header {
         flex-direction: column;
+        width: auto;
+        margin: 0 15px;
     }
 
     .forum-title {

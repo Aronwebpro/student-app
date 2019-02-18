@@ -1,6 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
+//Api
+import { signOut } from '../../../api/auth';
+
 //Components
 import Navigation from '../Navigation/Navigation';
 
@@ -31,10 +35,17 @@ export default class Header extends PureComponent {
                     </Link>
                 </div>
                 <div className='navigation-container'>
-                    <Navigation user={user} />
+                    <Navigation user={user}/>
                 </div>
                 <div className='mobile-navigation-button-container'>
-                    <MobileTopNavigation visible={headerMenuVisible}/>
+                    {/*<MobileTopNavigation visible={headerMenuVisible}/>*/}
+                    {user && (
+                        <Icon
+                            type="logout"
+                            style={{ fontSize: '35px', color: '#fff', cursor: 'pointer' }}
+                            onClick={this.logOut}
+                        />
+                    )}
                 </div>
             </header>
         );
@@ -63,6 +74,10 @@ export default class Header extends PureComponent {
     menuToggle = () => {
         const { headerMenuVisible } = this.state;
         this.setState({ headerMenuVisible: !headerMenuVisible });
+    };
+
+    logOut = async () => {
+        await signOut();
     }
 
 

@@ -116,8 +116,11 @@ div.grade-wrapper h2 {
 }
 
 .row-middle-bottom {
-    flex: 1;
-    padding: 10px;
+    position: relative;
+    padding: 5px 0 30px 5px;
+    height: 64px;
+    overflow: hidden;
+    line-height: 19px;
 }
 
 
@@ -139,10 +142,61 @@ div.row-desktop {
     width: 100%;
 }
 
+/************** Mobile View ************************/
 div.row-mobile {
     display: none;
     padding: 10px 0;
+    /*border-bottom: 1px solid #ededed;*/
+    flex-direction: column;
+}
+
+div.row-mobile .row-middle-top {
+    flex: 1;
+    flex-direction: row;
+    height: 80px;
     border-bottom: 1px solid #ededed;
+    justify-content: stretch;
+    align-items: stretch;
+
+}
+
+.row-mobile .heart-rate-text {
+    font-size: 25px;
+}
+
+div.row-mobile .grade-container {
+    flex: 1;
+    width: 100px;
+}
+
+.card-read-more-button-mobile {
+    justify-content: center;
+    align-items: center;
+}
+
+.card-read-more-button-mobile .btn {
+    padding: 4px 20px;
+    margin-top: 2px;
+}
+
+.row-mobile div.card-read-more-button {
+    /*display: block;*/
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*bottom: 10px;*/
+    /*width: 80%;*/
+    /*transform: translate(-50%, 0);*/
+}
+.row-mobile  .card-read-more-button button {
+    background: #fff;
+    margin: 0 auto;
+    width: 100%;
+    border-radius: 12px;
+    opacity: 0;
+    transition: all 0.4s;
+    text-align: center;
+    cursor: pointer;
+    padding: 0 0;
 }
 
 div.row-left-mobile {
@@ -194,4 +248,5 @@ div.row-top-mobile .author-avatar img {
     div.row-mobile {
         display: flex;
     }
+
 }

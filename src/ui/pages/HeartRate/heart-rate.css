@@ -25,3 +25,7 @@
     background: transparent;
     margin-top: 20px;
 }
+
+#heartRate .forum-header {
+    margin: 0;
+}

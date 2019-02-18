@@ -25,7 +25,7 @@ const navigationItems = [
             (
                 <div className='mobile-navigation-item-button'>
                     <Icon type="line-chart" style={{ fontSize: '30px', color: 'color: rgb(97, 218, 251)' }}/>
-                    <p>Širdies Ritmas</p>
+                    <p style={{fontSize: '12px'}}>Širdies Ritmas</p>
                 </div>
             ),
         link: '/heartRate',
@@ -39,7 +39,18 @@ const navigationItems = [
                 </div>
             ),
         link: '/schedule',
-    }
+    },
+    {
+        labelComponent:
+            (
+                <div className='mobile-navigation-item-button'>
+                    <Icon type="user" style={{ fontSize: '30px', color: 'color: rgb(97, 218, 251)' }}/>
+                    <p>Profilis</p>
+                </div>
+            ),
+        link: '/profile',
+    },
+
 ];
 
 class MobileNavigation extends React.Component {

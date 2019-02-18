@@ -13,3 +13,7 @@
     display: flex;
     background-color: #ffffff;
 }
+
+.schedule-page-container .forum-header {
+    width: 100%;
+}
