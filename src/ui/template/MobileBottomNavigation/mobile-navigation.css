@@ -1,0 +1,61 @@
+.mobile-navigation-container {
+    display: flex;
+    align-items: stretch;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    transition: bottom 0.6s;
+    z-index: 3;
+    background-color: #ffffff;
+    color: rgb(97, 218, 251);
+}
+
+/*.mobile-navigation-container a:hover,*/
+/*.mobile-navigation-container a:active {*/
+    /*background-color: #20232F;*/
+/*}*/
+
+.mobile-navigation-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.mobile-navigation-item a {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+
+}
+
+.mobile-navigation-item a button {
+    font-size: 20px;
+}
+
+.mobile-navigation-item-button {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-navigation-item.has-border {
+    border-right: 1px solid rgb(97, 218, 251);
+}
+
+.mobile-navigation-item.active {
+    background-color: #20232F;
+}
+
+
+
+@media only screen and (min-width: 769px) {
+    .mobile-navigation-container {
+        bottom: -80px;
+    }
+}

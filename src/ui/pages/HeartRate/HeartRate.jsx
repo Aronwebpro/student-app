@@ -25,10 +25,11 @@ export default class HeartRate extends React.Component {
     state = {
         month: moment().format('YYYY-MM'),
         lineData: null,
+        width: 768,
     };
 
     render() {
-        const { month, lineData } = this.state;
+        const { month, lineData, width } = this.state;
         const monthString = changeMonthFromEngToLt(moment(month).format('MMM'), {});
         return (
             <div className='heart-rate-page-container'>
@@ -50,7 +51,7 @@ export default class HeartRate extends React.Component {
                             {lineData ? (
                                 <div className='heart-rate-page-chart-wrapper'>
                                     {lineData.length > 0 ? (
-                                        <XYPlot height={500} width={800} xDomain={[0, 31]} yDomain={[50, 80]}>
+                                        <XYPlot height={500} width={width} xDomain={[0, 31]} yDomain={[50, 80]}>
                                             <XAxis tickInterval={1}/>
                                             <YAxis tickInterval={5}/>
                                             <VerticalGridLines/>
@@ -79,12 +80,19 @@ export default class HeartRate extends React.Component {
 
     componentDidMount() {
         this.getScreenData();
+        this.setWidth();
+        window.addEventListener("resize", this.setWidth);
+
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.month !== this.state.month) {
             this.getScreenData();
         }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.setWidth);
     }
 
     getScreenData = async () => {
@@ -100,4 +108,8 @@ export default class HeartRate extends React.Component {
     //Update Month Object after month switch
     handleClickWeekLeft = () => this.setState({ month: moment(this.state.month).subtract(1, 'M').format('YYYY-MM') });
 
+    setWidth = () => {
+        const width = window.innerWidth > 1170 ? 768 : window.innerWidth > 768 ? window.innerWidth - 220 :  window.innerWidth - 30;
+        this.setState({width})
+    }
 }

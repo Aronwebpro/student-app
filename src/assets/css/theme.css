@@ -39,9 +39,7 @@ a, a:hover, a:active, a:visited, a:focus {
 
 /*Layout*/
 .page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+
 }
 
 .content {
@@ -59,7 +57,7 @@ a, a:hover, a:active, a:visited, a:focus {
     flex: 1;
     flex-direction: row;
     align-items: stretch;
-    justify-content: flex-start;
+    justify-content: stretch;
     max-width: 1200px;
 }
 
@@ -68,6 +66,8 @@ a, a:hover, a:active, a:visited, a:focus {
     width: 220px;
     flex-direction: column;
     align-items: stretch;
+    transition: all 0.6s;
+    left: 0;
 }
 
 .rightSide {
@@ -439,12 +439,12 @@ quote-authorName {
     flex: 1;
     display: flex;
     flex-direction: column;
+    padding: 0 15px;
 }
 
 .forum {
     display: flex;
     flex-direction: column;
-    padding: 0 15px;
     box-sizing: border-box;
 }
 
@@ -522,4 +522,21 @@ quote-authorName {
 
 .load-more-wrapper {
     margin-top: 10px;
+}
+
+/*************** 768px  ************************/
+
+@media only screen and (max-width: 768px) {
+    .leftSide {
+        position: relative;
+        left: -240px;
+        width: 0;
+    }
+    .forum-container {
+        padding: 0;
+    }
+    .page {
+        padding-bottom: 80px;
+        min-height: 100vh;
+    }
 }

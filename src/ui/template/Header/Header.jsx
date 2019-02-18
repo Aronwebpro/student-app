@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 //Components
 import Navigation from '../Navigation/Navigation';
 //Styles
-import './css/header.css';
+import './header.css';
 
 
 export default class Header extends PureComponent {
@@ -20,7 +20,9 @@ export default class Header extends PureComponent {
                         <h1 className='app-title'>Ledo <span className="theme-color_txt">Pamokos</span></h1>
                     </Link>
                 </div>
-                <Navigation user={user} />
+                <div className='navigation-container'>
+                    <Navigation user={user} />
+                </div>
             </header>
         );
     }
