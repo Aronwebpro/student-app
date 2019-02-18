@@ -532,11 +532,38 @@ quote-authorName {
         left: -240px;
         width: 0;
     }
+
     .forum-container {
         padding: 0;
     }
+
     .page {
         padding-bottom: 80px;
         min-height: 100vh;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .forum-header {
+        flex-direction: column;
+    }
+
+    .forum-title {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        /*color: orange;*/
+    }
+
+    .week-switcher {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .button-left-container,
+    .button-right-container {
+        color: orange;
     }
 }

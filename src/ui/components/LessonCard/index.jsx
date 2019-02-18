@@ -11,71 +11,26 @@ import { formatToDateString } from '../../../utils'
 //Components
 import UserView from '../UserView';
 
+//View Parts
+import LessonCardDesktopView from './LessonCardDesktopView';
+import LessonCardMobileView from './LessonCardMobileView';
+
 export default class LessonCard extends Component {
 
     render() {
         const {
-            date,
-            grade,
             lessonId,
-            disciplineName,
-            heartRate,
-            coachNote,
-            coachAvatar,
-            coachName
         } = this.props;
 
         return (
             <div className="card">
                 <Link to={`/lesson/${lessonId}`} className="card-link">
-                    <div className="row-left">
-                        <div className="grade-wrapper">
-                            <h2> {grade} </h2>
-                        </div>
-                        <p>Pamokos Pažymys</p>
-                    </div>
-                    <div className="row-middle">
-                        <div className="row-middle-top">
-                            <div className="row-middle-top-left">
-                                <h3>{disciplineName}</h3>
-                                <p>
-                                    <span className="theme-color_txt">Data: </span>
-                                    <span className="created-time">{`${formatToDateString(date)}`}</span>
-                                </p>
-                            </div>
-                            <div className="row-middle-top-right">
-                                <p className="theme-color_txt">Dienos Širdies Ritmas:</p>
-                                <p>{heartRate}</p>
-                            </div>
-                        </div>
-                        <div className="row-middle-bottom">
-                            <p>{coachNote}</p>
-                        </div>
-                        <div className="card-read-more-button theme-color_txt">
-                            <button>Plačiau</button>
-                        </div>
-                    </div>
-                    <div className="row-right">
-                        <UserView
-                            userName={coachName}
-                            userAvatar={coachAvatar}
-                            coach={true}
-                        />
-                    </div>
+                    <LessonCardDesktopView {...this.props} />
+                    <LessonCardMobileView {...this.props}/>
                 </Link>
             </div>
         );
     }
-
-    componentDidMount() {
-
-    }
-
-    componentWillUnmount() {
-        //Setup Flag to know is component Unmounted
-        this.isUnmounted = true;
-    }
-
 }
 
 LessonCard.propTypes = {
