@@ -14,7 +14,7 @@ import Icon from 'antd/lib/icon';
 //Styles
 import './header.css';
 
-import MobileTopNavigation from '../MobileTopNavigation/MobileTopNavigation';
+import MobileTopNavigation from '../../components/MobileTopNavigation/MobileTopNavigation';
 
 export default class Header extends PureComponent {
     state = {

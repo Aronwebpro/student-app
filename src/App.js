@@ -23,7 +23,7 @@ import './assets/css/theme.css';
 import Header from './ui/template/Header/Header';
 import Footer from './ui/template/Footer/Footer';
 import SideBar from './ui/template/SideBar/SideBar';
-import MobileNavigation from './ui/template/MobileBottomNavigation/MobileNavigation';
+import MobileNavigation from './ui/components/MobileBottomNavigation/MobileNavigation';
 
 
 //Components

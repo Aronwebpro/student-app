@@ -1,7 +1,7 @@
 import React from 'react';
 
 //Components
-import MobileNavigation from '../MobileBottomNavigation/MobileNavigation';
+import MobileNavigation from '../../components/MobileBottomNavigation/MobileNavigation';
 
 //Styles
 import './pagelayout.css';

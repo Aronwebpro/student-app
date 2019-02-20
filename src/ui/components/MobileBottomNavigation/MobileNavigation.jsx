@@ -59,21 +59,24 @@ class MobileNavigation extends React.Component {
     render() {
         return (
             <div className='mobile-navigation-container'>
-                {navigationItems.map(({ labelComponent, link }, index) => {
-                    const hasBorder = index !== navigationItems.length - 1 ? 'has-border' : '';
-                    const active = window.location.pathname === link ? 'active' : '';
-                    return (
-                        <div
-                            key={link}
-                            className={`mobile-navigation-item ${hasBorder} ${active}`}
-                        >
-                            <Link to={link}>
-                                {labelComponent}
-                            </Link>
+                <div className='mobile-navigation-wrapper'>
+                    {navigationItems.map(({ labelComponent, link }, index) => {
+                        const hasBorder = index !== navigationItems.length - 1 ? 'has-border' : '';
+                        const active = window.location.pathname === link ? 'active' : '';
+                        return (
+                            <div
+                                key={link}
+                                className={`mobile-navigation-item ${hasBorder} ${active}`}
+                            >
+                                <Link to={link}>
+                                    {labelComponent}
+                                </Link>
 
-                        </div>
-                    )
-                })}
+                            </div>
+                        )
+                    })}
+                </div>
+                <div className="mobile-navigation-footer"/>
             </div>
         )
     }
