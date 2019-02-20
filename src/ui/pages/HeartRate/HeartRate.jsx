@@ -79,9 +79,14 @@ export default class HeartRate extends React.Component {
     }
 
     componentDidMount() {
+        //Scroll Page to Top on Start
+        if (window) {
+            window.scrollTo(0, 0);
+        }
+        window.addEventListener("resize", this.setWidth);
         this.getScreenData();
         this.setWidth();
-        window.addEventListener("resize", this.setWidth);
+
 
     }
 

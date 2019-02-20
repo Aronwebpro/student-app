@@ -113,6 +113,7 @@ class Home extends React.Component {
     }
 
     async componentDidMount() {
+        //Scroll Page to Top on Start
         if (window) {
             window.scrollTo(0, 0);
         }

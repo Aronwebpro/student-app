@@ -30,6 +30,7 @@ export default class LessonCard extends Component {
                         <div className='grade-container'>
                             <div className="grade-wrapper">
                                 <h2> {grade} </h2>
+                                <p>Pažymys</p>
                             </div>
                         </div>
                         <div className="row-middle-top-left">
@@ -51,14 +52,6 @@ export default class LessonCard extends Component {
                 <div className="card-read-more-button-mobile">
                     <button className='btn theme-color_txt'>Plačiau</button>
                 </div>
-                {/*<div className="row-left-mobile">*/}
-                    {/*<div className="grade-wrapper">*/}
-                        {/*<h2> {grade} </h2>*/}
-                    {/*</div>*/}
-                    {/*<div className="author-avatar">*/}
-                        {/*<img src={coachAvatar} alt="Coach"/>*/}
-                    {/*</div>*/}
-                {/*</div>*/}
             </div>
 
 

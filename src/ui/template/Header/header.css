@@ -16,7 +16,7 @@
     background-color: #20232a;
 }
 
-.shrink {
+#header.shrink {
     height: 50px;
     font-size: 0.8em;
 }
@@ -24,13 +24,16 @@
 .shrink .navigation-wrapper {
     transform: translateY(-75%);
 }
-
+#header.shrink .app-header {
+    align-items: unset;
+    justify-content: unset;
+}
 .shrink .header-avatar {
     transform: scale(0.8) translateY(25%);
 }
 
 .shrink .app-header img {
-    transform: scale(0.8) translateY(-25%);
+    max-width: 35px;
 }
 
 .app-header {

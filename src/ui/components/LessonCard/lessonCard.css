@@ -62,15 +62,20 @@ div.card-read-more-button {
 }
 
 div.grade-wrapper {
-    display: inline-block;
-    margin: 10px auto 5px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 1px solid transparent;
-    background-color: #8ddcf8;
-    color: #fff;
+    /*display: inline-block;*/
+    /*margin: 10px auto 5px;*/
+    /*width: 50px;*/
+    /*height: 50px;*/
+    /*border-radius: 50%;*/
+    /*overflow: hidden;*/
+    /*border: 1px solid transparent;*/
+    /*background-color: #8ddcf8;*/
+    /*color: #fff;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #8ddcf8;
 }
 
 div.grade-wrapper h2 {
@@ -165,18 +170,23 @@ div.row-mobile .row-middle-top {
 }
 
 div.row-mobile .grade-container {
-    flex: 1;
-    width: 100px;
+    /*flex: 1;*/
+    width: 80px;
 }
 
 .card-read-more-button-mobile {
     justify-content: center;
     align-items: center;
+    margin-top: 4px;
 }
 
 .card-read-more-button-mobile .btn {
     padding: 4px 20px;
     margin-top: 2px;
+    width: 94%;
+    background: #fff;
+    color: #06769e;
+    border: 1px solid #ededed;
 }
 
 .row-mobile div.card-read-more-button {
@@ -207,10 +217,8 @@ div.row-left-mobile {
     border-right: 1px solid #ededed;
 }
 
-div.row-left-mobile .grade-wrapper {
-    margin: 0 5px;
-    width: 40px;
-    height: 40px;
+div.row-mobile div.grade-wrapper {
+    flex: 1;
 }
 div.row-left-mobile .grade-wrapper h2 {
     font-size: 29px;

@@ -13,6 +13,8 @@ import NewCommentModal from '../../components/NewCommentModal';
 //Redux Actions
 import changeNewCommentModalState from '../../../redux/actions/changeNewCommentModalState';
 
+//Styles
+import './lesson.css';
 
 class Lesson extends React.Component {
     state = {
@@ -83,8 +85,10 @@ class Lesson extends React.Component {
     }
 
     async componentDidMount() {
-        //Scroll Page to Top
-        window.scrollTo(0, 0);
+        //Scroll Page to Top on Start
+        if (window) {
+            window.scrollTo(0, 0);
+        }
         //Add Event Listeners
         document.addEventListener('click', this.comClick);
         document.addEventListener('keydown', this.escClick);

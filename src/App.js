@@ -158,7 +158,9 @@ export default class App extends React.Component {
                         </Switch>
                     </div>
                     {/*<Footer/>*/}
-                    <MobileNavigation />
+                    {user && (
+                        <MobileNavigation />
+                    )}
                 </div>
             </BrowserRouter>
         )

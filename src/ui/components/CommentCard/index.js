@@ -32,38 +32,50 @@ export default class CommentCard extends React.PureComponent {
         const cretedString = formatToDateAndTimeString(date);
 
         return (
-            <div className="comment">
-                <div className="full-post">
+            <div className="comment-container">
+                <div className="comment-card">
                     <div className="reply-to-this" style={clickedStyle}>
                         <div className="reply-to-this_text">
                             <div className="reply-to-this-text-inner" style={replyStyle} onClick={this.handleQuoteClick}>
-                               Cituoti šį komentarą?
+                                Cituoti šį komentarą?
                             </div>
                         </div>
                     </div>
-                    <div className="post">
-                        <div className="post-info"><p><span
-                            className="theme-color_txt">Data:</span> {cretedString}</p></div>
-                        <div className="post-text">
-                            {quoteText && (
-                                <div className="quote">
-                                    <p className="theme-color_txt quote-authorName"><span>{quoteAuthorName}</span> rašė: </p>
-                                    <p>"{quoteText}"</p>
-                                </div>
-                            )}
-                            <p>{text}</p>
+                    <div className="comment">
+                        <div className="comment-row-left">
+
+                            <div className="comment-meta-data"><p><span
+                                className="theme-color_txt">Data:</span> {cretedString}</p>
+                            </div>
+
+                            <div className="comment-text">
+                                {quoteText && (
+                                    <div className="quote">
+                                        <p className="theme-color_txt quote-authorName"><span>{quoteAuthorName}</span> rašė: </p>
+                                        <p>"{quoteText}"</p>
+                                    </div>
+                                )}
+                                <p>{text}</p>
+                            </div>
+
+
+                            <div className="quote-comment-container">
+                                <button
+                                    onClick={this.handleReplyClick}
+                                    className="theme-color_txt"
+                                >
+                                    Cituoti Komentara
+                                </button>
+                            </div>
                         </div>
-                        <div className="quote-comment theme-color_txt">
-                            <p onClick={this.handleReplyClick}>Cituoti Komentara</p>
+                        <div className="comment-row-right">
+                            <div className="comment-author-info">
+                                <UserView {...{ userAvatar, userName, }} />
+                            </div>
                         </div>
-                    </div>
-                    <div className="author-info">
-                        <UserView {...{ userAvatar, userName,}} />
                     </div>
 
-                    <div className="fl_c"/>
                 </div>
-                <div className="fl_c"/>
             </div>
         )
     }

@@ -10,13 +10,14 @@
 }
 
 .login-wrapper {
-    /*max-width: 400px;*/
-    /*width: 100%;*/
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
     display: block;
     margin: auto;
+    padding: 1%;
     font-size: 1.2em;
     font-family: "Rubik", sans-serif;
+
 
 }
 
@@ -44,7 +45,7 @@
 .login-wrapper .form-wrapper {
     /*border: 1px solid #222;*/
     margin-top: 10px;
-    padding: 20px 50px;
+    padding: 20px 0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
     background: #ffffff;
 }
@@ -80,15 +81,19 @@
     flex-direction: column;
 }
 
-.test-login .login-box {
+.test-login .login-box-wrapper {
+    flex: 1 1 0;
     display: flex;
-    width: 100px;
+    padding: 5px;
     height: 100px;
-    margin: 10px;
+}
+
+.test-login .login-box {
+    flex: 1;
+    display: flex;
     border: 1px solid #61dafb;
     align-items: center;
     justify-content: center;
-    flex: 1;
     text-align: center;
 }
 
@@ -110,4 +115,5 @@
 .tes-login-links {
     flex: 1;
     display: flex;
+    padding: 0 2%;
 }
