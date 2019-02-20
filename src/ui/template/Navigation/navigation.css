@@ -80,7 +80,7 @@ nav.nav-logged-out {
     justify-content: flex-end;
 }
 
-@media only screen and (max-width: 768px) {
+@media (max-width: 768px) {
     .navigation-wrapper {
         display: none;
     }

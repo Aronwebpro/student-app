@@ -99,14 +99,14 @@ quote-authorName {
 }
 
 /*Desktop View*/
-@media screen and (min-width: 769px) {
+@media (min-width: 769px) {
     .comment-row-right {
         width: 20%;
     }
 }
 
 /*Mobile View*/
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
     .reply-to-this_text {
         font-size: 17px;
     }

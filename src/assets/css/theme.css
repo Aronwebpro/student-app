@@ -75,7 +75,7 @@ a, a:hover, a:active, a:visited, a:focus {
 
 }
 
-@media only screen and (max-width: 1200px) {
+@media  (max-width: 1200px) {
     .left {
         display: none;
     }
@@ -471,7 +471,7 @@ input#img16 {
 
 /*************** 768px  ************************/
 
-@media only screen and (max-width: 768px) {
+@media (max-width: 768px) {
     .leftSide {
         position: relative;
         left: -240px;
@@ -491,12 +491,12 @@ input#img16 {
     }
 }
 
-@media only screen and (min-width: 769px) {
+@media (min-width: 769px) {
     .mobile {
         display: none !important;
     }
 }
-@media only screen and (max-width: 600px) {
+@media (max-width: 600px) {
     .forum-header {
         flex-direction: column;
         width: auto;

@@ -44,7 +44,7 @@
     background-color: #ededed;
 }
 
-@media screen and (min-width: 769px) {
+@media (min-width: 769px) {
     .mobile-top-navigation-container {
         display: none;
     }

@@ -232,7 +232,7 @@ div.row-top-mobile .author-avatar img {
     height: 50px;
 }
 
-@media screen and (max-width: 600px) {
+@media (max-width: 600px) {
     .card {
         height: 200px;
     }

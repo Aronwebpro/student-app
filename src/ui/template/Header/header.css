@@ -82,7 +82,7 @@
     /*right: 10px;*/
 }
 
-@media screen and (min-width: 769px) {
+@media (min-width: 769px) {
     .mobile-navigation-button-container {
         display: none;
     }
