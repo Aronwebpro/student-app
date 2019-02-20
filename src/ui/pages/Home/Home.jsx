@@ -49,20 +49,6 @@ class Home extends React.Component {
         const empty = Object.keys(lessons).length === 0;
         return (
             <div className="forum-container">
-                {newLessonModalVisible && (
-                    <NewLessonModal
-                        visible={newLessonModalVisible}
-                        hideModal={closeNewLessonModal}
-                        refreshData={this.getScreenData}
-                    />
-                )}
-                {heartRateModalVisible && (
-                    <HeartRateModal
-                        visible={heartRateModalVisible}
-                        hideModal={closeHeartRateModal}
-                        refreshData={() => {}}
-                    />
-                )}
                 <div className="forum">
                     <div className="forum-header">
                         <div className="forum-title">
@@ -108,6 +94,20 @@ class Home extends React.Component {
                     {!this.state.hideLoadBtn && (
                         <button className="btn" onClick={this.handleLoadMoreClick}>Load More</button>)}
                 </div>
+                {newLessonModalVisible && (
+                    <NewLessonModal
+                        visible={newLessonModalVisible}
+                        hideModal={closeNewLessonModal}
+                        refreshData={this.getScreenData}
+                    />
+                )}
+                {heartRateModalVisible && (
+                    <HeartRateModal
+                        visible={heartRateModalVisible}
+                        hideModal={closeHeartRateModal}
+                        refreshData={() => {}}
+                    />
+                )}
             </div>
         )
     }

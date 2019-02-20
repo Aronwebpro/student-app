@@ -61,6 +61,6 @@
 
 @media (min-width: 769px) {
     .mobile-navigation-container {
-        bottom: -80px;
+        display: none;
     }
 }

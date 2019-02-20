@@ -28,12 +28,12 @@ export default class LessonDetail extends React.PureComponent {
                     </h2>
                 </div>
                 {lessonId ? (
-                    <div className="full-post post-details-container">
+                    <div className="lesson-details-body-container">
                         <LessonDetailDesktop {...this.props} />
                         <LessonDetailMobile {...this.props} />
                     </div>
                 ) : (
-                    <div className="full-post post-details-container">
+                    <div>
                         <Spinner/>
                     </div>
                 )}

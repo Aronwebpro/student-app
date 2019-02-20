@@ -33,9 +33,9 @@ export default class LessonDetailDesktop extends React.PureComponent {
             coach: true,
         };
         return (
-            <div className="full-post post-details-container desktop">
-                <div className="post">
-                    <div className="post-info">
+            <div className="desktop lesson-details-card-desktop">
+                <div className="lesson-detail-card-data-desktop">
+                    <div className="lesson-detail-card-data-info-desktop">
                         <div>
                             <h2 className='bold'>
                                 Dienos Širdies Ritmas:
@@ -60,17 +60,18 @@ export default class LessonDetailDesktop extends React.PureComponent {
                             </h2>
                         </div>
                     </div>
-                    <h3 className='bold'>
-                        Mokytojo Komentaras:
-                    </h3>
-                    <div className="post-text">
-                        <p>{coachNote}</p>
+                    <div className='lesson-detail-card-description-container-desktop'>
+                        <h3 className='bold'>
+                            Mokytojo Komentaras:
+                        </h3>
+                        <div>
+                            <p>{coachNote}</p>
+                        </div>
                     </div>
                 </div>
                 <div className="author-info">
                     <UserView {...user}/>
                 </div>
-                <div className="fl_c"/>
             </div>
         )
     }
