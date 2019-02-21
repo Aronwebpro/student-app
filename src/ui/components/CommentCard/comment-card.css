@@ -42,6 +42,7 @@
 .comment-text {
     flex: 1;
     display: flex;
+    flex-direction: column;
     padding: 10px;
     text-align: justify;
 }
@@ -69,15 +70,15 @@
     cursor: pointer;
 }
 
-/*.quote-comment {*/
-/*border: 1px solid #e2e2e2;*/
-
-/*}*/
-
-/*.quote-comment:hover {*/
-/*background-color: rgba(32, 35, 42, 0.15);*/
-/*cursor: pointer;*/
-/*}*/
+.quote {
+    border: 1px solid #e2e2e2;
+    padding: 10px;
+    width: 98%;
+    margin: 5px auto 10px;
+}
+quote-authorName {
+    font-style: italic;
+}
 
 quote-authorName {
     font-style: italic;

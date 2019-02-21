@@ -9,6 +9,7 @@ import { getSingleLesson, getCommentsForLesson } from '../../../api/lookups';
 import LessonDetail from '../../components/LessonDetail';
 import CommentCard from '../../components/CommentCard';
 import NewCommentModal from '../../components/NewCommentModal';
+import AddButton from '../../components/AddButton';
 
 //Redux Actions
 import changeNewCommentModalState from '../../../redux/actions/changeNewCommentModalState';
@@ -52,7 +53,7 @@ class Lesson extends React.Component {
         } = this.props;
 
         return (
-            <div className="container">
+            <div className="container lesson-detail-page">
                 <div className="lesson-container">
                     <LessonDetail {...lesson} />
                     <div className="post-title forum-header" style={{ marginTop: '20px' }}>
@@ -79,6 +80,9 @@ class Lesson extends React.Component {
                     hideModal={closeNewCommentModal}
                     getPageData={this.getPageData}
                     {...{ user, quoteText, quoteAuthorName, lessonId }}
+                />
+                <AddButton
+                    onClick={this.handleAddComment}
                 />
             </div>
         );
@@ -153,6 +157,10 @@ class Lesson extends React.Component {
             this.setState({ reply: false, replyStyleInit: { display: 'none' } });
         }
     };
+    handleAddComment = () => {
+        const { openNewCommentModal } = this.props;
+        openNewCommentModal();
+    }
 }
 
 PropTypes.Post = {

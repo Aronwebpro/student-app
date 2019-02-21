@@ -53,7 +53,7 @@ a, a:hover, a:active, a:visited, a:focus {
 .container {
     flex: 1;
     display: flex;
-    position: relative;
+    /*position: relative;*/
     flex-direction: row;
     align-items: stretch;
     justify-content: stretch;

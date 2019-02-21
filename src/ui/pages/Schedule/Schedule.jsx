@@ -3,6 +3,12 @@ import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import 'moment/locale/lt';
 
+//AntD
+import Message from 'antd/lib/message';
+
+//Components
+import AddButton from '../../components/AddButton';
+
 //Styles
 import './schedule.css';
 import '../../../../node_modules/react-big-calendar/lib/css/react-big-calendar.css';
@@ -37,6 +43,9 @@ export default class Schedule extends React.Component {
                         }}
                     />
                 </div>
+                <AddButton
+                    onClick={this.handleAdd}
+                />
             </div>
         )
     }
@@ -46,5 +55,9 @@ export default class Schedule extends React.Component {
         if (window) {
             window.scrollTo(0, 0);
         }
+    }
+
+    handleAdd = () => {
+        Message.error('Prideti Tvarkaraščio įrašą funckija bus pridėta vėliau.');
     }
 }
