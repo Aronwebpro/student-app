@@ -18,7 +18,7 @@ const getUser = async (userId) => {
 };
 
 /**
- * Get Pending User by ID
+ * Get Pending User by ID.heart-rate-input-container input
  * @param userId
  * @returns {Promise<*>}
  */

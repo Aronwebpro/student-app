@@ -111,8 +111,9 @@ export default class Login extends React.Component {
     facebookLogin = async () => {
         //Message.error('Ši funkcija bus įdiegta šiektiek vėliau');
         this.setState({ loadingPageActive: true });
-        const { error } = await signInWithFacebook();
-        if (error) {
+        const result  = await signInWithFacebook();
+        console.log(result)
+        if (result.error) {
             Message.error('Prisijungti Nepavyko.');
             this.setState({ loadingPageActive: false });
         }
