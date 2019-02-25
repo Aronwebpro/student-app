@@ -23,6 +23,8 @@ import './assets/css/theme.css';
 import Header from './ui/template/Header/Header';
 import Footer from './ui/template/Footer/Footer';
 import SideBar from './ui/template/SideBar/SideBar';
+import MobileNavigation from './ui/components/MobileBottomNavigation/MobileNavigation';
+
 
 //Components
 import Login from './ui/pages/Login/Login';
@@ -155,7 +157,10 @@ export default class App extends React.Component {
                             <Route exact path='/' render={() => <LoginRouter {...{ user, pendingUser }} />}/>
                         </Switch>
                     </div>
-                    <Footer/>
+                    {/*<Footer/>*/}
+                    {user && (
+                        <MobileNavigation />
+                    )}
                 </div>
             </BrowserRouter>
         )

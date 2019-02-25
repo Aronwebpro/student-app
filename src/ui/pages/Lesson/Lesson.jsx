@@ -9,10 +9,13 @@ import { getSingleLesson, getCommentsForLesson } from '../../../api/lookups';
 import LessonDetail from '../../components/LessonDetail';
 import CommentCard from '../../components/CommentCard';
 import NewCommentModal from '../../components/NewCommentModal';
+import AddButton from '../../components/AddButton';
 
 //Redux Actions
 import changeNewCommentModalState from '../../../redux/actions/changeNewCommentModalState';
 
+//Styles
+import './lesson.css';
 
 class Lesson extends React.Component {
     state = {
@@ -50,7 +53,7 @@ class Lesson extends React.Component {
         } = this.props;
 
         return (
-            <div className="container">
+            <div className="container lesson-detail-page">
                 <div className="lesson-container">
                     <LessonDetail {...lesson} />
                     <div className="post-title forum-header" style={{ marginTop: '20px' }}>
@@ -78,13 +81,18 @@ class Lesson extends React.Component {
                     getPageData={this.getPageData}
                     {...{ user, quoteText, quoteAuthorName, lessonId }}
                 />
+                <AddButton
+                    onClick={this.handleAddComment}
+                />
             </div>
         );
     }
 
     async componentDidMount() {
-        //Scroll Page to Top
-        window.scrollTo(0, 0);
+        //Scroll Page to Top on Start
+        if (window) {
+            window.scrollTo(0, 0);
+        }
         //Add Event Listeners
         document.addEventListener('click', this.comClick);
         document.addEventListener('keydown', this.escClick);
@@ -149,6 +157,10 @@ class Lesson extends React.Component {
             this.setState({ reply: false, replyStyleInit: { display: 'none' } });
         }
     };
+    handleAddComment = () => {
+        const { openNewCommentModal } = this.props;
+        openNewCommentModal();
+    }
 }
 
 PropTypes.Post = {

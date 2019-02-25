@@ -1,5 +1,6 @@
 import { auth } from 'firebase/app';
 import API from './transactions';
+import { getPendingUser } from './lookups';
 
 /**
  * Sign with FireBase SDK

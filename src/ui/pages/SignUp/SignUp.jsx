@@ -130,6 +130,13 @@ export default class SignUp extends React.Component {
         )
     }
 
+    componentDidMount() {
+        //Scroll Page to Top on Start
+        if (window) {
+            window.scrollTo(0, 0);
+        }
+    }
+
     handleTypeClick = (selectedType) => this.setState({ selectedType });
 
     handleSubmit = async () => {

@@ -18,6 +18,11 @@ import DayLessons from '../../components/DayLessons';
 import NewLessonModal from '../../components/NewLessonModal';
 import HeartRateModal from '../../components/HeartRateModal';
 import changeNewCommentModalState from '../../../redux/actions/changeNewCommentModalState';
+import AddButton from "../../components/AddButton";
+
+//Styles
+import './home.css';
+
 
 class Home extends React.Component {
     state = {
@@ -41,25 +46,12 @@ class Home extends React.Component {
             heartRateModalVisible,
             closeNewLessonModal,
             closeHeartRateModal,
+            user
         } = this.props;
         if (this.state.redirect) return <Redirect to="/"/>;
         const empty = Object.keys(lessons).length === 0;
         return (
             <div className="forum-container">
-                {newLessonModalVisible && (
-                    <NewLessonModal
-                        visible={newLessonModalVisible}
-                        hideModal={closeNewLessonModal}
-                        refreshData={this.getScreenData}
-                    />
-                )}
-                {heartRateModalVisible && (
-                    <HeartRateModal
-                        visible={heartRateModalVisible}
-                        hideModal={closeHeartRateModal}
-                        refreshData={() => {}}
-                    />
-                )}
                 <div className="forum">
                     <div className="forum-header">
                         <div className="forum-title">
@@ -87,7 +79,7 @@ class Home extends React.Component {
                                                 return null;
                                             }
                                         }) : (
-                                            <div style={{ textAlign: 'center', fontSize: '2em' }}>
+                                            <div className="no-lessons-message">
                                                 Šią Savaitę Pamokų Įvestų Nėra
                                             </div>
                                         )}
@@ -105,11 +97,37 @@ class Home extends React.Component {
                     {!this.state.hideLoadBtn && (
                         <button className="btn" onClick={this.handleLoadMoreClick}>Load More</button>)}
                 </div>
+                {newLessonModalVisible && (
+                    <NewLessonModal
+                        visible={newLessonModalVisible}
+                        hideModal={closeNewLessonModal}
+                        refreshData={this.getScreenData}
+                    />
+                )}
+                {heartRateModalVisible && (
+                    <HeartRateModal
+                        visible={heartRateModalVisible}
+                        hideModal={closeHeartRateModal}
+                        refreshData={() => {}}
+                    />
+                )}
+                {
+                    user &&
+                    user.role !== 'parents' &&
+                    !newLessonModalVisible &&
+                    !heartRateModalVisible &&
+                    (
+                        <AddButton
+                            onClick={this.handleAddButtonClick}
+                        />
+                   )
+                }
             </div>
         )
     }
 
     async componentDidMount() {
+        //Scroll Page to Top on Start
         if (window) {
             window.scrollTo(0, 0);
         }
@@ -159,7 +177,16 @@ class Home extends React.Component {
 
     //Update Week Object after week switch
     handleClickWeekLeft = () => this.setState({ week: this.currentWeek(this.state.week.weekObj.subtract(1, 'week')) });
-    
+
+    handleAddButtonClick = () => {
+        const { user, openNewLessonModal, openHeartRateModal } = this.props;
+        console.log(user);
+       if (user.role === 'student') {
+           openHeartRateModal();
+       } else if (user.role === 'teacher') {
+           openNewLessonModal();
+       }
+    }
 }
 
 Home.propTypes = {
@@ -184,8 +211,14 @@ const mapDispatchToProps = (dispatch) => {
         closeNewLessonModal() {
             dispatch(changeNewLessonModalState(false));
         },
+        openNewLessonModal() {
+            dispatch(changeNewLessonModalState(true));
+        },
         closeHeartRateModal() {
             dispatch(changeHeartRateModalState(false));
+        },
+        openHeartRateModal() {
+            dispatch(changeHeartRateModalState(true));
         },
     }
 };

@@ -57,20 +57,33 @@ export default class Login extends React.Component {
                     <div className="form-wrapper test-login">
                         <h3>Prisijungite kaip</h3>
                         <div className="tes-login-links">
-                            <div onClick={this.loginAsParent} className='btn login-box'>
-                                <h4>Tevai</h4>
+                            <div className='login-box-wrapper'>
+                                <div onClick={this.loginAsParent} className='btn login-box'>
+                                    <h4>Tevai</h4>
+                                </div>
                             </div>
-                            <div onClick={this.loginAsStudent} className='btn login-box'>
-                                <h4>Mokinys</h4>
+                            <div className='login-box-wrapper'>
+                                <div onClick={this.loginAsStudent} className='btn login-box'>
+                                    <h4>Mokinys</h4>
+                                </div>
                             </div>
-                            <div onClick={this.loginAsTeacher} className='btn login-box'>
-                                <h4>Mokytojas</h4>
+                            <div className='login-box-wrapper'>
+                                <div onClick={this.loginAsTeacher} className='btn login-box'>
+                                    <h4>Mokytojas</h4>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         )
+    }
+
+    componentDidMount() {
+        //Scroll Page to Top on Start
+        if (window) {
+            window.scrollTo(0, 0);
+        }
     }
 
     //Login User With Email
@@ -98,8 +111,9 @@ export default class Login extends React.Component {
     facebookLogin = async () => {
         //Message.error('Ši funkcija bus įdiegta šiektiek vėliau');
         this.setState({ loadingPageActive: true });
-        const { error } = await signInWithFacebook();
-        if (error) {
+        const result  = await signInWithFacebook();
+        console.log(result)
+        if (result.error) {
             Message.error('Prisijungti Nepavyko.');
             this.setState({ loadingPageActive: false });
         }

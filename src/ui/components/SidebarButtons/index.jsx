@@ -8,6 +8,8 @@ import changeNewLessonModalState from '../../../redux/actions/changeNewLessonMod
 import changeNewCommentModalState from '../../../redux/actions/changeNewCommentModalState';
 import changeHeartRateModalState from '../../../redux/actions/changeHeartRateModalState';
 
+import Message from 'antd/lib/message';
+
 //Style
 import './sidebarButtons.css';
 
@@ -98,13 +100,24 @@ class SidebarButtons extends React.PureComponent {
                         </button>
                     </div>
                 );
+            case 'schedule' :
+                return (
+                    <div className='navigation-button-wrapper'>
+                        <button
+                            className="new-topic-button btn"
+                            onClick={this.handleNewEvent}
+                        >
+                            New Event
+                        </button>
+                    </div>
+                );
             default :
                 return (
                     <div/>
                 )
         }
     };
-}
+};
 
 PropTypes.SidebarButtons = {
     user: PropTypes.object,
