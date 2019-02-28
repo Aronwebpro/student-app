@@ -9,7 +9,7 @@ import Message from 'antd/lib/message';
 
 //Components
 import AddButton from '../../components/AddButton';
-import NewEventModal from '../../components/NewEventModal';
+import NewEventModal from '../../components/EventModal';
 
 //Redux
 import changeNewEventModalState from '../../../redux/actions/changeNewEventModalState';
@@ -21,6 +21,14 @@ import '../../../../node_modules/react-big-calendar/lib/css/react-big-calendar.c
 
 //Big Calendar Localizer
 const localizer = BigCalendar.momentLocalizer(moment);
+
+
+const events = [{
+    title: 'Pamoka',
+    start: moment().toDate(),
+    end: moment('2019-03-01').toDate(),
+    allDay : false,
+}];
 
 class Schedule extends React.Component {
     render() {
@@ -36,18 +44,19 @@ class Schedule extends React.Component {
                     <BigCalendar
                         culture='lt'
                         localizer={localizer}
-                        events={[]}
+                        events={events}
                         startAccessor="start"
                         endAccessor="end"
                         messages={{
-                            next: "Pirmyn",
-                            previous: "Atagal",
-                            today: "Šiandiena",
-                            month: "Mėnesis",
-                            week: "Savaitė",
-                            day: "Diena",
-                            agenda: "Dienotvarkė"
+                            next: 'Pirmyn',
+                            previous: 'Atagal',
+                            today: 'Šiandiena',
+                            month: 'Mėnesis',
+                            week: 'Savaitė',
+                            day: 'Diena',
+                            agenda: 'Dienotvarkė'
                         }}
+                        onSelectEvent={this.handleEventUpdate}
                     />
                 </div>
                 <AddButton
@@ -71,6 +80,10 @@ class Schedule extends React.Component {
     handleAdd = () => {
         const { closeNewEventModal } = this.props;
         closeNewEventModal();
+    };
+
+    handleEventUpdate = (event, e) => {
+        console.log(event);
     }
 }
 
