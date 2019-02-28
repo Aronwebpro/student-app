@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import 'moment/locale/lt';
@@ -8,16 +9,22 @@ import Message from 'antd/lib/message';
 
 //Components
 import AddButton from '../../components/AddButton';
+import NewEventModal from '../../components/NewEventModal';
+
+//Redux
+import changeNewEventModalState from '../../../redux/actions/changeNewEventModalState';
 
 //Styles
 import './schedule.css';
 import '../../../../node_modules/react-big-calendar/lib/css/react-big-calendar.css';
 
+
 //Big Calendar Localizer
 const localizer = BigCalendar.momentLocalizer(moment);
 
-export default class Schedule extends React.Component {
+class Schedule extends React.Component {
     render() {
+        const { newEventModalVisible, closeNewEventModal } = this.props;
         return (
             <div className='schedule-page-container'>
                 <div className="forum-header">
@@ -46,6 +53,10 @@ export default class Schedule extends React.Component {
                 <AddButton
                     onClick={this.handleAdd}
                 />
+                <NewEventModal
+                    visible={newEventModalVisible}
+                    hideModal={closeNewEventModal}
+                />
             </div>
         )
     }
@@ -58,6 +69,24 @@ export default class Schedule extends React.Component {
     }
 
     handleAdd = () => {
-        Message.error('Prideti Tvarkaraščio įrašą funckija bus pridėta vėliau.');
+        const { closeNewEventModal } = this.props;
+        closeNewEventModal();
     }
 }
+
+//Redux Map to Props Handlers
+const mapStateToProps = (state) => {
+    return {
+        newEventModalVisible: state.newEventModal.visible,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        closeNewEventModal() {
+            dispatch(changeNewEventModalState(false));
+        },
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Schedule);
