@@ -76,7 +76,6 @@ const getHeartRatesForMonth = async (month = '') => {
  */
 const getLessons = async (firstDayOfWeek) => {
     const { role, uid } = await getCurrentUser();
-
     const weekLessons = {};
     const lessonsRef = db.collection('lessons');
     let lessonsDoc;
@@ -122,6 +121,24 @@ const getCommentsForLesson = async (lessonId) => {
     });
 };
 
+/**
+ * Get All Events from FireStore
+ * @returns ArrayOf [
+ *  Objects shape of { start: Date, end: Date, title: String, isAllDay: Boolean,  userId: String }
+ * ]
+ */
+const getAllEvents = async () => {
+    const eventsRef = db.collection('events');
+    const eventsDocs = await eventsRef.get();
+    return await eventsDocs.docs.map((doc) => {
+        const event =  {...doc.data()};
+        event.start = event.start.toDate();
+        event.end = event.end.toDate();
+        event.id = doc.id;
+        return event;
+    });
+};
+
 
 export {
     getLessons,
@@ -132,4 +149,5 @@ export {
     getCommentsForLesson,
     getPendingUser,
     getHeartRatesForMonth,
+    getAllEvents,
 }

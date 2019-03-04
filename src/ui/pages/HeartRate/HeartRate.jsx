@@ -63,7 +63,7 @@ export default class HeartRate extends React.Component {
                                             />
                                         </XYPlot>
                                     ) : (
-                                        <div className='heart-rate-page-'>
+                                        <div className='heart-rate-page-placeholder'>
                                             <h2>Šį mėnesį širdies ritmo įvesta nėra.</h2>
                                         </div>
                                     )}

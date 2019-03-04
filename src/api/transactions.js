@@ -75,10 +75,40 @@ const submitPendingUser = async ({ uid, type }) => {
  * @param userId
  * @returns {Promise<firebase.firestore.DocumentData | undefined>}
  */
-const createComment = async ({ lessonId, comment, userId }) => {
+const createComment = async ({ lessonId, comment, userId='' }) => {
     const commentDocRef = await db.collection('lessons').doc(lessonId).collection('comments').add(comment);
     const commentDoc = await commentDocRef.get();
     return commentDoc.data();
+};
+
+/**
+ * Create New Event
+ * @param title
+ * @param start
+ * @param end
+ * @param isAllDay
+ * @param userId
+ * @returns {Promise<{eventId: string}>}
+ */
+const createEvent = async ({ title, start, end, isAllDay, userId='' }) => {
+    const eventDocRef = await db.collection('events').add({ title, start, end, isAllDay, userId });
+    return { eventId: eventDocRef.id }
+};
+
+/**
+ * Update New Event
+ * @param id
+ * @param title
+ * @param start
+ * @param end
+ * @param isAllDay
+ * @param userId
+ * @returns {Promise<string>}
+ */
+const updateEvent = async ({ id, title, start, end, isAllDay, userId='' }) => {
+    const eventDocRef = db.collection('events').doc(id);
+    await eventDocRef.update({ title, start, end, isAllDay, userId });
+    return 'success';
 };
 
 
@@ -89,7 +119,8 @@ const API = {
     insertHeartRate: TransactionWrapper.bind(this, insertHeartRate),
     createPendingUser: TransactionWrapper.bind(this, createPendingUser),
     submitPendingUser: TransactionWrapper.bind(this, submitPendingUser),
-
+    createEvent: TransactionWrapper.bind(this, createEvent),
+    updateEvent: TransactionWrapper.bind(this, updateEvent),
 };
 
 export default API;

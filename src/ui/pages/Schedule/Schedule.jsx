@@ -4,12 +4,15 @@ import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import 'moment/locale/lt';
 
+//Api
+import { getAllEvents } from '../../../api/lookups';
+
 //AntD
 import Message from 'antd/lib/message';
 
 //Components
 import AddButton from '../../components/AddButton';
-import NewEventModal from '../../components/EventModal';
+import EventModal from '../../components/EventModal';
 
 //Redux
 import changeNewEventModalState from '../../../redux/actions/changeNewEventModalState';
@@ -23,16 +26,16 @@ import '../../../../node_modules/react-big-calendar/lib/css/react-big-calendar.c
 const localizer = BigCalendar.momentLocalizer(moment);
 
 
-const events = [{
-    title: 'Pamoka',
-    start: moment().toDate(),
-    end: moment('2019-03-01').toDate(),
-    allDay : false,
-}];
-
 class Schedule extends React.Component {
+    state = {
+        events: [],
+        event: null,
+        isUpdate: false,
+    };
+
     render() {
-        const { newEventModalVisible, closeNewEventModal } = this.props;
+        const { events, event } = this.state;
+        const { eventModalVisible } = this.props;
         return (
             <div className='schedule-page-container'>
                 <div className="forum-header">
@@ -41,64 +44,102 @@ class Schedule extends React.Component {
                     </div>
                 </div>
                 <div className='schedule-page-calendar-container'>
-                    <BigCalendar
-                        culture='lt'
-                        localizer={localizer}
-                        events={events}
-                        startAccessor="start"
-                        endAccessor="end"
-                        messages={{
-                            next: 'Pirmyn',
-                            previous: 'Atagal',
-                            today: 'Šiandiena',
-                            month: 'Mėnesis',
-                            week: 'Savaitė',
-                            day: 'Diena',
-                            agenda: 'Dienotvarkė'
-                        }}
-                        onSelectEvent={this.handleEventUpdate}
-                    />
+                    {events.length > 0 && (
+                        <BigCalendar
+                            culture='lt'
+                            localizer={localizer}
+                            events={events}
+                            startAccessor="start"
+                            endAccessor="end"
+                            messages={{
+                                next: 'Pirmyn',
+                                previous: 'Atagal',
+                                today: 'Šiandiena',
+                                month: 'Mėnesis',
+                                week: 'Savaitė',
+                                day: 'Diena',
+                                agenda: 'Dienotvarkė'
+                            }}
+                            onSelectEvent={this.handleEventUpdate}
+                            eventPropGetter={this.handleEventsStyles}
+                        />
+                    )}
                 </div>
                 <AddButton
                     onClick={this.handleAdd}
                 />
-                <NewEventModal
-                    visible={newEventModalVisible}
-                    hideModal={closeNewEventModal}
-                />
+                {eventModalVisible && (
+                    <EventModal
+                        visible={eventModalVisible}
+                        hideModal={this.closeEventModal}
+                        event={event}
+                    />
+                )}
             </div>
         )
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         //Scroll Page to Top on Start
         if (window) {
             window.scrollTo(0, 0);
         }
+
+        const events = await this.fetchEvents();
+        this.setState({ events });
     }
+
+    handleEventsStyles = (event, start, end, isSelected) => {
+        const style = {
+            backgroundColor: "rgb(97, 218, 251)",
+            color: '#fff',
+            borderRadius: "5px",
+            border: "none",
+            fontSize: '0.8em',
+        };
+        return {
+            style,
+        }
+    };
+
+    fetchEvents = async () => {
+        return await getAllEvents();
+    };
 
     handleAdd = () => {
         const { closeNewEventModal } = this.props;
         closeNewEventModal();
     };
 
+    closeEventModal = () => {
+        const { closeNewEventModal, event } = this.props;
+        if (event) {
+            this.setState({ event: null }, closeNewEventModal);
+        } else {
+            closeNewEventModal();
+        }
+    };
+
     handleEventUpdate = (event, e) => {
-        console.log(event);
+        const { openNewEventModal } = this.props;
+        this.setState({ event, update: true }, openNewEventModal);
     }
 }
 
 //Redux Map to Props Handlers
 const mapStateToProps = (state) => {
     return {
-        newEventModalVisible: state.newEventModal.visible,
+        eventModalVisible: state.newEventModal.visible,
     }
 };
-
 const mapDispatchToProps = (dispatch) => {
     return {
         closeNewEventModal() {
             dispatch(changeNewEventModalState(false));
         },
+        openNewEventModal() {
+            dispatch(changeNewEventModalState(true));
+        }
     }
 };
 
