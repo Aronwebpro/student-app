@@ -7,11 +7,11 @@ import { connect } from 'react-redux';
 import changeNewLessonModalState from '../../../redux/actions/changeNewLessonModalState';
 import changeNewCommentModalState from '../../../redux/actions/changeNewCommentModalState';
 import changeHeartRateModalState from '../../../redux/actions/changeHeartRateModalState';
-
-import Message from 'antd/lib/message';
+import changeNewEventModalState from "../../../redux/actions/changeNewEventModalState";
 
 //Style
 import './sidebarButtons.css';
+
 
 class SidebarButtons extends React.PureComponent {
     render() {
@@ -30,7 +30,8 @@ class SidebarButtons extends React.PureComponent {
             sideBarButtonState,
             openNewLessonModal,
             openHeartRateModal,
-            openNewCommentModal
+            openNewCommentModal,
+            openNewEventModal,
         } = this.props;
 
         const { heartRate } = sideBarButtonState;
@@ -105,7 +106,7 @@ class SidebarButtons extends React.PureComponent {
                     <div className='navigation-button-wrapper'>
                         <button
                             className="new-topic-button btn"
-                            onClick={this.handleNewEvent}
+                            onClick={openNewEventModal}
                         >
                             New Event
                         </button>
@@ -148,7 +149,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         openNewCommentModal() {
             dispatch(changeNewCommentModalState(true));
-        }
+        },
+        openNewEventModal() {
+            dispatch(changeNewEventModalState(true));
+        },
     }
 };
 

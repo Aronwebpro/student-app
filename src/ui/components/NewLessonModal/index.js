@@ -69,7 +69,6 @@ export default class NewLessonModal extends React.Component {
                                     <h3>Širdies Ritmas:</h3>
                                     <input
                                         type="text"
-                                        name="heartRate"
                                         value={heartRate}
                                         onChange={this.handleHeartRate}
                                     />
@@ -107,7 +106,7 @@ export default class NewLessonModal extends React.Component {
         const user = await getCurrentUser();
         const { heartRate } = await getDayHeartRate();
         if (user && !this.isUnmount) {
-            this.setState({ user, heartRate, discipline: user.discipline, loading: false });
+            this.setState({ user, heartRate: heartRate || '', discipline: user.discipline, loading: false });
         } else {
             this.setState({ loading: false });
         }
@@ -118,7 +117,7 @@ export default class NewLessonModal extends React.Component {
         this.isUnmount = true;
     }
 
-    handleHeartRate = (heartRate) => this.setState({ heartRate: heartRate.value });
+    handleHeartRate = (event) => this.setState({ heartRate: event.target.value });
 
     //Create Lesson Handler
     createLesson = async () => {

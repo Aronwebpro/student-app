@@ -29,3 +29,7 @@
 #heartRate .forum-header {
     margin: 0;
 }
+
+.heart-rate-page-placeholder h2 {
+    background-color: #ededed;
+}

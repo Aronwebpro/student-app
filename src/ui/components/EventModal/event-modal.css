@@ -1,0 +1,61 @@
+.event-modal-container {
+    padding: 0 10px;
+}
+
+.event-modal-body {
+    position: relative;
+}
+
+.event-modal-container input {
+    border: 1px solid #ededed;
+}
+
+.event-modal-header {
+    padding: 5px 0;
+    border-bottom: 1px solid #ededed;
+    margin-bottom: 20px;
+}
+
+.event-modal-time-input {
+    padding: 10px 0;
+    display: flex;
+}
+
+.event-modal-time-input-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.event-modal-container h3 {
+    font-weight: bold;
+}
+
+.event-modal-all-day-checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.event-modal-all-day-checkbox h3 {
+    display: inline-block;
+}
+
+.event-modal-all-day-checkbox input[type='checkbox'] {
+    margin: 0 5px;
+    display: inline;
+}
+
+.event-modal-spin-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255,255,255, 0.7);
+    z-index: 2;
+}
