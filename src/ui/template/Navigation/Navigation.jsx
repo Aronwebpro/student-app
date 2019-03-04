@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-//Api
-import { signOut } from "../../../api/auth";
 
-//Template Parts
+//Api
+import { signOut } from '../../../api/auth';
 
 //Styles
 import './navigation.css';
@@ -15,11 +14,21 @@ class Navigation extends React.PureComponent {
         return (
             <div className="navigation-wrapper">
                 <nav className={!user || (user && !user.authorAvatar) ? 'nav-logged-out' : undefined}>
-                    {user && (
+                    {user ? (
                         <div className="links-wrapper">
                             <Link to="/home">Pagrindinis</Link>
                             <Link to="/profile" className="theme-color_txt log-out">Profilis</Link>
-                            <button className="log-out" onClick={this.logOut} style={{ cursor: 'pointer' }}>Atsijungti</button>
+                            <button
+                                className="log-out"
+                                onClick={this.logOut}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                Atsijungti
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="links-wrapper">
+                            <Link to="/privacy-policy">Privacy Policy</Link>
                         </div>
                     )}
                 </nav>
@@ -38,10 +47,10 @@ class Navigation extends React.PureComponent {
         }
         window.scrollTo(0, 0);
     }
-};
+}
 
 PropTypes.Navigation = {
     user: PropTypes.object
-}
+};
 
 export default Navigation;

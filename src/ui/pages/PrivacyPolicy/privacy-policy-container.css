@@ -1,0 +1,25 @@
+#privacyPolice {
+    flex: 1;
+    display: flex;
+}
+
+.privacy-policy-container {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+ }
+
+.privacy-policy-container h2 {
+    margin-top: 10px;
+}
+
+.privacy-policy-body {
+    min-width: 80%;
+    padding: 20px;
+}
+
+.privacy-policy-header {
+    padding: 5px;
+    border-bottom: 1px solid #ededed;
+}

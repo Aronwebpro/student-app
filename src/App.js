@@ -26,13 +26,14 @@ import SideBar from './ui/template/SideBar/SideBar';
 import MobileNavigation from './ui/components/MobileBottomNavigation/MobileNavigation';
 
 
-//Components
+//Page Components
 import Login from './ui/pages/Login/Login';
 import Home from './ui/pages/Home/Home';
 import Schedule from './ui/pages/Schedule/Schedule';
 import Lesson from './ui/pages/Lesson/Lesson';
 import HeartRate from './ui/pages/HeartRate/HeartRate';
 import SignUp from './ui/pages/SignUp/SignUp';
+import PrivacyPolicy from './ui/pages/PrivacyPolicy/PrivacyPolicy';
 
 //Pages
 const LoginPage = PageLayout({
@@ -43,34 +44,40 @@ const LoginPage = PageLayout({
 const HomePage = PageLayout({
     PageComponent: Home,
     pageId: 'home',
+    layout: 'withSidebar',
     SideBarComponent: SideBar,
-    layout: 'withSidebar'
 });
 
 const SchedulePage = PageLayout({
     PageComponent: Schedule,
     pageId: 'schedule',
+    layout: 'withSidebar',
     SideBarComponent: SideBar,
-    layout: 'withSidebar'
 });
 
 const LessonPage = PageLayout({
     PageComponent: Lesson,
     pageId: 'lesson',
+    layout: 'withSidebar',
     SideBarComponent: SideBar,
-    layout: 'withSidebar'
 });
 
 const HeartRatePage = PageLayout({
     PageComponent: HeartRate,
     pageId: 'heartRate',
+    layout: 'withSidebar',
     SideBarComponent: SideBar,
-    layout: 'withSidebar'
 });
 
 const SignUpPage = PageLayout({
     PageComponent: SignUp,
     pageId: 'sign-up-page',
+    layout: 'default'
+});
+
+const PrivacyPolicyPage = PageLayout({
+    PageComponent: PrivacyPolicy,
+    pageId: 'privacyPolice',
     layout: 'default'
 });
 
@@ -154,6 +161,7 @@ export default class App extends React.Component {
                                 }}/>}
                             />
                             <Route exact path='/sign-up' render={() => <SignUpPage {...{ pendingUser }} />}/>
+                            <Route exact path='/privacy-policy' render={() => <PrivacyPolicyPage />}/>
                             <Route exact path='/' render={() => <LoginRouter {...{ user, pendingUser }} />}/>
                         </Switch>
                     </div>
