@@ -86,6 +86,10 @@ export default class Login extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        this.isUnmount = true;
+    }
+
     //Login User With Email
     handleLogin = async (e) => {
         e.preventDefault();
@@ -96,14 +100,18 @@ export default class Login extends React.Component {
             const user = await signIn(email.value, password.value);
             //Set Flash message and save to DB
             if (user) {
-                this.setState({ redirect: true });
                 Message.success('Prisijungta sėkmingai!');
+                if (!this.isUnmount) {
+                    this.setState({ redirect: true });
+                }
             }
         }
         catch (error) {
             this.password.value = '';
             Message.error(error.message);
-            this.setState({ buttonActive: false });
+            if (!this.isUnmount) {
+                this.setState({ buttonActive: false });
+            }
         }
     };
 
@@ -113,26 +121,28 @@ export default class Login extends React.Component {
         const result = await signInWithFacebook();
         if (result.error) {
             Message.error('Prisijungti Nepavyko.');
-            this.setState({ loadingPageActive: false });
-        }
-    };
-
-    //TODO: Temp Login Method for TESTING
-    login = async ({ email, password }) => {
-        try {
-            //Sign In User and get user's data
-            const user = await signIn(email, password);
-            //Set Flash message and save to DB
-
-            if (user) {
-                this.setState({ redirect: true });
-                Message.success('Prisijungta sėkmingai!');
+            if (!this.isUnmount) {
+                this.setState({ loadingPageActive: false });
             }
         }
-        catch (error) {
-            Message.error('Sistemos Klaida');
-        }
     };
+
+    // //TODO: Temp Login Method for TESTING
+    // login = async ({ email, password }) => {
+    //     try {
+    //         //Sign In User and get user's data
+    //         const user = await signIn(email, password);
+    //         if (user) {
+    //             Message.success('Prisijungta sėkmingai!');
+    //             if (!this.isUnmount) {
+    //                 this.setState({ redirect: true });
+    //             }
+    //         }
+    //     }
+    //     catch (error) {
+    //         Message.error('Sistemos Klaida');
+    //     }
+    // };
     // //TODO: Test Handlers
     // loginAsParent = async () => {
     //     this.setState({ loadingPageActive: true });
