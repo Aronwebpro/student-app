@@ -35,6 +35,7 @@ import HeartRate from './ui/pages/HeartRate/HeartRate';
 import SignUp from './ui/pages/SignUp/SignUp';
 import PrivacyPolicy from './ui/pages/PrivacyPolicy/PrivacyPolicy';
 import TermsOfService from './ui/pages/TermsOfService/TermsOfService';
+import Profile from './ui/pages/Profile/Profile';
 
 //Pages
 const LoginPage = PageLayout({
@@ -81,10 +82,18 @@ const PrivacyPolicyPage = PageLayout({
     pageId: 'privacyPolice',
     layout: 'default'
 });
+
 const TermsOfServicePage = PageLayout({
     PageComponent: TermsOfService,
     pageId: 'termsOfServicePage',
     layout: 'default'
+});
+
+const ProfilePage = PageLayout({
+    PageComponent: Profile,
+    pageId: 'profile',
+    layout: 'withSidebar',
+    SideBarComponent: SideBar,
 });
 
 const LoginRouter = ({ user, pendingUser }) => {
@@ -107,15 +116,6 @@ export default class App extends React.Component {
 
     render() {
         const { user, pendingUser } = this.props;
-        const sideBarButtonActions = {
-            handleNewLessonModal: this.handleNewLessonModal,
-            handleNewCommentModal: this.handleNewCommentModal,
-            handleHeartRateModal: this.handleHeartRateModal,
-            generateHeartRateData: this.generateScreenData,
-        };
-
-        const sideBarButtonState = this.state;
-
         return (
             <BrowserRouter>
                 <div className='page'>
@@ -126,55 +126,41 @@ export default class App extends React.Component {
                                 {...{ user }}
                                 exact
                                 path='/home'
-                                render={(params) => <HomePage {...{
-                                    params,
-                                    user,
-                                    sideBarButtonActions,
-                                    sideBarButtonState
-                                }}/>}
+                                render={(params) => <HomePage {...{ params, user, }}/>}
                             />
                             <AuthenticatedRoute
                                 {...{ user }}
                                 exact
                                 path='/schedule'
-                                render={(params) => <SchedulePage {...{
-                                    params,
-                                    user,
-                                    sideBarButtonActions,
-                                    sideBarButtonState
-                                }}/>}
+                                render={(params) => <SchedulePage {...{ params, user, }}/>}
                             />
                             <AuthenticatedRoute
                                 {...{ user }}
                                 exact
                                 path='/lesson/:lessonId'
-                                render={(params) => <LessonPage {...{
-                                    params,
-                                    user,
-                                    sideBarButtonActions,
-                                    sideBarButtonState
-                                }}/>}
+                                render={(params) => <LessonPage {...{ params, user, }}/>}
                             />
                             <AuthenticatedRoute
                                 {...{ user }}
                                 exact
                                 path='/heartRate'
-                                render={(params) => <HeartRatePage {...{
-                                    params,
-                                    user,
-                                    sideBarButtonActions,
-                                    sideBarButtonState
-                                }}/>}
+                                render={(params) => <HeartRatePage {...{ params, user, }}/>}
+                            />
+                            <AuthenticatedRoute
+                                {...{ user }}
+                                exact
+                                path='/profile'
+                                render={(params) => <ProfilePage {...{ params, user, }}/>}
                             />
                             <Route exact path='/sign-up' render={() => <SignUpPage {...{ pendingUser }} />}/>
-                            <Route exact path='/terms-of-service' render={() => <TermsOfServicePage />}/>
-                            <Route exact path='/privacy-policy' render={() => <PrivacyPolicyPage />}/>
+                            <Route exact path='/terms-of-service' render={() => <TermsOfServicePage/>}/>
+                            <Route exact path='/privacy-policy' render={() => <PrivacyPolicyPage/>}/>
                             <Route exact path='/' render={() => <LoginRouter {...{ user, pendingUser }} />}/>
                         </Switch>
                     </div>
                     {/*<Footer/>*/}
                     {user && (
-                        <MobileNavigation />
+                        <MobileNavigation/>
                     )}
                 </div>
             </BrowserRouter>
@@ -188,21 +174,6 @@ export default class App extends React.Component {
     generateScreenData = async () => {
         const { heartRate } = await getDayHeartRate();
         this.setState({ heartRate });
-    };
-
-    handleNewLessonModal = () => {
-        const currentState = this.state.newLessonModalVisible;
-        this.setState({ newLessonModalVisible: !currentState });
-    };
-
-    handleNewCommentModal = () => {
-        const currentState = this.state.newCommentModalVisible;
-        this.setState({ newCommentModalVisible: !currentState });
-    };
-
-    handleHeartRateModal = () => {
-        const currentState = this.state.heartRateModalVisible;
-        this.setState({ heartRateModalVisible: !currentState });
     };
 
 }
