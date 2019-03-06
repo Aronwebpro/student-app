@@ -17,8 +17,6 @@
     padding: 1%;
     font-size: 1.2em;
     font-family: "Rubik", sans-serif;
-
-
 }
 
 .login-wrapper .dont-have-acc {
@@ -74,7 +72,10 @@
     transform: scale(1.1);
     opacity: 0.9;
 }
-
+.form-wrapper.email-login {
+    padding: 25px;
+}
+/**************** Test Login ************************/
 .test-login {
     flex: 1;
     display: flex;
@@ -101,6 +102,7 @@
     background-color: transparent;
 
 }
+
 .test-login .login-box:hover h4 {
     color: #61dafb;
 }
