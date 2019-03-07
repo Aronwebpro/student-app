@@ -1,40 +1,5 @@
-.profile-content {
-    padding: 0 20px;
-}
 
-.profile-info-container {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: row;
-    min-height: 300px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
 
-.profile-avatar-container {
-    flex: 1;
-    margin-left: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-}
-
-.profile-avatar {
-    border-left: 1px solid #5adafb;
-}
-
-.profile-info-wrapper {
-    flex: 2;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-}
-
-.profile-info-wrapper h2 {
-    color: #545454;
-}
 
 .user-info-row {
     flex: 1;
@@ -90,16 +55,87 @@
     display: flex;
     justify-content: center;
 }
+
 .settings-title {
     flex: 1;
 }
+
 .switcher-container {
     margin-right: 20px;
 }
+
 .update-avatar-container {
     padding: 40px;
     flex-direction: column;
 }
+
 .register-avatar-form {
     padding: 20px;
 }
+
+/*********************************************************/
+.profile-page-container {
+    flex: 1;
+    display: flex;
+}
+
+.profile-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+}
+
+.profile-info-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    min-height: 200px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.profile-info-wrapper {
+    flex: 2;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+.profile-info-wrapper h2 {
+    color: #545454;
+}
+
+.profile-avatar-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+}
+
+.profile-avatar {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media all and (max-width: 769px) {
+    .profile-info-container {
+        flex-direction: column;
+    }
+
+    .profile-info-wrapper {
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .profile-avatar-container {
+        min-height: 200px;
+    }
+}
+
+

@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { connect } from 'react-redux';
 
 //Components
 import Spinner from "../../components/Spinner";
@@ -7,13 +8,10 @@ import Spinner from "../../components/Spinner";
 //Styles
 import './profile.css';
 
-export default class Profile extends React.Component {
-    state = {}
-
+class Profile extends React.Component {
     render() {
-        const authorAvatar = '';
-        const authorName = 'Petras';
-
+        const { user } = this.props;
+        const { userAvatar, userName } = user || {};
         return (
             <div className='profile-page-container'>
                 <div className="profile-content">
@@ -22,7 +20,7 @@ export default class Profile extends React.Component {
                     </div>
                     <div className="profile-info-container">
                         <div className="profile-info-wrapper">
-                            <h2>User Information:</h2>
+                            <h2>Vartotojo Informacija:</h2>
                             <div className="user-info-row">
                                 <div className="user-info-left">
                                     <ul>
@@ -31,18 +29,14 @@ export default class Profile extends React.Component {
                                 </div>
                                 <div className="user-info-right">
                                     <ul>
-                                        <li>{authorName}</li>
+                                        <li>{userName}</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div className="profile-avatar-container">
                             <div className="profile-avatar">
-                                {authorAvatar ? (
-                                <img src={authorAvatar} alt=""/>
-                                ) : (
-                                <Spinner/>
-                                )}
+                                <img src={userAvatar} alt=""/>
                             </div>
                         </div>
                     </div>
@@ -55,7 +49,6 @@ export default class Profile extends React.Component {
         if (window) {
             window.scrollTo(0, 0);
         }
-
     }
 
     componentWillUnmount() {
@@ -63,6 +56,15 @@ export default class Profile extends React.Component {
     }
 
 }
+
+//Redux Map to Props Handlers
+const mapStateToProps = (state) => {
+    return {
+        user: state.user.user,
+    }
+};
+
+export default connect(mapStateToProps)(Profile)
 
 
 

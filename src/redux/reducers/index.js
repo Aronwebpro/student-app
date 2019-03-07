@@ -4,6 +4,8 @@ import newLessonModal from './newLessonModal';
 import heartRateModal from './heartRateModal';
 import newCommentModal from './newCommentModal';
 import newEventModal from './newEventModal';
+import heartRate from './heartRate';
+
 
 export default combineReducers({
     user,
@@ -11,4 +13,5 @@ export default combineReducers({
     heartRateModal,
     newCommentModal,
     newEventModal,
+    heartRate,
 });
