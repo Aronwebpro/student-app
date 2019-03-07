@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 //Components
 import Spinner from '../Spinner';
 
+//Api
+import { getDayHeartRate } from '../../../api/lookups';
+
 //Styles
 import './heart-rate-view.css';
 
@@ -24,8 +27,12 @@ const styles = {
 };
 
 export default class HeartRateView extends React.PureComponent {
+    state = {
+        heartRate: null,
+        loading: true,
+    };
     render() {
-        const { heartRate } = this.props;
+        const { heartRate } = this.state;
         return (
             <div className='heart-rate-view-container'>
                 <div className='section-header'>
@@ -52,6 +59,10 @@ export default class HeartRateView extends React.PureComponent {
                 )}
             </div>
         )
+    }
+    async componentDidMount() {
+        const heartRate = await getDayHeartRate();
+        this.setState({ heartRate });
     }
 }
 

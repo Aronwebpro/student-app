@@ -27,14 +27,12 @@ class SidebarButtons extends React.PureComponent {
             reset,
             user,
             page,
-            sideBarButtonState,
+            heartRate,
             openNewLessonModal,
             openHeartRateModal,
             openNewCommentModal,
             openNewEventModal,
         } = this.props;
-
-        const { heartRate } = sideBarButtonState;
 
         switch (page) {
             case 'home' :
@@ -136,6 +134,7 @@ const mapStateToProps = (state) => {
         newLessonModalVisible: state.newLessonModal.visible,
         heartRateModalVisible: state.heartRateModal.visible,
         newCommentModalVisible: state.newCommentModal.visible,
+        heartRate: state.heartRate.heartRate,
     }
 };
 

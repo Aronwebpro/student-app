@@ -46,16 +46,12 @@ export default class SideBar extends React.Component {
             clearReply,
             user,
             params,
-            sideBarButtonState,
-            sideBarButtonActions,
         } = this.props;
 
         let active = 'all';
         if (params) {
             active = params.location.pathname;
         }
-        const { heartRate } = sideBarButtonState;
-
         return (
             <div className='side-bar-container' ref={(input) => this.categoryBar = input}>
                 <SidebarButtons
@@ -64,16 +60,10 @@ export default class SideBar extends React.Component {
                         user,
                         respond,
                         clearReply,
-                        sideBarButtonActions,
-                        sideBarButtonState,
                     }}
                 />
                 <DayDateView/>
-                <HeartRateView
-                    {...{
-                        heartRate
-                    }}
-                />
+                <HeartRateView/>
                 <div className="side-bar-item-header">
                     <h3>Menu</h3>
                     <div className='menu-container'>
@@ -114,6 +104,8 @@ export default class SideBar extends React.Component {
         }
     }
 }
+
+
 
 PropTypes.SideBar = {
     user: PropTypes.object,

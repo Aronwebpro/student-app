@@ -50,9 +50,9 @@ const getDayHeartRate = async () => {
     const heartRateRef = db.collection('heartRates').doc(date);
     const heartRatesDoc = await heartRateRef.get();
     if (!heartRatesDoc.exists) {
-        return {};
+        return undefined;
     }
-    return { heartRateId: heartRatesDoc.id, ...heartRatesDoc.data() };
+    return heartRatesDoc.data().heartRate
 };
 
 const getHeartRatesForMonth = async (month = '') => {
