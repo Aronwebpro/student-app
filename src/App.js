@@ -36,6 +36,7 @@ import SignUp from './ui/pages/SignUp/SignUp';
 import PrivacyPolicy from './ui/pages/PrivacyPolicy/PrivacyPolicy';
 import TermsOfService from './ui/pages/TermsOfService/TermsOfService';
 import Profile from './ui/pages/Profile/Profile';
+import Error from './ui/pages/404/404';
 
 
 //Pages
@@ -97,6 +98,12 @@ const ProfilePage = PageLayout({
     SideBarComponent: SideBar,
 });
 
+const ErrorPage = PageLayout({
+    PageComponent: Error,
+    pageId: '404',
+    layout: 'default',
+});
+
 const LoginRouter = ({ user, pendingUser }) => {
     if (user) {
         return <Redirect to={'/home'}/>;
@@ -151,6 +158,7 @@ export default class App extends React.Component {
                                 <Route exact path='/terms-of-service' render={() => <TermsOfServicePage/>}/>
                                 <Route exact path='/privacy-policy' render={() => <PrivacyPolicyPage/>}/>
                                 <Route exact path='/' render={() => <LoginRouter {...{ user, pendingUser }} />}/>
+                                <Route path='/' render={() => <ErrorPage />}/>
                             </Switch>
                         </div>
                         {user && (
