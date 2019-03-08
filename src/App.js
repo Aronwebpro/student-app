@@ -37,7 +37,7 @@ import PrivacyPolicy from './ui/pages/PrivacyPolicy/PrivacyPolicy';
 import TermsOfService from './ui/pages/TermsOfService/TermsOfService';
 import Profile from './ui/pages/Profile/Profile';
 import Error from './ui/pages/404/404';
-
+import Admin from './ui/pages/Admin/Admin';
 
 //Pages
 const LoginPage = PageLayout({
@@ -104,6 +104,13 @@ const ErrorPage = PageLayout({
     layout: 'default',
 });
 
+const AdminPage = PageLayout({
+    PageComponent: Admin,
+    pageId: 'admin',
+    layout: 'withSidebar',
+    SideBarComponent: SideBar,
+});
+
 const LoginRouter = ({ user, pendingUser }) => {
     if (user) {
         return <Redirect to={'/home'}/>;
@@ -112,6 +119,14 @@ const LoginRouter = ({ user, pendingUser }) => {
     } else {
         return <LoginPage {...{ user }}/>;
     }
+};
+
+const AdminRouter = ({ user, params }) => {
+      if (user.role === 'admin') {
+          return <AdminPage {...{ user, params }} />;
+      } else {
+          return <ErrorPage />;
+      }
 };
 
 export default class App extends React.Component {
@@ -153,6 +168,12 @@ export default class App extends React.Component {
                                     exact
                                     path='/profile'
                                     render={(params) => <ProfilePage {...{ params, user, }}/>}
+                                />
+                                <AuthenticatedRoute
+                                    {...{ user }}
+                                    exact
+                                    path='/admin'
+                                    render={(params) => <AdminRouter {...{ params, user, }}/>}
                                 />
                                 <Route exact path='/sign-up' render={() => <SignUpPage {...{ pendingUser }} />}/>
                                 <Route exact path='/terms-of-service' render={() => <TermsOfServicePage/>}/>
