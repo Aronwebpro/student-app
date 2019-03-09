@@ -2,6 +2,7 @@
 
 #login {
     width: 100%;
+    /*margin-top: -20px;*/
     /*background-image: url("/static/media/main_background.0c5679d9.png");*/
     /*background-repeat: no-repeat;*/
     /*background-position: center center;*/
@@ -16,6 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 5px;
 }
 
 .logo-wrapper img {
@@ -42,7 +44,7 @@
 .login-wrapper h2,
 .login-wrapper h3 {
     text-align: center;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
 }
 
 .login-wrapper button:active {
@@ -55,8 +57,8 @@
 
 .login-wrapper .form-wrapper {
     /*border: 1px solid #222;*/
-    margin-top: 10px;
-    padding: 20px 0;
+    margin-bottom: 20px;
+    padding: 10px 0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
     background: #ffffff;
 }
@@ -67,14 +69,17 @@
 }
 
 .facebook-login {
-    margin-top: 50px;
+    /*margin-top: 50px;*/
     text-align: center;
 }
 
 /*.facebook-login h2 {*/
 /*text-align: center;*/
 /*}*/
-
+.facebook-logo {
+    padding: 10px 0;
+    text-align: center;
+}
 .facebook-logo img {
     max-width: 100px;
     width: 100%;

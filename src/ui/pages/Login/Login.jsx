@@ -40,7 +40,6 @@ export default class Login extends React.Component {
                             <img src="https://www.carlalbert.edu/wp-content/uploads/2018/03/facebook_logos_PNG19751.png" alt=""/>
                         </div>
                     </div>
-                    <h1>Arba</h1>
                     <div className="form-wrapper email-login">
                         <h3>Prisijunkite su El. Paštu</h3>
                         <form onSubmit={this.handleLogin}>
