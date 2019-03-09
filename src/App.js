@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { connect } from 'react-redux';
 //import * as serviceWorker from './serviceWorker';
 import {
     BrowserRouter, Redirect,
@@ -129,53 +130,46 @@ const AdminRouter = ({ user, params }) => {
       }
 };
 
-export default class App extends React.Component {
+class App extends React.Component {
     render() {
         const { user, pendingUser } = this.props;
         return (
             <BrowserRouter>
-                <Provider store={store}>
                     <div className='page'>
-                        <Header {...{ user }} />
+                        <Header />
                         <div className='content'>
                             <Switch>
                                 <AuthenticatedRoute
-                                    {...{ user }}
                                     exact
                                     path='/home'
-                                    render={(params) => <HomePage {...{ params, user, }}/>}
+                                    render={(params) => <HomePage {...{ params }}/>}
                                 />
                                 <AuthenticatedRoute
-                                    {...{ user }}
                                     exact
                                     path='/schedule'
                                     render={(params) => <SchedulePage {...{ params, user, }}/>}
                                 />
                                 <AuthenticatedRoute
-                                    {...{ user }}
                                     exact
                                     path='/lesson/:lessonId'
                                     render={(params) => <LessonPage {...{ params, user, }}/>}
                                 />
                                 <AuthenticatedRoute
-                                    {...{ user }}
                                     exact
                                     path='/heartRate'
                                     render={(params) => <HeartRatePage {...{ params, user, }}/>}
                                 />
                                 <AuthenticatedRoute
-                                    {...{ user }}
                                     exact
                                     path='/profile'
                                     render={(params) => <ProfilePage {...{ params, user, }}/>}
                                 />
                                 <AuthenticatedRoute
-                                    {...{ user }}
                                     exact
                                     path='/admin'
                                     render={(params) => <AdminRouter {...{ params, user, }}/>}
                                 />
-                                <Route exact path='/sign-up' render={() => <SignUpPage {...{ pendingUser }} />}/>
+                                <Route exact path='/sign-up' render={() => <SignUpPage {...{ user, pendingUser }} />}/>
                                 <Route exact path='/terms-of-service' render={() => <TermsOfServicePage/>}/>
                                 <Route exact path='/privacy-policy' render={() => <PrivacyPolicyPage/>}/>
                                 <Route exact path='/' render={() => <LoginRouter {...{ user, pendingUser }} />}/>
@@ -186,11 +180,19 @@ export default class App extends React.Component {
                             <MobileNavigation/>
                         )}
                     </div>
-                </Provider>
             </BrowserRouter>
         )
     }
 }
+
+//Redux Map to Props Handlers
+const mapStateToProps = (state) => {
+    return {
+        user: state.user.user,
+    }
+};
+
+export default connect(mapStateToProps)(App);
 
 App.propTypes = {
     user: PropTypes.object,

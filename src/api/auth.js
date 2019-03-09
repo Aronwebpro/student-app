@@ -1,6 +1,8 @@
 import { auth } from 'firebase/app';
 import API from './transactions';
 import { getPendingUser } from './lookups';
+import setUser from "../redux/actions/setUser";
+import store from "../redux/store";
 
 /**
  * Sign with FireBase SDK
@@ -49,6 +51,7 @@ const signInWithFacebook = async () => {
  * @returns {Promise}
  */
 const signOut = () => {
+    store.dispatch(setUser(null));
     return auth().signOut();
 };
 

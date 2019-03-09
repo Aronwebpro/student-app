@@ -44,15 +44,12 @@ class Profile extends React.Component {
             </div>
         )
     }
+
     componentDidMount() {
         //Scroll Page to Top on Start
         if (window) {
             window.scrollTo(0, 0);
         }
-    }
-
-    componentWillUnmount() {
-
     }
 
 }

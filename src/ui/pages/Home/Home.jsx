@@ -203,6 +203,7 @@ const mapStateToProps = (state) => {
     return {
         newLessonModalVisible: state.newLessonModal.visible,
         heartRateModalVisible: state.heartRateModal.visible,
+        user: state.user.user,
     }
 };
 

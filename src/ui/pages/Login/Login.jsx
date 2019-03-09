@@ -35,14 +35,14 @@ export default class Login extends React.Component {
                         <div className="logo-wrapper">
                             <img src={dancer} alt=""/>
                         </div>
-                        <h3>Prisijungite su Facebook</h3>
+                        <h3>Prisijunkite su Facebook</h3>
                         <div onClick={this.facebookLogin} className='facebook-logo'>
                             <img src="https://www.carlalbert.edu/wp-content/uploads/2018/03/facebook_logos_PNG19751.png" alt=""/>
                         </div>
                     </div>
                     <h1>Arba</h1>
                     <div className="form-wrapper email-login">
-                        <h3>Prisijungite su El. Paštu</h3>
+                        <h3>Prisijunkite su El. Paštu</h3>
                         <form onSubmit={this.handleLogin}>
                             <label htmlFor="email">Elektroninis Paštas:</label>
                             <input type="text" name="email" ref={input => this.email = input}/>
