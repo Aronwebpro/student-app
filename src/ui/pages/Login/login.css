@@ -2,11 +2,24 @@
 
 #login {
     width: 100%;
+    /*background-image: url("/static/media/main_background.0c5679d9.png");*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: center center;*/
     /*max-width: 350px;*/
 }
 
 .login-container {
     margin: auto;
+    flex-direction: column;
+}
+.logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-wrapper img {
+    width: 100px;
 }
 
 .login-wrapper {

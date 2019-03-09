@@ -13,6 +13,7 @@ import PageSpinner from '../../components/PageSpinner';
 
 //Styles
 import './login.css';
+import dancer from '../../../assets/img/main_background2.png';
 
 export default class Login extends React.Component {
     state = {
@@ -29,9 +30,11 @@ export default class Login extends React.Component {
         ) : (
             <div className="container  login-container">
                 <PageSpinner visible={loadingPageActive}/>
-
                 <div className="login-wrapper">
                     <div className="form-wrapper facebook-login">
+                        <div className="logo-wrapper">
+                            <img src={dancer} alt=""/>
+                        </div>
                         <h3>Prisijungite su Facebook</h3>
                         <div onClick={this.facebookLogin} className='facebook-logo'>
                             <img src="https://www.carlalbert.edu/wp-content/uploads/2018/03/facebook_logos_PNG19751.png" alt=""/>
