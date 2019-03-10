@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { SketchPicker, CompactPicker } from 'react-color';
 
 //Api
 import API from '../../../api/transactions';
@@ -43,8 +44,8 @@ export default class EventModal extends React.Component {
         isAllDay: false,
         createEventLoading: false,
         id: undefined,
+        color: '#61dafb',
     };
-
     render() {
         const {
             visible,
@@ -73,7 +74,7 @@ export default class EventModal extends React.Component {
                 ) : (
                     <div className="event-modal-container">
                         <div className="event-modal-header">
-                            <h2>Įvesti Naują Įvykį</h2>
+                            <h2 style={{color: '#61dafb'}}>{`${title ? 'Atnaujinti' : 'Įvesti'} `}Pamoką</h2>
                         </div>
                         <div className="event-modal-body">
                             {createEventLoading && (
@@ -83,7 +84,7 @@ export default class EventModal extends React.Component {
                             )}
                             <form>
                                 <div>
-                                    <h3>Pavadinimas:</h3>
+                                    <h3>Pamokos Pavadinimas:</h3>
                                     <input
                                         type="text"
                                         value={title}
@@ -118,6 +119,24 @@ export default class EventModal extends React.Component {
                                         checked={isAllDay}
                                     />
                                 </div>
+                                <div className="event-modal-color-picker">
+                                    <h3>Parinkite Pamokos Spalvą</h3>
+                                    <p>(Ši spalva bus atvaizuota kaliandoriuje)</p>
+                                    <div className="color-container">
+                                        <div className="color-title-container">
+                                            <div
+                                                className="color-box"
+                                                style={{ backgroundColor: this.state.color }}
+                                            />
+                                        </div>
+                                        <div className="color-picker">
+                                            <CompactPicker
+                                                color={this.state.color}
+                                                onChangeComplete={this.handleChangeComplete}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -135,8 +154,18 @@ export default class EventModal extends React.Component {
                 start,
                 end,
                 isAllDay,
+                color,
             } = event;
-            this.setState({id, title, start: moment(start), end: moment(end), isAllDay: isAllDay || false });
+            this.setState(
+                {
+                    id,
+                    title,
+                    start: moment(start),
+                    end: moment(end),
+                    isAllDay: isAllDay || false,
+                    color: color || '#61dafb'
+                }
+            );
         }
     }
 
@@ -146,16 +175,16 @@ export default class EventModal extends React.Component {
 
     //Update Event
     handleUpdate = async () => {
-        //TODO: Validation
         this.setState({ createEventLoading: true });
-        const { hideModal } = this.props;
-        const { title, start, end, isAllDay, id } = this.state;
+        const { hideModal, updateScreen } = this.props;
+        const { title, start, end, isAllDay, id, color } = this.state;
         const { error } = await API.updateEvent({
             title,
             start: start.toDate(),
             end: end.toDate(),
             isAllDay,
             id,
+            color,
         });
 
         if (error) {
@@ -164,15 +193,20 @@ export default class EventModal extends React.Component {
         } else {
             Message.success('Atnaujinta Sėkmingai.');
             hideModal();
+            updateScreen();
         }
     };
 
     //Create Event
     handleSubmit = async () => {
-        //TODO: Validation
         this.setState({ createEventLoading: true });
         const { hideModal } = this.props;
         const { title, start, end, isAllDay } = this.state;
+        if (!title) {
+            Message.error(' Įveskite Pamokos Pavadinimą');
+            this.setState({ createEventLoading: false });
+            return
+        }
         const { error } = await API.createEvent({
             title,
             start: start.toDate(),
@@ -195,10 +229,16 @@ export default class EventModal extends React.Component {
     handleIsAllDay = () => {
         const { isAllDay } = this.state;
         this.setState({ isAllDay: !isAllDay });
-    }
+    };
+
+    //Handle Color Change
+    handleChangeComplete = (color) => {
+        this.setState({ color: color.hex });
+    };
 };
 
 EventModal.propTypes = {
     visible: PropTypes.bool.isRequired,
     hideModal: PropTypes.func.isRequired,
+    updateScreen: PropTypes.func.isRequired,
 };

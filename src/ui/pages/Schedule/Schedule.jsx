@@ -58,7 +58,7 @@ class Schedule extends React.Component {
                                 month: 'Mėnesis',
                                 week: 'Savaitė',
                                 day: 'Diena',
-                                agenda: 'Mėnesio Listas'
+                                agenda: 'Mėn. Listas'
                             }}
                             onSelectEvent={this.handleEventUpdate}
                             eventPropGetter={this.handleEventsStyles}
@@ -73,6 +73,7 @@ class Schedule extends React.Component {
                         visible={eventModalVisible}
                         hideModal={this.closeEventModal}
                         event={event}
+                        updateScreen={this.fetchEvents}
                     />
                 )}
             </div>
@@ -84,14 +85,14 @@ class Schedule extends React.Component {
         if (window) {
             window.scrollTo(0, 0);
         }
-
         const events = await this.fetchEvents();
         this.setState({ events });
     }
 
     handleEventsStyles = (event, start, end, isSelected) => {
+        const { color }  = event;
         const style = {
-            backgroundColor: "rgb(97, 218, 251)",
+            backgroundColor: color || "rgb(97, 218, 251)",
             color: '#fff',
             borderRadius: "5px",
             border: "none",
@@ -107,12 +108,13 @@ class Schedule extends React.Component {
     };
 
     handleAdd = () => {
-        const { closeNewEventModal } = this.props;
-        closeNewEventModal();
+        const { openNewEventModal } = this.props;
+        openNewEventModal();
     };
 
     closeEventModal = () => {
-        const { closeNewEventModal, event } = this.props;
+        const { closeNewEventModal } = this.props;
+        const { event } = this.state;
         if (event) {
             this.setState({ event: null }, closeNewEventModal);
         } else {

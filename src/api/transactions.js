@@ -89,10 +89,11 @@ const createComment = async ({ lessonId, comment, userId='' }) => {
  * @param end
  * @param isAllDay
  * @param userId
+ * @param color
  * @returns {Promise<{eventId: string}>}
  */
-const createEvent = async ({ title, start, end, isAllDay, userId='' }) => {
-    const eventDocRef = await db.collection('events').add({ title, start, end, isAllDay, userId });
+const createEvent = async ({ title, start, end, isAllDay, userId='', color }) => {
+    const eventDocRef = await db.collection('events').add({ title, start, end, isAllDay, userId, color });
     return { eventId: eventDocRef.id }
 };
 
@@ -103,12 +104,13 @@ const createEvent = async ({ title, start, end, isAllDay, userId='' }) => {
  * @param start
  * @param end
  * @param isAllDay
+ * @param color
  * @param userId
  * @returns {Promise<string>}
  */
-const updateEvent = async ({ id, title, start, end, isAllDay, userId='' }) => {
+const updateEvent = async ({ id, title, start, end, isAllDay, userId='', color }) => {
     const eventDocRef = db.collection('events').doc(id);
-    await eventDocRef.update({ title, start, end, isAllDay, userId });
+    await eventDocRef.update({ title, start, end, isAllDay, userId, color });
     return 'success';
 };
 

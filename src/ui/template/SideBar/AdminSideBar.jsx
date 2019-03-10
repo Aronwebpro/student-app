@@ -14,12 +14,16 @@ const styles = {
 
 const menu = [
     {
-        title: 'Users',
+        title: 'Vartotojai',
         url: '/admin/users',
     },
     {
-        title: 'Pending Users',
+        title: 'Nepatvirtinti Vartotojai',
         url: '/admin/pending-users',
+    },
+    {
+        title: 'Mokytojai',
+        url: '/admin/teachers',
     },
 ];
 export default class AdminSideBar extends React.Component {

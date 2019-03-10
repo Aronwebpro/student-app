@@ -60,3 +60,46 @@
     background-color: rgba(255,255,255, 0.7);
     z-index: 2;
 }
+
+.event-modal-color-picker {
+    margin-top: 25px;
+}
+
+.color-container {
+    border: 1px solid #cecece;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.color-title-container {
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+}
+
+.color-picker {
+    margin: 5px 10px;
+    display: inline-block;
+}
+
+.color-box {
+    height: 25px;
+    width: 40px;
+    display: inline-block;
+    border: 1px solid #000;
+}
+
+@media all and (max-width: 600px) {
+    .event-modal-time-input {
+        flex-direction: column;
+    }
+    .event-modal-time-input div {
+        margin-bottom: 5px;
+    }
+    .ant-modal-body {
+        padding: 24px 10px !important;
+    }
+}
