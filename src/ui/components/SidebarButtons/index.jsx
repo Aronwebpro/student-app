@@ -36,7 +36,7 @@ class SidebarButtons extends React.PureComponent {
 
         switch (page) {
             case 'home' :
-                if (user && user.role === 'teacher') {
+                if (user && user.roles.includes('teacher')) {
                     return (
                         <div className='navigation-button-wrapper'>
                             <button
@@ -47,7 +47,7 @@ class SidebarButtons extends React.PureComponent {
                             </button>
                         </div>
                     );
-                } else if (user && user.role === 'student' && heartRate !== null && !heartRate) {
+                } else if (user && user.roles.includes('student') && heartRate !== null && !heartRate) {
                     return (
                         <div className='navigation-button-wrapper'>
                             <button

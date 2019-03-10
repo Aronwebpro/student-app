@@ -139,6 +139,21 @@ const getAllEvents = async () => {
     });
 };
 
+const getAllUsersAdmin = async () => {
+    const usersRef = db.collection('users');
+    const userDocs = await usersRef.get();
+    return await userDocs.docs.map((doc) => {
+        return { id: doc.id, ...doc.data()}
+    });
+};
+
+const getAllPendingUsersAdmin = async () => {
+    const usersRef = db.collection('pendingUsers');
+    const userDocs = await usersRef.get();
+    return await userDocs.docs.map((doc) => {
+        return { id: doc.id, ...doc.data()}
+    });
+};
 
 export {
     getLessons,
@@ -150,4 +165,6 @@ export {
     getPendingUser,
     getHeartRatesForMonth,
     getAllEvents,
+    getAllUsersAdmin,
+    getAllPendingUsersAdmin,
 }

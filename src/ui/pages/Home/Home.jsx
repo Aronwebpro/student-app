@@ -113,7 +113,7 @@ class Home extends React.Component {
                 )}
                 {
                     user &&
-                    user.role !== 'parents' &&
+                    !user.roles.includes('parents') &&
                     !newLessonModalVisible &&
                     !heartRateModalVisible &&
                     (
@@ -180,10 +180,9 @@ class Home extends React.Component {
 
     handleAddButtonClick = () => {
         const { user, openNewLessonModal, openHeartRateModal } = this.props;
-        console.log(user);
-       if (user.role === 'student') {
+       if (user.roles.includes('student')) {
            openHeartRateModal();
-       } else if (user.role === 'teacher') {
+       } else if (user.roles.includes('teacher')) {
            openNewLessonModal();
        }
     }
@@ -203,6 +202,7 @@ const mapStateToProps = (state) => {
     return {
         newLessonModalVisible: state.newLessonModal.visible,
         heartRateModalVisible: state.heartRateModal.visible,
+        user: state.user.user,
     }
 };
 

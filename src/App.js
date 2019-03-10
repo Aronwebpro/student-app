@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { connect } from 'react-redux';
 //import * as serviceWorker from './serviceWorker';
 import {
     BrowserRouter, Redirect,
@@ -24,6 +25,7 @@ import Header from './ui/template/Header/Header';
 import Footer from './ui/template/Footer/Footer';
 import SideBar from './ui/template/SideBar/SideBar';
 import MobileNavigation from './ui/components/MobileBottomNavigation/MobileNavigation';
+import AdminSideBar from './ui/template/SideBar/AdminSideBar';
 
 
 //Page Components
@@ -36,7 +38,8 @@ import SignUp from './ui/pages/SignUp/SignUp';
 import PrivacyPolicy from './ui/pages/PrivacyPolicy/PrivacyPolicy';
 import TermsOfService from './ui/pages/TermsOfService/TermsOfService';
 import Profile from './ui/pages/Profile/Profile';
-
+import Error from './ui/pages/404/404';
+import Admin from './ui/pages/Admin/Admin';
 
 //Pages
 const LoginPage = PageLayout({
@@ -97,6 +100,19 @@ const ProfilePage = PageLayout({
     SideBarComponent: SideBar,
 });
 
+const ErrorPage = PageLayout({
+    PageComponent: Error,
+    pageId: '404',
+    layout: 'default',
+});
+
+const AdminPage = PageLayout({
+    PageComponent: Admin,
+    pageId: 'admin',
+    layout: 'withSidebar',
+    SideBarComponent: AdminSideBar,
+});
+
 const LoginRouter = ({ user, pendingUser }) => {
     if (user) {
         return <Redirect to={'/home'}/>;
@@ -107,61 +123,82 @@ const LoginRouter = ({ user, pendingUser }) => {
     }
 };
 
-export default class App extends React.Component {
+const AdminRouter = ({ user, params }) => {
+      if (user.roles.includes('admin')) {
+          return <AdminPage {...{ user, params }} />;
+      } else {
+          return <ErrorPage />;
+      }
+};
+
+class App extends React.Component {
     render() {
         const { user, pendingUser } = this.props;
         return (
             <BrowserRouter>
-                <Provider store={store}>
                     <div className='page'>
-                        <Header {...{ user }} />
+                        <Header />
                         <div className='content'>
                             <Switch>
                                 <AuthenticatedRoute
-                                    {...{ user }}
                                     exact
                                     path='/home'
-                                    render={(params) => <HomePage {...{ params, user, }}/>}
+                                    render={(params) => <HomePage {...{ params }}/>}
                                 />
                                 <AuthenticatedRoute
-                                    {...{ user }}
                                     exact
                                     path='/schedule'
                                     render={(params) => <SchedulePage {...{ params, user, }}/>}
                                 />
                                 <AuthenticatedRoute
-                                    {...{ user }}
                                     exact
                                     path='/lesson/:lessonId'
                                     render={(params) => <LessonPage {...{ params, user, }}/>}
                                 />
                                 <AuthenticatedRoute
-                                    {...{ user }}
                                     exact
                                     path='/heartRate'
                                     render={(params) => <HeartRatePage {...{ params, user, }}/>}
                                 />
                                 <AuthenticatedRoute
-                                    {...{ user }}
                                     exact
                                     path='/profile'
                                     render={(params) => <ProfilePage {...{ params, user, }}/>}
                                 />
-                                <Route exact path='/sign-up' render={() => <SignUpPage {...{ pendingUser }} />}/>
+                                <AuthenticatedRoute
+                                    exact
+                                    path='/admin/users'
+                                    render={(params) => <AdminRouter {...{ params, user, }}/>}
+                                />
+                                <AuthenticatedRoute
+                                    exact
+                                    path='/admin/pending-users'
+                                    render={(params) => <AdminRouter {...{ params, user, }}/>}
+                                />
+                                <Route exact path='/sign-up' render={() => <SignUpPage {...{ user, pendingUser }} />}/>
                                 <Route exact path='/terms-of-service' render={() => <TermsOfServicePage/>}/>
                                 <Route exact path='/privacy-policy' render={() => <PrivacyPolicyPage/>}/>
                                 <Route exact path='/' render={() => <LoginRouter {...{ user, pendingUser }} />}/>
+                                <Route path='/' render={() => <ErrorPage />}/>
                             </Switch>
                         </div>
                         {user && (
                             <MobileNavigation/>
                         )}
                     </div>
-                </Provider>
             </BrowserRouter>
         )
     }
 }
+
+//Redux Map to Props Handlers
+const mapStateToProps = (state) => {
+    return {
+        user: state.user.user,
+    }
+};
+
+export default connect(mapStateToProps)(App);
 
 App.propTypes = {
     user: PropTypes.object,

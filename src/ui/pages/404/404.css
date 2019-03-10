@@ -1,0 +1,18 @@
+.error-page-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("/static/media/404_page_cover.dff0fa0a.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    /*background-size: contain;*/
+    background-color: #ceeeec;
+}
+
+@media (max-width: 600px) {
+    .error-page-container {
+        background-size: contain;
+    }
+}

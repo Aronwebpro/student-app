@@ -34,14 +34,18 @@ auth().onAuthStateChanged(async userObj => {
                 ReactDOM.render(
                     <Provider store={store}>
                         <App {...{ pendingUser }} />
-                    </Provider>
-                    , document.getElementById('root'));
+                    </Provider>,
+                    document.getElementById('root'));
             } else {
                 auth().signOut();
             }
         }
     } else {
-        ReactDOM.render( <App/>, document.getElementById('root'));
+        ReactDOM.render(
+            <Provider store={store}>
+                <App/>
+            </Provider>,
+            document.getElementById('root'));
     }
 });
 

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 //Api
 import { signOut } from '../../../api/auth';
@@ -17,7 +18,7 @@ import './header.css';
 //Logo Img
 import logo from '../../../assets/img/logo.png';
 
-export default class Header extends PureComponent {
+class Header extends PureComponent {
     state = {
         headerMenuVisible: false,
     };
@@ -75,6 +76,15 @@ export default class Header extends PureComponent {
         await signOut();
     }
 }
+
+//Redux Map to Props Handlers
+const mapStateToProps = (state) => {
+    return {
+        user: state.user.user,
+    }
+};
+
+export default connect(mapStateToProps)(Header);
 
 PropTypes.Header = {
     user: PropTypes.object
