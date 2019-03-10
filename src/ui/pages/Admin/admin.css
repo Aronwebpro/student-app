@@ -1,0 +1,73 @@
+.admin-page-container {
+    flex: 1;
+    padding: 0 10px;
+    min-width: 980px;
+}
+
+.admin-page-container .forum-header .forum-title {
+    display: flex;
+}
+
+.admin-page-body {
+    padding: 20px 0;
+}
+
+.user-section {
+    display: flex;
+    height: 80px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.user-section:hover {
+    background-color: #ededed;
+}
+
+.user-section img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.user-row-section {
+    min-width: 150px;
+    text-align: center;
+}
+
+.user-section-photo-container {
+    text-align: center;
+}
+
+.user-section-name-container {
+    text-align: center;
+}
+
+.user-section-button-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+}
+
+.remove-btn {
+    justify-content: center;
+}
+
+.remove-btn button {
+    background-color: #d81315;
+    border: 1px solid #d81315;
+}
+
+.roles-input-container input[type='radio'] {
+    margin: 0 0 0 5px;
+    display: inline-block;
+}
+
+.roles-input-container h2:first-letter {
+    text-transform: capitalize;
+}
+
+.roles-input-container h2 {
+    display: inline-block;
+}
+

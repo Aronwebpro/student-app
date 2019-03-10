@@ -1,5 +1,6 @@
 import { auth } from 'firebase';
 import db from '../firebase.js';
+//import * as admin from 'firebase-admin';
 
 /**
  * Transaction Wrapper to catch Errors
@@ -63,7 +64,7 @@ const createPendingUser = async ({ uid, user }) => {
 const submitPendingUser = async ({ uid, type }) => {
     const userDocumentRef = db.collection('pendingUsers').doc(uid);
     await userDocumentRef.update({
-        role: type,
+        roles: [type],
         userStatus: 'submitted',
     });
 };
@@ -111,6 +112,52 @@ const updateEvent = async ({ id, title, start, end, isAllDay, userId='' }) => {
     return 'success';
 };
 
+/**
+ * Update Roles for User
+ * @param uid
+ * @param roles
+ * @returns {Promise<string>}
+ */
+const updateUserRoles = async ({ uid, roles }) => {
+    const userDocRef = db.collection('users').doc(uid);
+    await userDocRef.update({ roles });
+    return 'success';
+};
+
+/**
+ * Remove User from Users or PendingUsers Collections
+ * @param uid
+ * @param isPendingUser
+ * @returns {Promise<string>}
+ */
+const removeUser = async ({ uid, isPendingUser=false}) => {
+    const userDocRef = db.collection(isPendingUser ? 'pendingUsers' : 'users').doc(uid);
+    await userDocRef.delete();
+    //TODO: Remove User from auth() account
+    //TODO: Now only removes from Users Collection
+    //await admin.auth().deleteUser(uid);
+    return 'success';
+};
+
+/**
+ * Move User Object from Pending User Collection to Users Collection
+ * @param uid
+ * @returns {Promise<string>}
+ */
+const confirmPendingUser = async ({ uid }) => {
+    const pendingUserDocRef = db.collection('pendingUsers').doc(uid);
+    const pendingUserDoc = await pendingUserDocRef.get();
+    if (pendingUserDoc.exists) {
+       const newUser = { id: pendingUserDoc.id, ...pendingUserDoc.data() };
+       delete newUser.userStatus;
+       if (newUser.roles.includes('teacher')) {
+           newUser.discipline = 'Discipline Name';
+       }
+       await db.collection('users').doc(uid).set({ ...newUser });
+       await pendingUserDocRef.delete();
+    }
+    return 'success';
+};
 
 //API Object
 const API = {
@@ -121,6 +168,9 @@ const API = {
     submitPendingUser: TransactionWrapper.bind(this, submitPendingUser),
     createEvent: TransactionWrapper.bind(this, createEvent),
     updateEvent: TransactionWrapper.bind(this, updateEvent),
+    updateUserRoles: TransactionWrapper.bind(this, updateUserRoles),
+    removeUser: TransactionWrapper.bind(this, removeUser),
+    confirmPendingUser: TransactionWrapper.bind(this, confirmPendingUser),
 };
 
 export default API;

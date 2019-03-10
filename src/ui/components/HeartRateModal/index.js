@@ -100,7 +100,6 @@ export default class HeartRateModal extends React.Component {
 
     //Create Lesson Handler
     submitHeartRate = async () => {
-
         const date = Date.now();
         const momentObj = moment();
         const heartRateId = momentObj.format('YYYY-MM-DD');

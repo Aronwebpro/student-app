@@ -25,6 +25,7 @@ import Header from './ui/template/Header/Header';
 import Footer from './ui/template/Footer/Footer';
 import SideBar from './ui/template/SideBar/SideBar';
 import MobileNavigation from './ui/components/MobileBottomNavigation/MobileNavigation';
+import AdminSideBar from './ui/template/SideBar/AdminSideBar';
 
 
 //Page Components
@@ -109,7 +110,7 @@ const AdminPage = PageLayout({
     PageComponent: Admin,
     pageId: 'admin',
     layout: 'withSidebar',
-    SideBarComponent: SideBar,
+    SideBarComponent: AdminSideBar,
 });
 
 const LoginRouter = ({ user, pendingUser }) => {
@@ -123,7 +124,7 @@ const LoginRouter = ({ user, pendingUser }) => {
 };
 
 const AdminRouter = ({ user, params }) => {
-      if (user.role === 'admin') {
+      if (user.roles.includes('admin')) {
           return <AdminPage {...{ user, params }} />;
       } else {
           return <ErrorPage />;
@@ -166,7 +167,12 @@ class App extends React.Component {
                                 />
                                 <AuthenticatedRoute
                                     exact
-                                    path='/admin'
+                                    path='/admin/users'
+                                    render={(params) => <AdminRouter {...{ params, user, }}/>}
+                                />
+                                <AuthenticatedRoute
+                                    exact
+                                    path='/admin/pending-users'
                                     render={(params) => <AdminRouter {...{ params, user, }}/>}
                                 />
                                 <Route exact path='/sign-up' render={() => <SignUpPage {...{ user, pendingUser }} />}/>
