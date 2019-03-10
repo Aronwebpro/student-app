@@ -30,12 +30,12 @@ export default class HeartRate extends React.Component {
 
     render() {
         const { month, lineData, width } = this.state;
-        const monthString = changeMonthFromEngToLt(moment(month).format('MMM'), {});
+        const monthString = changeMonthFromEngToLt(moment(month).format('MM'));
         return (
             <div className='heart-rate-page-container'>
                 <div className="forum-header">
                     <div className="forum-title">
-                        <h2><span style={{fontSize: '1.5em'}}>{`${monthString} `}</span>Mėnesio Širdies Ritmas</h2>
+                        <h2><span style={{fontSize: '1.5em', color: 'rgb(97, 218, 251)'}}>{`${monthString} `}</span>mėnesio širdies ritmas</h2>
                     </div>
                     <div className="week-switcher">
                         <MonthSwitcher

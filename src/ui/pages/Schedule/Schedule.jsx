@@ -52,13 +52,13 @@ class Schedule extends React.Component {
                             startAccessor="start"
                             endAccessor="end"
                             messages={{
-                                next: 'Pirmyn',
-                                previous: 'Atagal',
-                                today: 'Šiandiena',
+                                next: '>',
+                                previous: '<',
+                                today: 'Dabar',
                                 month: 'Mėnesis',
                                 week: 'Savaitė',
                                 day: 'Diena',
-                                agenda: 'Dienotvarkė'
+                                agenda: 'Mėnesio Listas'
                             }}
                             onSelectEvent={this.handleEventUpdate}
                             eventPropGetter={this.handleEventsStyles}

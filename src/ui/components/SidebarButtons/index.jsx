@@ -43,7 +43,7 @@ class SidebarButtons extends React.PureComponent {
                                 className="new-topic-button btn"
                                 onClick={openNewLessonModal}
                             >
-                                Ivesti Nauja Pamoką
+                                Įvertinti Pamoką
                             </button>
                         </div>
                     );
@@ -106,7 +106,7 @@ class SidebarButtons extends React.PureComponent {
                             className="new-topic-button btn"
                             onClick={openNewEventModal}
                         >
-                            New Event
+                            Nauja Pamoka
                         </button>
                     </div>
                 );
@@ -135,6 +135,7 @@ const mapStateToProps = (state) => {
         heartRateModalVisible: state.heartRateModal.visible,
         newCommentModalVisible: state.newCommentModal.visible,
         heartRate: state.heartRate.heartRate,
+        user: state.user.user,
     }
 };
 

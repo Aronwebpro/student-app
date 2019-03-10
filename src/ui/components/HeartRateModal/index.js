@@ -82,7 +82,7 @@ export default class HeartRateModal extends React.Component {
 
     async componentDidMount() {
         const user = await getCurrentUser();
-        const { heartRate } = await getDayHeartRate();
+        const heartRate  = await getDayHeartRate();
         if (user && !this.isUnmount) {
             this.setState({ heartRate, loading: false });
         } else {

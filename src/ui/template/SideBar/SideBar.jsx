@@ -26,7 +26,7 @@ const menu = [
         url: '/home',
     },
     {
-        title: 'Širdies Ritmas',
+        title: 'Mėnesio Širdies Ritmas',
         url: '/heartRate',
     },
     {
@@ -57,7 +57,6 @@ export default class SideBar extends React.Component {
                 <SidebarButtons
                     {...{
                         page,
-                        user,
                         respond,
                         clearReply,
                     }}

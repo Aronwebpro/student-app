@@ -58,21 +58,21 @@ export default class NewLessonModal extends React.Component {
                 ) : (
                     <div className="create-lesson-container">
                         <div className="post-title forum-header">
-                            <h2>Įvesti Naują Pamoką</h2>
+                            <h2>Įvertinti Pamoką</h2>
                         </div>
                         <div className="create-lesson-body">
                             <div className='discipline-title-container'>
                                 <h3>Disciplina: <span className="theme-color_txt">{` ${discipline}`}</span></h3>
                             </div>
                             <form>
-                                <div className="heart-rate-input-container">
-                                    <h3>Širdies Ritmas:</h3>
-                                    <input
-                                        type="text"
-                                        value={heartRate}
-                                        onChange={this.handleHeartRate}
-                                    />
-                                </div>
+                                {/*<div className="heart-rate-input-container">*/}
+                                    {/*<h3>Širdies Ritmas:</h3>*/}
+                                    {/*<input*/}
+                                        {/*type="text"*/}
+                                        {/*value={heartRate}*/}
+                                        {/*onChange={this.handleHeartRate}*/}
+                                    {/*/>*/}
+                                {/*</div>*/}
                                 <div className="grade-select">
                                     <h3>Pažymys</h3>
                                     <select name="grade" id="" ref={(input => this.grade = input)}>
@@ -104,7 +104,7 @@ export default class NewLessonModal extends React.Component {
 
     async componentDidMount() {
         const user = await getCurrentUser();
-        const { heartRate } = await getDayHeartRate();
+        const heartRate  = await getDayHeartRate();
         if (user && !this.isUnmount) {
             this.setState({ user, heartRate: heartRate || '', discipline: user.discipline, loading: false });
         } else {

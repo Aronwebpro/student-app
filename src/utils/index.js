@@ -80,7 +80,7 @@ const changeWeekDayFromEngToLt = (day) => {
     }
 };
 
-const changeMonthFromEngToLt = (month, { v2 }) => {
+const changeMonthFromEngToLt = (month, { v2 } = {}) => {
     switch (month) {
         case '01' :
             return v2 ? 'Sausis' : 'Sausio';
@@ -111,6 +111,14 @@ const changeMonthFromEngToLt = (month, { v2 }) => {
     }
 };
 
+/**
+ * Capitalize String
+ * @param string
+ * @returns {string}
+ */
+const capitalizeString = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+};
 
 export {
     formatToDateString,
@@ -120,4 +128,5 @@ export {
     formatToDateAndTimeString,
     changeWeekDayFromEngToLt,
     changeMonthFromEngToLt,
+    capitalizeString,
 }
