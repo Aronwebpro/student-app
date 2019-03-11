@@ -16,9 +16,20 @@ import DatePicker from 'antd/lib/date-picker';
 import './event-modal.css';
 
 const ModalFooter = (props) => {
-    const { submit, hideModal, id } = props;
+    const { submit, hideModal, id, handleRemove } = props;
     return (
         <div className='student-modal-footer-container'>
+            {id && (
+                <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
+                    <button
+                        className="btn btn-animation-on modal-confirm-button modal-remove-button"
+                        onClick={handleRemove}
+                        style={{}}
+                    >
+                        Ištrinti Įrašą
+                    </button>
+                </div>
+            )}
             <div className='student-modal-footer-btn-container'>
                 <button className="btn modal-cancel-btn" onClick={hideModal} style={{ marginTop: '20px' }}>Atšaukti</button>
             </div>
@@ -39,13 +50,14 @@ export default class EventModal extends React.Component {
     state = {
         loading: false,
         title: '',
-        start: moment(),
-        end: moment(),
+        start: moment().startOf('hour'),
+        end: moment().add('hour', 1).startOf('hour'),
         isAllDay: false,
         createEventLoading: false,
         id: undefined,
         color: '#61dafb',
     };
+
     render() {
         const {
             visible,
@@ -65,7 +77,13 @@ export default class EventModal extends React.Component {
                 visible={visible}
                 onCancel={hideModal}
                 width={'600px'}
-                footer={<ModalFooter {...{ hideModal, id }} submit={id ? this.handleUpdate : this.handleSubmit}/>}
+                footer={
+                    <ModalFooter
+                        {...{ hideModal, id }}
+                        submit={id ? this.handleUpdate : this.handleSubmit}
+                        handleRemove={this.handleRemove}
+                    />
+                }
             >
                 {loading ? (
                     <div className="event-modal-spin-body">
@@ -74,7 +92,7 @@ export default class EventModal extends React.Component {
                 ) : (
                     <div className="event-modal-container">
                         <div className="event-modal-header">
-                            <h2 style={{color: '#61dafb'}}>{`${title ? 'Atnaujinti' : 'Įvesti'} `}Pamoką</h2>
+                            <h2 style={{ color: '#61dafb' }}>{`${title ? 'Atnaujinti' : 'Įvesti'} `}Pamoką</h2>
                         </div>
                         <div className="event-modal-body">
                             {createEventLoading && (
@@ -200,8 +218,8 @@ export default class EventModal extends React.Component {
     //Create Event
     handleSubmit = async () => {
         this.setState({ createEventLoading: true });
-        const { hideModal } = this.props;
-        const { title, start, end, isAllDay } = this.state;
+        const { hideModal, updateScreen } = this.props;
+        const { title, start, end, isAllDay, color } = this.state;
         if (!title) {
             Message.error(' Įveskite Pamokos Pavadinimą');
             this.setState({ createEventLoading: false });
@@ -211,7 +229,8 @@ export default class EventModal extends React.Component {
             title,
             start: start.toDate(),
             end: end.toDate(),
-            isAllDay
+            isAllDay,
+            color,
         });
         if (error) {
             Message.error('Įvesti Nepavyko');
@@ -219,6 +238,21 @@ export default class EventModal extends React.Component {
         } else {
             Message.success('Įvesta Sėkmingai.');
             hideModal();
+            updateScreen();
+        }
+    };
+
+    handleRemove = async () => {
+        const { hideModal, updateScreen } = this.props;
+        const { id } = this.state;
+        const { error } = await API.removeEvent({ id });
+        if (error) {
+            Message.error('Ištrinti Nepavyko');
+            this.setState({ createEventLoading: false });
+        } else {
+            Message.success('Įrašas Ištrintas Sėkmingai.');
+            hideModal();
+            updateScreen();
         }
     };
 

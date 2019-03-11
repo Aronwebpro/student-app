@@ -76,7 +76,7 @@ const submitPendingUser = async ({ uid, type }) => {
  * @param userId
  * @returns {Promise<firebase.firestore.DocumentData | undefined>}
  */
-const createComment = async ({ lessonId, comment, userId='' }) => {
+const createComment = async ({ lessonId, comment, userId = '' }) => {
     const commentDocRef = await db.collection('lessons').doc(lessonId).collection('comments').add(comment);
     const commentDoc = await commentDocRef.get();
     return commentDoc.data();
@@ -92,7 +92,7 @@ const createComment = async ({ lessonId, comment, userId='' }) => {
  * @param color
  * @returns {Promise<{eventId: string}>}
  */
-const createEvent = async ({ title, start, end, isAllDay, userId='', color }) => {
+const createEvent = async ({ title, start, end, isAllDay, userId = '', color }) => {
     const eventDocRef = await db.collection('events').add({ title, start, end, isAllDay, userId, color });
     return { eventId: eventDocRef.id }
 };
@@ -108,7 +108,7 @@ const createEvent = async ({ title, start, end, isAllDay, userId='', color }) =>
  * @param userId
  * @returns {Promise<string>}
  */
-const updateEvent = async ({ id, title, start, end, isAllDay, userId='', color }) => {
+const updateEvent = async ({ id, title, start, end, isAllDay, userId = '', color }) => {
     const eventDocRef = db.collection('events').doc(id);
     await eventDocRef.update({ title, start, end, isAllDay, userId, color });
     return 'success';
@@ -120,9 +120,9 @@ const updateEvent = async ({ id, title, start, end, isAllDay, userId='', color }
  * @param roles
  * @returns {Promise<string>}
  */
-const updateUserRoles = async ({ uid, roles }) => {
+const updateUser = async ({ uid, user }) => {
     const userDocRef = db.collection('users').doc(uid);
-    await userDocRef.update({ roles });
+    await userDocRef.update(user);
     return 'success';
 };
 
@@ -132,7 +132,7 @@ const updateUserRoles = async ({ uid, roles }) => {
  * @param isPendingUser
  * @returns {Promise<string>}
  */
-const removeUser = async ({ uid, isPendingUser=false}) => {
+const removeUser = async ({ uid, isPendingUser = false }) => {
     const userDocRef = db.collection(isPendingUser ? 'pendingUsers' : 'users').doc(uid);
     await userDocRef.delete();
     //TODO: Remove User from auth() account
@@ -150,14 +150,25 @@ const confirmPendingUser = async ({ uid }) => {
     const pendingUserDocRef = db.collection('pendingUsers').doc(uid);
     const pendingUserDoc = await pendingUserDocRef.get();
     if (pendingUserDoc.exists) {
-       const newUser = { id: pendingUserDoc.id, ...pendingUserDoc.data() };
-       delete newUser.userStatus;
-       if (newUser.roles.includes('teacher')) {
-           newUser.discipline = 'Discipline Name';
-       }
-       await db.collection('users').doc(uid).set({ ...newUser });
-       await pendingUserDocRef.delete();
+        const newUser = { id: pendingUserDoc.id, ...pendingUserDoc.data() };
+        delete newUser.userStatus;
+        if (newUser.roles.includes('teacher')) {
+            newUser.discipline = 'Disciplina';
+        }
+        await db.collection('users').doc(uid).set({ ...newUser });
+        await pendingUserDocRef.delete();
     }
+    return 'success';
+};
+
+/**
+ * Remove Event from collection
+ * @param id
+ * @returns {Promise<string>}
+ */
+const removeEvent = async ({ id }) => {
+    const eventDocRef = db.collection('events').doc(id);
+    await eventDocRef.delete();
     return 'success';
 };
 
@@ -170,9 +181,10 @@ const API = {
     submitPendingUser: TransactionWrapper.bind(this, submitPendingUser),
     createEvent: TransactionWrapper.bind(this, createEvent),
     updateEvent: TransactionWrapper.bind(this, updateEvent),
-    updateUserRoles: TransactionWrapper.bind(this, updateUserRoles),
+    updateUser: TransactionWrapper.bind(this, updateUser),
     removeUser: TransactionWrapper.bind(this, removeUser),
     confirmPendingUser: TransactionWrapper.bind(this, confirmPendingUser),
+    removeEvent: TransactionWrapper.bind(this, removeEvent),
 };
 
 export default API;

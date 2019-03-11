@@ -44,7 +44,6 @@ export default class SideBar extends React.Component {
             respond,
             page,
             clearReply,
-            user,
             params,
         } = this.props;
 

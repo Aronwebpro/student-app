@@ -85,8 +85,8 @@ class Schedule extends React.Component {
         if (window) {
             window.scrollTo(0, 0);
         }
-        const events = await this.fetchEvents();
-        this.setState({ events });
+      await this.fetchEvents();
+
     }
 
     handleEventsStyles = (event, start, end, isSelected) => {
@@ -104,7 +104,8 @@ class Schedule extends React.Component {
     };
 
     fetchEvents = async () => {
-        return await getAllEvents();
+        const events = await getAllEvents();
+        this.setState({ events });
     };
 
     handleAdd = () => {

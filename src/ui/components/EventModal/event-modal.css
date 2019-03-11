@@ -92,6 +92,15 @@
     border: 1px solid #000;
 }
 
+.modal-remove-button {
+    margin-top: 20px;
+    background-color: #d81315;
+    border: 1px solid #d81315;
+}
+.modal-remove-button:hover {
+    color: #d81315;
+}
+
 @media all and (max-width: 600px) {
     .event-modal-time-input {
         flex-direction: column;

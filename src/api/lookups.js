@@ -155,6 +155,13 @@ const getAllPendingUsersAdmin = async () => {
     });
 };
 
+const getAllTeacherUsers = async () => {
+    const usersRef = db.collection('users');
+    const usersDocs = await usersRef.where('roles', 'array-contains', 'teacher').get();
+    return usersDocs.docs.map((doc) => ({id: doc.id, ...doc.data()}));
+
+};
+
 export {
     getLessons,
     getSingleLesson,
@@ -167,4 +174,5 @@ export {
     getAllEvents,
     getAllUsersAdmin,
     getAllPendingUsersAdmin,
+    getAllTeacherUsers,
 }

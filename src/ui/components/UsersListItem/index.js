@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export default class UsersListItem extends React.PureComponent {
     render() {
-        const { userName, userAvatar, roles, handleBtnClick, handleRemove, isPendingUser } = this.props;
+        const { userName, userAvatar, roles, handleBtnClick, handleRemove, isPendingUser, discipline } = this.props;
         return (
             <div className='user-section card-container user-row-section'>
                 <div className='user-row-section'>
@@ -14,7 +14,10 @@ export default class UsersListItem extends React.PureComponent {
                     {userName}
                 </div>
                 <div className='user-row-section'>
-                    {roles.map((r) => r.charAt(0).toUpperCase() + r.slice(1)).join(', ')}
+                    {`${roles.map((r) => r.charAt(0).toUpperCase() + r.slice(1)).join(', ')}`}
+                </div>
+                <div className='user-row-section'>
+                    {`${roles.includes('teacher') ? discipline : ''}`}
                 </div>
                 <div className='user-row-section' style={{color: isPendingUser ? 'red' : 'yellowGreen'}}>
                     {isPendingUser ? 'Pending' : 'Confirmed'}
@@ -24,7 +27,7 @@ export default class UsersListItem extends React.PureComponent {
                         className='btn'
                         onClick={handleBtnClick}
                     >
-                        {isPendingUser ? 'Patvirtinti Vartotoją' : 'Pakeisti Roles'}
+                        {isPendingUser ? 'Patvirtinti Vartotoją' : 'Keisti Parametrus'}
                     </button>
                 </div>
                 <div className='user-section-button-container remove-btn'>

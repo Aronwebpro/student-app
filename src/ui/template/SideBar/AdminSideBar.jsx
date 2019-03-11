@@ -21,10 +21,6 @@ const menu = [
         title: 'Nepatvirtinti Vartotojai',
         url: '/admin/pending-users',
     },
-    {
-        title: 'Mokytojai',
-        url: '/admin/teachers',
-    },
 ];
 export default class AdminSideBar extends React.Component {
     state = {

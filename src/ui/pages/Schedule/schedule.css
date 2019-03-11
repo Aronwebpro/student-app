@@ -22,6 +22,11 @@
     padding: unset;
 }
 
+#schedule .forum-title {
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 600px){
     .schedule-page-container .forum-header {
         width: 95%;

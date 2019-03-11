@@ -4,12 +4,13 @@ import React from 'react';
 import {
     getAllUsersAdmin,
     getAllPendingUsersAdmin,
+    getAllTeacherUsers,
 } from '../../../api/lookups';
 
 //Components
 import Spinner from '../../components/Spinner';
 import UsersListItem from '../../components/UsersListItem';
-import ChangeRolesModal from '../../components/ChangeRolesModal';
+import UpdateUserModal from '../../components/UpdateUserModal';
 import RemoveUserModal from '../../components/RemoveUserModal';
 import ConfirmPendingUserModal from '../../components/ConfirmPendingUserModal';
 
@@ -44,6 +45,7 @@ export default class Admin extends React.Component {
                         <div className='user-row-section'><h2>Nuotrauka</h2></div>
                         <div className='user-row-section'><h2>Vartotojo Vardas</h2></div>
                         <div className='user-row-section'><h2>Vartotojo Tipai</h2></div>
+                        <div className='user-row-section'><h2>Disciplina</h2></div>
                         <div className='user-row-section'><h2>Vartotojo Statusas</h2></div>
                         <div className='user-section-button-container'/>
                     </div>
@@ -56,17 +58,17 @@ export default class Admin extends React.Component {
                     ) : (
                         <div>
                             {users.length > 0 ? users.map((user, index) => (
-                                    <UsersListItem
-                                        {...user}
-                                        key={index.toString()}
-                                        handleBtnClick={
-                                            isPendingUser ?
-                                                this.handleConfirmPendingUser.bind(this, user) :
-                                                this.handleRolesUpdateClick.bind(this, user)
-                                        }
-                                        isPendingUser={isPendingUser}
-                                        handleRemove={this.handleRemoveUser.bind(this, user)}
-                                    />
+                                <UsersListItem
+                                    {...user}
+                                    key={index.toString()}
+                                    handleBtnClick={
+                                        isPendingUser ?
+                                            this.handleConfirmPendingUser.bind(this, user) :
+                                            this.handleRolesUpdateClick.bind(this, user)
+                                    }
+                                    isPendingUser={isPendingUser}
+                                    handleRemove={this.handleRemoveUser.bind(this, user)}
+                                />
                                 )
                             ) : (
                                 <div>
@@ -77,7 +79,7 @@ export default class Admin extends React.Component {
                     )}
                 </div>
                 {updateRolesModalVisible && (
-                    <ChangeRolesModal
+                    <UpdateUserModal
                         visible={updateRolesModalVisible}
                         hideModal={this.hideChangeRoleModal}
                         roles={selectedUser.roles}
@@ -130,6 +132,10 @@ export default class Admin extends React.Component {
             case 'pending-users' :
                 users = await getAllPendingUsersAdmin();
                 isPendingUser = true;
+                break;
+            case 'teachers' :
+                users = await getAllTeacherUsers();
+                isPendingUser = false;
                 break;
             default :
         }

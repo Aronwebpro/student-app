@@ -9,6 +9,7 @@ import Modal from 'antd/lib/modal';
 import Spin from 'antd/lib/spin';
 import Message from 'antd/lib/message';
 
+import './update-user-modal.css';
 
 const Footer = (props) => {
     const { updateUserRoles, hideModal } = props;
@@ -35,15 +36,16 @@ const Footer = (props) => {
     )
 };
 
-export default class ChangeRolesModal extends React.Component {
+export default class UpdateUserModal extends React.Component {
     state = {
         roles: [],
         loading: false,
+        discipline: '',
     };
 
     render() {
         const { visible, hideModal } = this.props;
-        const { roles, loading } = this.state;
+        const { roles, loading, discipline } = this.state;
         return (
             <Modal
                 visible={visible}
@@ -51,14 +53,14 @@ export default class ChangeRolesModal extends React.Component {
                 width={'600px'}
                 footer={<Footer {...{ hideModal }} updateUserRoles={this.updateUserRoles}/>}
             >
-                <div className="heart-rate-modal-container">
+                <div className="update-user-modal-container">
                     {loading && (
                         <div className='spinner-overlay-container'>
                             <Spin/>
                         </div>
                     )}
                     <div>
-                        <div>
+                        <div className='update-user-modal-section-title'>
                             <h2>Pažymėk Vartotojo Roles</h2>
                         </div>
                         <div className="create-lesson-body">
@@ -90,16 +92,31 @@ export default class ChangeRolesModal extends React.Component {
                                 ))}
                             </form>
                         </div>
+                        {roles.includes('teacher') && (
+                            <div>
+                                <div className='update-user-modal-section-title'>
+                                    <h2>Mokytojo Disciplina</h2>
+                                </div>
+                                <div className="create-lesson-body">
+                                    <div className="update-user-modal-input-container">
+                                        <input
+                                            type="text"
+                                            value={discipline}
+                                            onChange={this.handleDisciplineChange}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
-
                 </div>
             </Modal>
         )
     }
 
     componentDidMount() {
-        const { roles } = this.props;
-        this.setState({ roles });
+        const { roles, user } = this.props;
+        this.setState({ roles, discipline: user.discipline || '' });
 
     }
 
@@ -128,10 +145,14 @@ export default class ChangeRolesModal extends React.Component {
     };
 
     updateUserRoles = async () => {
-        const { roles, isPendingUser } = this.state;
+        const { roles, discipline } = this.state;
         const { user } = this.props;
         this.setState({ loading: true });
-        const { error } = await API.updateUserRoles({ uid: user.id, isPendingUser, roles });
+        user.roles = roles;
+        if (user.roles.includes('teacher')) {
+            user.discipline = discipline;
+        }
+        const { error } = await API.updateUser({ uid: user.id, user });
 
         if (error) {
             Message.error('Failed To Update User');
@@ -140,11 +161,13 @@ export default class ChangeRolesModal extends React.Component {
             this.props.hideModal();
             this.props.refreshData();
         }
-    }
+    };
+
+    handleDisciplineChange = (e) => this.setState({ discipline: e.target.value });
 
 };
 
-ChangeRolesModal.propTypes = {
+UpdateUserModal.propTypes = {
     visible: PropTypes.bool.isRequired,
     hideModal: PropTypes.func.isRequired,
     roles: PropTypes.array.isRequired,

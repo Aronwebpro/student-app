@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { connect } from 'react-redux';
+
+//Redux Actions
+import setHeartRate from '../../../redux/actions/setHeartRate';
 
 //Api
 import {
@@ -33,7 +37,7 @@ const Footer = (props) => {
     )
 };
 
-export default class HeartRateModal extends React.Component {
+class HeartRateModal extends React.Component {
     state = {
         user: {},
         discipline: '',
@@ -68,8 +72,7 @@ export default class HeartRateModal extends React.Component {
                                         type="text"
                                         name="heartRate"
                                         value={heartRate}
-                                        onChange={() => {}}
-                                        ref={(input) => this.heartRate = input}
+                                        onChange={this.handleHeartRate}
                                     />
                                 </div>
                             </form>
@@ -82,43 +85,59 @@ export default class HeartRateModal extends React.Component {
 
     async componentDidMount() {
         const user = await getCurrentUser();
-        const heartRate  = await getDayHeartRate();
+        const { heartRate } = this.props;
         if (user && !this.isUnmount) {
-            this.setState({ heartRate, loading: false });
+            this.setState({ heartRate: heartRate || '', loading: false });
         } else {
-            this.setState({ loading: false });
+            this.setState({ heartRate: heartRate || '', loading: false });
         }
-
     }
 
     componentWillUnmount() {
         this.isUnmount = true;
     }
 
-    handleHeartRate = (heartRate) => this.setState({ heartRate: heartRate.target.value});
-
+    //Handle Heart Rate Input
+    handleHeartRate = (e) => this.setState({ heartRate: e.target.value });
 
     //Create Lesson Handler
     submitHeartRate = async () => {
+        const { setHeartRate } = this.props;
+        const { heartRate } = this.state;
         const date = Date.now();
         const momentObj = moment();
         const heartRateId = momentObj.format('YYYY-MM-DD');
         const month = momentObj.format('YYYY-MM');
-        const heartRate = this.heartRate.value;
 
         const { error } = await API.insertHeartRate({ heartRate, heartRateId, date, month });
-
         if (error) {
             Message.error('Failed To Insert Heart Rate');
         } else {
             Message.success('Širdies Ritmas Įvestas Sėkmingai');
+            setHeartRate(heartRate);
             this.props.hideModal();
             this.props.refreshData();
         }
     };
 
+}
+
+//Redux Map to Props Handlers
+const mapStateToProps = (state) => {
+    return {
+        heartRate: state.heartRate.heartRate,
+    }
 };
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setHeartRate(heartRate) {
+            dispatch(setHeartRate(heartRate));
+        },
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeartRateModal);
 HeartRateModal.propTypes = {
     visible: PropTypes.bool.isRequired,
     hideModal: PropTypes.func.isRequired,
