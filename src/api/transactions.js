@@ -1,6 +1,4 @@
-import { auth } from 'firebase';
 import db from '../firebase.js';
-//import * as admin from 'firebase-admin';
 
 /**
  * Transaction Wrapper to catch Errors
@@ -9,7 +7,7 @@ import db from '../firebase.js';
  * @returns {Promise<*>}
  * @constructor
  */
-const TransactionWrapper = async (func, { ...args }) => {
+const transactionWrapper = async (func, { ...args }) => {
     try {
         const result = await func({ ...args });
         return { result };
@@ -174,17 +172,17 @@ const removeEvent = async ({ id }) => {
 
 //API Object
 const API = {
-    createLesson: TransactionWrapper.bind(this, createLesson),
-    createComment: TransactionWrapper.bind(this, createComment),
-    insertHeartRate: TransactionWrapper.bind(this, insertHeartRate),
-    createPendingUser: TransactionWrapper.bind(this, createPendingUser),
-    submitPendingUser: TransactionWrapper.bind(this, submitPendingUser),
-    createEvent: TransactionWrapper.bind(this, createEvent),
-    updateEvent: TransactionWrapper.bind(this, updateEvent),
-    updateUser: TransactionWrapper.bind(this, updateUser),
-    removeUser: TransactionWrapper.bind(this, removeUser),
-    confirmPendingUser: TransactionWrapper.bind(this, confirmPendingUser),
-    removeEvent: TransactionWrapper.bind(this, removeEvent),
+    createLesson: transactionWrapper.bind(this, createLesson),
+    createComment: transactionWrapper.bind(this, createComment),
+    insertHeartRate: transactionWrapper.bind(this, insertHeartRate),
+    createPendingUser: transactionWrapper.bind(this, createPendingUser),
+    submitPendingUser: transactionWrapper.bind(this, submitPendingUser),
+    createEvent: transactionWrapper.bind(this, createEvent),
+    updateEvent: transactionWrapper.bind(this, updateEvent),
+    updateUser: transactionWrapper.bind(this, updateUser),
+    removeUser: transactionWrapper.bind(this, removeUser),
+    confirmPendingUser: transactionWrapper.bind(this, confirmPendingUser),
+    removeEvent: transactionWrapper.bind(this, removeEvent),
 };
 
 export default API;

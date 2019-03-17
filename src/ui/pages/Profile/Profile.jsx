@@ -1,9 +1,5 @@
 import React from 'react';
-import moment from 'moment';
 import { connect } from 'react-redux';
-
-//Components
-import Spinner from "../../components/Spinner";
 
 //Styles
 import './profile.css';

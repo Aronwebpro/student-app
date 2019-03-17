@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 //Antd
@@ -8,7 +7,7 @@ import Icon from 'antd/lib/icon';
 //Styles
 import './mobile-navigation.css';
 
-
+//Menu Items
 const navigationItems = [
     {
         labelComponent:
@@ -54,8 +53,6 @@ const navigationItems = [
 ];
 
 class MobileNavigation extends React.Component {
-    state = {};
-
     render() {
         return (
             <div className='mobile-navigation-container'>

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
 //Api
 import { getCurrentUser } from '../../../api/lookups';
@@ -54,7 +53,7 @@ export default class NewCommentModal extends React.Component {
                 <div className="container">
                     {loading && (
                         <div className='spinner-overlay-container'>
-                            <Spin />
+                            <Spin/>
                         </div>
                     )}
                     <div className="new-comment-body">
@@ -136,6 +135,7 @@ export default class NewCommentModal extends React.Component {
         } else {
             Message.success('Komentaras Išsaugotas Sėkmingai');
             await getPageData();
+            this.text.value = '';
             hideModal();
         }
 

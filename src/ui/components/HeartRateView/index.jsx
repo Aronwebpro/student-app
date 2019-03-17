@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import store from '../../../redux/store';
 
 //Components
 import Spinner from '../Spinner';
@@ -9,10 +8,11 @@ import Spinner from '../Spinner';
 //Api
 import { getDayHeartRate } from '../../../api/lookups';
 
-//Styles
-import './heart-rate-view.css';
+//Redux Action Creator
 import setHeartRate from '../../../redux/actions/setHeartRate';
 
+//Styles
+import './heart-rate-view.css';
 
 const styles = {
     dayNameText: {
@@ -93,8 +93,8 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeartRateView)
 HeartRateView.propTypes = {
     heartRate: PropTypes.string,
 };
 
+export default connect(mapStateToProps, mapDispatchToProps)(HeartRateView);

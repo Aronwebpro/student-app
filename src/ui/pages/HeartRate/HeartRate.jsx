@@ -8,6 +8,7 @@ import {
     HorizontalGridLines,
     LineMarkSeries,
 } from 'react-vis';
+
 //Api
 import { getHeartRatesForMonth } from '../../../api/lookups';
 

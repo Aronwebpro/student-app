@@ -7,9 +7,6 @@ import 'moment/locale/lt';
 //Api
 import { getAllEvents } from '../../../api/lookups';
 
-//AntD
-import Message from 'antd/lib/message';
-
 //Components
 import AddButton from '../../components/AddButton';
 import EventModal from '../../components/EventModal';

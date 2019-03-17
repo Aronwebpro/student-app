@@ -9,7 +9,6 @@ import {
 
 //Components
 import UserView from '../UserView';
-import Spinner from '../Spinner';
 
 //Styles
 import './lesson-detail.css';

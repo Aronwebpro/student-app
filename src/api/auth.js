@@ -1,6 +1,5 @@
 import { auth } from 'firebase/app';
 import API from './transactions';
-import { getPendingUser } from './lookups';
 import setUser from "../redux/actions/setUser";
 import store from "../redux/store";
 

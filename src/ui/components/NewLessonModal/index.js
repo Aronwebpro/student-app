@@ -43,7 +43,7 @@ export default class NewLessonModal extends React.Component {
 
     render() {
         const { visible, hideModal } = this.props;
-        const { discipline, loading, heartRate } = this.state;
+        const { discipline, loading } = this.state;
         return (
             <Modal
                 visible={visible}
@@ -152,7 +152,6 @@ export default class NewLessonModal extends React.Component {
             Message.success('Pamoka Įvesta Sėkmingai');
             this.props.hideModal();
             this.props.refreshData();
-
         }
     };
 

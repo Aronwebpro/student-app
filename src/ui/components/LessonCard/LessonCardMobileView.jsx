@@ -1,18 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-
-//Styles
-import './lessonCard.css';
 
 //Utils
 import { formatToDateString } from '../../../utils'
 
-//Components
-import UserView from '../UserView';
+//Styles
+import './lessonCard.css';
 
-export default class LessonCard extends Component {
-
+export default class LessonCard extends React.PureComponent {
     render() {
         const {
             date,
@@ -20,7 +15,6 @@ export default class LessonCard extends Component {
             disciplineName,
             heartRate,
             coachNote,
-            coachAvatar,
         } = this.props;
 
         return (
@@ -53,20 +47,8 @@ export default class LessonCard extends Component {
                     <button className='btn theme-color_txt'>Plačiau</button>
                 </div>
             </div>
-
-
         );
     }
-
-    componentDidMount() {
-
-    }
-
-    componentWillUnmount() {
-        //Setup Flag to know is component Unmounted
-        this.isUnmounted = true;
-    }
-
 }
 
 LessonCard.propTypes = {
