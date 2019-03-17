@@ -9,7 +9,6 @@ import setHeartRate from '../../../redux/actions/setHeartRate';
 //Api
 import {
     getCurrentUser,
-    getDayHeartRate,
 } from '../../../api/lookups';
 import API from '../../../api/transactions';
 

@@ -7,7 +7,7 @@ import Icon from 'antd/lib/icon';
 //Styles
 import './add-button.css';
 
-export default class Index extends React.PureComponent {
+export default class AddButton extends React.PureComponent {
     render() {
         const { onClick } = this.props;
         return (
@@ -16,11 +16,6 @@ export default class Index extends React.PureComponent {
 
                     className='add-new-button'
                 >
-                    {/*<Icon*/}
-                        {/*type="plus"*/}
-                        {/*style={{fontSize: '26px', fontWeight: 'bold', color: '#fff'}}*/}
-
-                    {/*/>*/}
                     <Icon
                         type="plus-circle"
                         style={{fontSize: '50px', color: '#fff'}}
@@ -30,3 +25,7 @@ export default class Index extends React.PureComponent {
         )
     }
 }
+
+AddButton.propTypes = {
+    onClick: PropTypes.func.isRequired,
+};

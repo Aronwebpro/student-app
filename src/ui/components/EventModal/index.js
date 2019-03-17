@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { SketchPicker, CompactPicker } from 'react-color';
+import { CompactPicker } from 'react-color';
 
 //Api
 import API from '../../../api/transactions';

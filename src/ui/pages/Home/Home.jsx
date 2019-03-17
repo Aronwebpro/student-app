@@ -17,7 +17,6 @@ import WeekSwitcher from '../../components/WeekSwitcher';
 import DayLessons from '../../components/DayLessons';
 import NewLessonModal from '../../components/NewLessonModal';
 import HeartRateModal from '../../components/HeartRateModal';
-import changeNewCommentModalState from '../../../redux/actions/changeNewCommentModalState';
 import AddButton from "../../components/AddButton";
 
 //Styles

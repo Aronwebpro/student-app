@@ -2,18 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-//Styles
-import './lessonCard.css';
-
-//Utils
-import { formatToDateString } from '../../../utils'
-
-//Components
-import UserView from '../UserView';
-
 //View Parts
 import LessonCardDesktopView from './LessonCardDesktopView';
 import LessonCardMobileView from './LessonCardMobileView';
+
+//Styles
+import './lessonCard.css';
 
 export default class LessonCard extends Component {
 

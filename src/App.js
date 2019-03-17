@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Provider } from 'react-redux';
-import store from './redux/store';
 import { connect } from 'react-redux';
 //import * as serviceWorker from './serviceWorker';
 import {
@@ -22,7 +20,7 @@ import './assets/css/theme.css';
 
 //Template parts
 import Header from './ui/template/Header/Header';
-import Footer from './ui/template/Footer/Footer';
+//import Footer from './ui/template/Footer/Footer';
 import SideBar from './ui/template/SideBar/SideBar';
 import MobileNavigation from './ui/components/MobileBottomNavigation/MobileNavigation';
 import AdminSideBar from './ui/template/SideBar/AdminSideBar';

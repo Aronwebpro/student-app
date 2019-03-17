@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 //Styles
 import './lessonCard.css';
@@ -17,7 +16,6 @@ export default class LessonCard extends Component {
         const {
             date,
             grade,
-            lessonId,
             disciplineName,
             heartRate,
             coachNote,
@@ -64,22 +62,11 @@ export default class LessonCard extends Component {
             </div>
         );
     }
-
-    componentDidMount() {
-
-    }
-
-    componentWillUnmount() {
-        //Setup Flag to know is component Unmounted
-        this.isUnmounted = true;
-    }
-
 }
 
 LessonCard.propTypes = {
     date: PropTypes.number.isRequired,
     grade: PropTypes.string.isRequired,
-    lessonId: PropTypes.string.isRequired,
     disciplineName: PropTypes.string.isRequired,
     heartRate: PropTypes.string.isRequired,
     coachNote: PropTypes.string.isRequired,
