@@ -8,12 +8,19 @@ import moment from 'moment';
  * @returns {Promise} -> Object
  */
 const getUser = async (userId) => {
-    const userRef = db.collection('users');
-    const userDoc = await userRef.doc(userId).get();
-    if (!userDoc.exists) {
+    try {
+        const userRef = db.collection('users');
+        const userDoc = await userRef.doc(userId).get();
+        if (!userDoc.exists) {
+            return null;
+        } else {
+            return { uid: userId, ...userDoc.data() }
+        }
+    } catch (e) {
+        console.log('GET USER');
+        console.log(e);
+
         return null;
-    } else {
-        return { uid: userId, ...userDoc.data() }
     }
 };
 
@@ -23,12 +30,18 @@ const getUser = async (userId) => {
  * @returns {Promise<*>}
  */
 const getPendingUser = async (userId) => {
-    const userRef = db.collection('pendingUsers');
-    const userDoc = await userRef.doc(userId).get();
-    if (!userDoc.exists) {
-        return null;
-    } else {
-        return { uid: userId, ...userDoc.data() }
+    try {
+        const userRef = db.collection('pendingUsers');
+        const userDoc = await userRef.doc(userId).get();
+        if (!userDoc.exists) {
+            return null;
+        } else {
+            return { uid: userId, ...userDoc.data() }
+        }
+    } catch (e) {
+        console.log('GET PENDING USER');
+        console.log(e);
+        return null
     }
 };
 

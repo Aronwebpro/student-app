@@ -19,21 +19,20 @@ import setUser from './redux/actions/setUser';
 
 auth().onAuthStateChanged(async userObj => {
     if (userObj) {
-        const user = await getUser(userObj.uid);
-        store.dispatch(setUser(user));
-
-        if (user) {
+        const pendingUser = await getPendingUser(userObj.uid);
+        if (pendingUser) {
             ReactDOM.render(
                 <Provider store={store}>
-                    <App {...{ user }} />
+                    <App {...{ pendingUser }} />
                 </Provider>,
                 document.getElementById('root'));
         } else {
-            const pendingUser = await getPendingUser(userObj.uid);
-            if (pendingUser) {
+            const user = await getUser(userObj.uid);
+            if (user) {
+                store.dispatch(setUser(user));
                 ReactDOM.render(
                     <Provider store={store}>
-                        <App {...{ pendingUser }} />
+                        <App {...{ user }} />
                     </Provider>,
                     document.getElementById('root'));
             } else {

@@ -14,10 +14,10 @@ export default class UsersListItem extends React.PureComponent {
                     {userName}
                 </div>
                 <div className='user-row-section'>
-                    {`${roles.map((r) => r.charAt(0).toUpperCase() + r.slice(1)).join(', ')}`}
+                    {`${roles && roles.map((r) => r.charAt(0).toUpperCase() + r.slice(1)).join(', ')}`}
                 </div>
                 <div className='user-row-section'>
-                    {`${roles.includes('teacher') ? discipline : ''}`}
+                    {`${roles && roles.includes('teacher') ? discipline : ''}`}
                 </div>
                 <div className='user-row-section' style={{color: isPendingUser ? 'red' : 'yellowGreen'}}>
                     {isPendingUser ? 'Pending' : 'Confirmed'}

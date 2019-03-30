@@ -18,7 +18,9 @@ class Navigation extends React.PureComponent {
                         <div className="links-wrapper">
                             <Link to="/home">Pagrindinis</Link>
                             <Link to="/profile" className="theme-color_txt log-out">Profilis</Link>
-                            <Link to="/admin/users" className="theme-color_txt log-out">Admin</Link>
+                            {user && user.roles && user.roles.includes('admin') && (
+                                <Link to="/admin/users" className="theme-color_txt log-out">Admin</Link>
+                            )}
                             <button
                                 className="log-out"
                                 onClick={this.logOut}
