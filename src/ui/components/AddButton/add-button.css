@@ -4,6 +4,7 @@
     position: fixed;
     bottom: 103px;
     right: 22px;
+    z-index: 5;
 }
 
 .add-new-button {

@@ -22,7 +22,6 @@ import './assets/css/theme.css';
 import Header from './ui/template/Header/Header';
 //import Footer from './ui/template/Footer/Footer';
 import SideBar from './ui/template/SideBar/SideBar';
-import MobileNavigation from './ui/components/MobileBottomNavigation/MobileNavigation';
 import AdminSideBar from './ui/template/SideBar/AdminSideBar';
 
 
@@ -180,9 +179,6 @@ class App extends React.Component {
                                 <Route path='/' render={() => <ErrorPage />}/>
                             </Switch>
                         </div>
-                        {user && (
-                            <MobileNavigation/>
-                        )}
                     </div>
             </BrowserRouter>
         )

@@ -49,6 +49,7 @@ class Home extends React.Component {
         } = this.props;
         if (this.state.redirect) return <Redirect to="/"/>;
         const empty = Object.keys(lessons).length === 0;
+        console.log(user);
         return (
             <div className="forum-container">
                 <div className="forum">
@@ -112,7 +113,7 @@ class Home extends React.Component {
                 )}
                 {
                     user &&
-                    !user.roles.includes('parents') &&
+                    !user.roles.includes('parent') &&
                     !newLessonModalVisible &&
                     !heartRateModalVisible &&
                     (
