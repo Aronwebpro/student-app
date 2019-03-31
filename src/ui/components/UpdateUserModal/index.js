@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+//auth
+import { resetUserPassword } from '../../../api/auth';
 
 import API from '../../../api/transactions';
 
@@ -44,7 +46,7 @@ export default class UpdateUserModal extends React.Component {
     };
 
     render() {
-        const { visible, hideModal } = this.props;
+        const { visible, hideModal, user } = this.props;
         const { roles, loading, discipline } = this.state;
         return (
             <Modal
@@ -92,7 +94,7 @@ export default class UpdateUserModal extends React.Component {
                                 ))}
                             </form>
                         </div>
-                        {roles.includes('teacher') && (
+                        {roles && roles.includes('teacher') && (
                             <div>
                                 <div className='update-user-modal-section-title'>
                                     <h2>Mokytojo Disciplina</h2>
@@ -106,6 +108,16 @@ export default class UpdateUserModal extends React.Component {
                                         />
                                     </div>
                                 </div>
+                            </div>
+                        )}
+                        {user && user.provider === 'email' && (
+                            <div>
+                                <button className="btn btn-animation-on modal-confirm-button"
+                                        style={{ marginTop: '20px' }}
+                                        onClick={this.resetPassword}
+                                >
+                                    Reset Password
+                                </button>
                             </div>
                         )}
                     </div>
@@ -165,6 +177,21 @@ export default class UpdateUserModal extends React.Component {
 
     handleDisciplineChange = (e) => this.setState({ discipline: e.target.value });
 
+    resetPassword = async () => {
+        const { user } = this.props;
+        const email = user && user.email;
+        if (email) {
+            const { error } = resetUserPassword({ email });
+            if (error) {
+                Message.error('Error');
+            } else {
+                Message.success('Email Sent');
+            }
+        } else {
+            Message.error('Vartotojas neturi El. Pašto');
+        }
+    }
+
 };
 
 UpdateUserModal.propTypes = {
@@ -173,4 +200,5 @@ UpdateUserModal.propTypes = {
     roles: PropTypes.array.isRequired,
     refreshData: PropTypes.func.isRequired,
     isPendingUser: PropTypes.bool.isRequired,
+    user: PropTypes.object.isRequired,
 };

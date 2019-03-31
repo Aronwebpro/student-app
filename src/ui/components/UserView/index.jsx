@@ -7,11 +7,14 @@ import Spinner from '../Spinner/index';
 //Styles
 import './user-view.css';
 
+//User Placeholder
+import userPlaceholder from '../../../assets/img/user_placeholder.png';
+
 export default class UserView extends React.PureComponent {
     render() {
         const { userAvatar, userName, coach } = this.props;
 
-        if (!userAvatar || !userName) {
+        if (!userName) {
             return (
                 <Spinner/>
             )
@@ -24,7 +27,7 @@ export default class UserView extends React.PureComponent {
                     </div>
                 )}
                 <div className="author-avatar">
-                    <img src={userAvatar} alt="Coach"/>
+                    <img src={userAvatar || userPlaceholder} alt="Coach"/>
                 </div>
                 <div className='user-view-title'>
                     {coach && (

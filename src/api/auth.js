@@ -1,5 +1,10 @@
+//Firebase
 import { auth } from 'firebase/app';
+
+//Api
 import API from './transactions';
+
+//Redux
 import setUser from "../redux/actions/setUser";
 import store from "../redux/store";
 
@@ -54,8 +59,23 @@ const signOut = () => {
     return auth().signOut();
 };
 
+/**
+ * Send email to reset User's Password if provider is email
+ * @param email
+ * @returns {Promise<{error: boolean}>}
+ */
+const resetUserPassword = async ({ email }) => {
+    try {
+        await auth().sendPasswordResetEmail(email);
+    } catch (e) {
+        console.log(e);
+        return { error: true }
+    }
+};
+
 export {
     signIn,
     signOut,
     signInWithFacebook,
+    resetUserPassword,
 }

@@ -17,9 +17,6 @@ const getUser = async (userId) => {
             return { uid: userId, ...userDoc.data() }
         }
     } catch (e) {
-        console.log('GET USER');
-        console.log(e);
-
         return null;
     }
 };

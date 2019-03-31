@@ -14,6 +14,12 @@ import store from './redux/store';
 //Components
 import App from './App';
 
+//User Placeholder
+import userPlaceholder from './assets/img/user_placeholder.png';
+
+//AntD
+import Message from 'antd/lib/message';
+
 //Redux Action
 import setUser from './redux/actions/setUser';
 
@@ -29,6 +35,9 @@ auth().onAuthStateChanged(async userObj => {
         } else {
             const user = await getUser(userObj.uid);
             if (user) {
+                if (!user.userAvatar) {
+                    user.userAvatar = userPlaceholder;
+                }
                 store.dispatch(setUser(user));
                 ReactDOM.render(
                     <Provider store={store}>
@@ -36,7 +45,9 @@ auth().onAuthStateChanged(async userObj => {
                     </Provider>,
                     document.getElementById('root'));
             } else {
-                auth().signOut();
+                await auth().signOut();
+                Message.error('Prisijungti Nepavyko, susisiekite su sistemos administratoriumi!');
+                setTimeout(() => window && window.location.reload(), 3000);
             }
         }
     } else {
