@@ -4,8 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.12.4",
-    "firebase": "^5.11.1",
-    "firebase-admin": "^6.5.0",
+    "firebase": "^6.0.2",
     "firebaseui": "^3.5.2",
     "moment": "^2.24.0",
     "prop-types": "^15.6.2",
@@ -36,9 +35,15 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@firebase/app-types": "^0.4.0",
+    "@types/jest": "^24.0.13",
+    "@types/node": "^12.0.2",
     "@types/reach__router": "^1.2.4",
     "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.0.0",
     "typescript": "^3.4.5"
   }
 }

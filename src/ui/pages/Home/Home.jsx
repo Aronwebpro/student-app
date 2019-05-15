@@ -17,7 +17,7 @@ import WeekSwitcher from '../../components/WeekSwitcher';
 import DayLessons from '../../components/DayLessons';
 import NewLessonModal from '../../components/NewLessonModal';
 import HeartRateModal from '../../components/HeartRateModal';
-import AddButton from "../../components/AddButton";
+import AddButton from "../../components/AddButton/AddButton.tsx";
 
 //Styles
 import './home.css';
