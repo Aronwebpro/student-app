@@ -22,7 +22,6 @@ import AddButton from "../../components/AddButton";
 //Styles
 import './home.css';
 
-
 class Home extends React.Component {
     state = {
         lessons: {},
