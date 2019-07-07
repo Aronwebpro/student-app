@@ -8,7 +8,7 @@ import 'moment/locale/lt';
 import { getAllEvents } from '../../../api/lookups';
 
 //Components
-import AddButton from '../../components/AddButton';
+import AddButton from '../../components/AddButton/AddButton.tsx';
 import EventModal from '../../components/EventModal';
 
 //Redux

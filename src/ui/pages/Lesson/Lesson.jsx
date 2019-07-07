@@ -9,7 +9,7 @@ import { getSingleLesson, getCommentsForLesson } from '../../../api/lookups';
 import LessonDetail from '../../components/LessonDetail';
 import CommentCard from '../../components/CommentCard';
 import NewCommentModal from '../../components/NewCommentModal';
-import AddButton from '../../components/AddButton';
+import AddButton from '../../components/AddButton/AddButton.tsx';
 
 //Redux Actions
 import changeNewCommentModalState from '../../../redux/actions/changeNewCommentModalState';
