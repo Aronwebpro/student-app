@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 //AntD
 import Icon from 'antd/lib/icon';
