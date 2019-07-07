@@ -11,17 +11,28 @@
     "sourceMap": true,
     "rootDir": "./",
     "strict": true,
-    "esModuleInterop": true,
-    "allowJs": true,
+    "allowJs": false,
     "skipLibCheck": true,
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "noEmit": true,
+    "noImplicitAny": false,
+    "typeRoots": [
+      "node_modules/@types/",
+      "typings/"
+    ],
+    "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true
+    "resolveJsonModule": true
   },
   "include": [
     "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "./typings/index.d.ts"
   ]
 }

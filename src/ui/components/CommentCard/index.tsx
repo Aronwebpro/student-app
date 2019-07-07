@@ -1,15 +1,61 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { formatToDateAndTimeString } from '../../../utils';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
-//Components
+// Utils
+import { formatToDateAndTimeString } from '../../../utils/index';
+
+// Components
 import UserView from '../UserView';
 
-//Styles
+// Styles
 import './comment-card.css';
 
+// @types
+type addQuoteToCommentParams = {
+    clickedComment: number
+    text: string
+    authorName: string
+}
+
+type Props = {
+    date: number
+    text: string
+    replyStyle: {
+        width: string,
+        height: string
+        display?: string
+    }
+    replyStyleInit: {
+        display: string
+    }
+    index: number
+    clickedComment: number
+    quoteText: string
+    quoteAuthorName: string
+    userAvatar: string
+    userName: string
+    handleCreateNewCommentWithQuote: ({ clickedComment, text, authorName }: addQuoteToCommentParams ) => void
+    handleQuoteClick: (index: number) => void
+}
+
 //Comment Layout Component
-export default class CommentCard extends React.PureComponent {
+export default class CommentCard extends React.PureComponent<Props, {}> {
+    static propTypes = {
+        date: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
+        index: PropTypes.number.isRequired,
+        clickedComment: PropTypes.number,
+        respondText: PropTypes.string,
+        quoteText: PropTypes.string,
+        replyStyle: PropTypes.object,
+        replyStyleInit: PropTypes.object,
+        userName: PropTypes.string,
+        userAvatar: PropTypes.string,
+        quoteAuthorName: PropTypes.string,
+        handleCreateNewCommentWithQuote: PropTypes.func.isRequired,
+        handleQuoteClick: PropTypes.func.isRequired,
+    };
+
     render() {
         const {
             date,
@@ -24,17 +70,13 @@ export default class CommentCard extends React.PureComponent {
             userName,
         } = this.props;
 
-        //Show Comment overlay style if somebody clicked to quote
-        let clickedStyle = { display: 'none' };
-        if (index === clickedComment) clickedStyle = replyStyleInit;
-
         //Date and time comments was date
         const cretedString = formatToDateAndTimeString(date);
 
         return (
             <div className="comment-container">
                 <div className="comment-card">
-                    <div className="reply-to-this" style={clickedStyle}>
+                    <div className="reply-to-this" style={index === clickedComment ? replyStyleInit : { display: 'none' }}>
                         <div className="reply-to-this_text">
                             <div className="reply-to-this-text-inner" style={replyStyle} onClick={this.handleQuoteClick}>
                                 Cituoti šį komentarą?
@@ -57,8 +99,6 @@ export default class CommentCard extends React.PureComponent {
                                 )}
                                 <p>{text}</p>
                             </div>
-
-
                             <div className="quote-comment-container">
                                 <button
                                     onClick={this.handleReplyClick}
@@ -74,34 +114,24 @@ export default class CommentCard extends React.PureComponent {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         )
     }
 
+    // Handle Reply button click
     handleReplyClick = () => {
         const { handleQuoteClick, index } = this.props;
         handleQuoteClick(index);
     };
 
+    // Handle Qoute button click
     handleQuoteClick = () => {
-        const { text, userName, commentId, addQuoteToComment, index } = this.props;
-        addQuoteToComment({
+        const { text, userName, handleCreateNewCommentWithQuote, index } = this.props;
+        handleCreateNewCommentWithQuote({
             text,
-            commentId,
             authorName: userName,
             clickedComment: index,
         });
     }
-};
-
-PropTypes.Comment = {
-    commentId: PropTypes.string.isRequired,
-    comment: PropTypes.string.isRequired,
-    postedDate: PropTypes.number.isRequired,
-    clickedComment: PropTypes.string,
-    respondText: PropTypes.string,
-    replyStyleInit: PropTypes.object,
-    replyStyle: PropTypes.object
 };

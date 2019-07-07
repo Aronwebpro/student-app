@@ -27,7 +27,7 @@ class Lesson extends React.Component {
         replyText: {},
         replyStyle: { width: '0', height: '0' },
         replyStyleInit: { display: 'none' },
-        clickedComment: '',
+        clickedComment: null,
         showCreateCommentView: false,
         quoteText: '',
         quoteAuthorName: '',
@@ -65,7 +65,7 @@ class Lesson extends React.Component {
                                 key={index.toString()}
                                 {...comment}
                                 {...{ clickedComment, replyStyle, replyStyleInit, index }}
-                                addQuoteToComment={this.addQuoteToComment}
+                                handleCreateNewCommentWithQuote={this.handleCreateNewCommentWithQuote}
                                 handleQuoteClick={this.handleQuoteClick}
                             />
                         ))}
@@ -133,7 +133,7 @@ class Lesson extends React.Component {
         });
     };
 
-    addQuoteToComment = ({ clickedComment, text, authorName }) => {
+    handleCreateNewCommentWithQuote = ({ clickedComment, text, authorName }) => {
         if (!this.isUnmounted) {
             const { openNewCommentModal } = this.props;
             openNewCommentModal();
